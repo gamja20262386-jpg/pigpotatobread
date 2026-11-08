@@ -1,0 +1,33 @@
+/* Consistent, high-contrast orange action buttons */
+button:not(#section-food button):not(footer button):not(nav button):not(#auth-tab-bar button) {
+    background-color: #FF6B00 !important;
+    color: #FFFFFF !important;
+    border-color: #FF6B00 !important;
+    border-radius: 0.65rem;
+}
+button:not(#section-food button):not(footer button):not(nav button):not(#auth-tab-bar button):hover {
+    background-color: #E05D00 !important;
+    border-color: #E05D00 !important;
+}
+/* Keep the sign-in/sign-up tabs readable while preserving their tab layout. */
+#auth-tab-bar button {
+    background-color: #FFF1E6 !important;
+    color: #C94F00 !important;
+    border-color: #FFD2B3 !important;
+}
+#auth-tab-bar button.text-jejuOrange {
+    background-color: #FF6B00 !important;
+    color: #FFFFFF !important;
+    border-color: #FF6B00 !important;
+}
+/* Category tiles and bottom navigation are navigation controls, not action buttons. */
+#section-food button { background: transparent !important; color: #374151 !important; border-color: transparent !important; }
+footer button { background: transparent !important; border-color: transparent !important; }
+/* Custom Scrollbar hide */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
