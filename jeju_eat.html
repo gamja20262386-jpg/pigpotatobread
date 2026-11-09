@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제주잇 (제주eat) - 제주도민을 위한 맛있는 배달</title>
+    <!-- Tailwind CSS: load library first, then its configuration -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="tailwind.config.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Noto Sans KR Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 font-sans antialiased text-gray-800 pb-24">
+
+    <!-- Mobile Screen Wrapper (Max-width for Desktop Centering) -->
+    <div class="max-w-md mx-auto bg-white min-h-screen shadow-2xl relative overflow-hidden flex flex-col">
+
+        <!-- HEADER SECTION -->
+        <header class="sticky top-0 z-30 bg-white border-b border-gray-100 px-4 pt-3 pb-3">
+            <!-- APP BRAND -->
+            <div class="font-black text-xl text-jejuOrange mb-2">제주잇 <span class="text-xs font-bold text-gray-500">(제주eat)</span></div>
+            <!-- Top bar: Address & User Tools -->
+            <div class="flex items-center justify-between mb-3">
+                <button onclick="openAddressModal()" class="flex items-center text-left focus:outline-none group">
+                    <span id="current-address-label" class="font-black text-lg text-gray-900 group-hover:text-jejuOrange transition">우리집</span>
+                    <span id="current-address-text" class="text-xs text-gray-500 ml-1.5 truncate max-w-[170px]">제주시 연동 123-45</span>
+                    <i class="fa-solid font-bold fa-chevron-down text-xs ml-1 text-gray-600"></i>
+                </button>
+
+                <div class="flex items-center space-x-3">
+                    <button onclick="openAuthModal()" class="relative p-1 text-gray-700 hover:text-jejuOrange transition" title="회원/로그인">
+                        <i class="fa-regular fa-circle-user text-xl"></i>
+                    </button>
+                    <button onclick="toggleCartModal()" class="relative p-1 text-gray-700 hover:text-jejuOrange transition" title="장바구니">
+                        <i class="fa-solid fa-cart-shopping text-xl"></i>
+                        <span id="cart-badge" class="hidden absolute -top-1 -right-1 bg-jejuOrange text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="relative">
+                <input type="text" id="search-input" placeholder="고사리육개장, 연돈, 흑돼지 구이..." 
+                       class="w-full bg-gray-100 text-sm rounded-full py-2.5 pl-10 pr-24 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-jejuOrange border border-transparent">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-gray-400 text-sm"></i>
+                <button onclick="performAISearch()" class="absolute right-1 top-1 bottom-1 bg-gradient-to-r from-jejuOrange to-orange-400 text-white text-xs font-bold px-3 rounded-full flex items-center shadow-sm hover:opacity-90 transition">
+                    <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> AI 추천
+                </button>
+            </div>
+        </header>
+
+        <!-- TOP SERVICE CATEGORY TABS -->
+        <nav class="flex border-b border-gray-100 text-sm font-bold bg-white text-gray-500 no-scrollbar overflow-x-auto">
+            <button onclick="scrollToSection('section-food')" class="flex-none py-3 px-4 border-b-2 border-jejuOrange text-jejuOrange">음식배달</button>
+            <button onclick="scrollToSection('section-grocery')" class="flex-none py-3 px-4 hover:text-jejuOrange transition">제주장보기 (식자재)</button>
+            <button onclick="openPickupModal()" class="flex-none py-3 px-4 hover:text-jejuOrange transition">포장·픽업 🛍️</button>
+        </nav>
+
+        <!-- MAIN SCROLLABLE CONTENT -->
+        <main class="flex-1">
+
+            <!-- BANNER SLIDER -->
+            <div class="px-4 py-3">
+                <div class="bg-gradient-to-r from-orange-500 to-amber-500 rounded-2xl p-4 text-white relative overflow-hidden shadow-md">
+                    <div class="relative z-10 max-w-[65%]">
+                        <span class="bg-white/20 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">제주도민 특가</span>
+                        <h3 class="font-extrabold text-base mt-1">포장 픽업 시 <br>최대 2,000원 할인!</h3>
+                        <p class="text-[11px] text-orange-100 mt-1">신선한 제주 해산물 & 흑돼지 바로 픽업</p>
+                    </div>
+                    <i class="fa-solid fa-utensils absolute -right-3 -bottom-4 text-7xl text-white/20 transform -rotate-12"></i>
+                    <i class="fa-solid fa-citrus absolute right-8 top-2 text-4xl text-yellow-300 opacity-80"></i>
+                </div>
+            </div>
+
+            <!-- FOOD CATEGORIES GRID -->
+            <section id="section-food" class="px-4 py-2">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="font-bold text-gray-900 text-base">무엇을 배달해 드릴까요? 🍊</h2>
+                </div>
+
+                <div class="grid grid-cols-5 gap-y-4 gap-x-2 text-center">
+                    <button onclick="openCategoryModal('돈까스·일식')" class="flex flex-col items-center group">
+                        <div class="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center text-2xl mb-1 shadow-sm group-hover:scale-105 transition">🍱</div>
+                        <span class="text-xs text-gray-700 font-medium">돈까스·일식</span>
+                    </button>
+                    <button onclick="openCategoryModal('흑돼지·구이')" class="flex flex-col items-center group">
+                        <div class="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center text-2xl mb-1 shadow-sm group-hover:scale-105 transition">🥩</div>
+                        <span class="text-xs text-gray-700 font-medium">흑돼지·구이</span>
+                    </button>
+                    <button onclick="openCategoryModal('제주향토·해장국')" class="flex flex-col items-center group">
+                        <div class="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center text-2xl mb-1 shadow-sm group-hover:scale-105 transition">🍲</div>
+                        <span class="text-xs text-gray-700 font-medium">향토·해장국</span>
+                    </button>
+                    <button onclick="openCategoryModal('치킨')" class="flex flex-col items-center group">
+                        <div class="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center text-2xl mb-1 shadow-sm group-hover:scale-105 transition">🍗</div>
+                        <span class="text-xs text-gray-700 font-medium">치킨</span>
+                    </button>
+                    <button onclick="openCategoryModal('카페·디저트')" class="flex flex-col items-center group">
+                        <div class="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center text-2xl mb-1 shadow-sm group-hover:scale-105 transition">☕</div>
+                        <span class="text-xs text-gray-700 font-medium">카페·디저트</span>
+                    </button>
+                    <button onclick="openCategoryModal('분식·국수')" class="flex flex-col items-center group">
+                        <div class="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center text-2xl mb-1 shadow-sm group-hover:scale-105 transition">🍜</div>
+                        <span class="text-xs text-gray-700 font-medium">분식·국수</span>
+                    </button>
+                    <button onclick="openCategoryModal('피자·양식')" class="flex flex-col items-center group">
+                        <div class="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center text-2xl mb-1 shadow-sm group-hover:scale-105 transition">🍕</div>
+                        <span class="text-xs text-gray-700 font-medium">피자·양식</span>
+                    </button>
+                    <button onclick="openCategoryModal('중식')" class="flex flex-col items-center group">
+                        <div class="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center text-2xl mb-1 shadow-sm group-hover:scale-105 transition">🥟</div>
+                        <span class="text-xs text-gray-700 font-medium">중식</span>
+                    </button>
+                    <button onclick="openCategoryModal('회·해산물')" class="flex flex-col items-center group">
+                        <div class="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center text-2xl mb-1 shadow-sm group-hover:scale-105 transition">🐟</div>
+                        <span class="text-xs text-gray-700 font-medium">회·해산물</span>
+                    </button>
+                    <button onclick="openCategoryModal('족발·보쌈')" class="flex flex-col items-center group">
+                        <div class="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center text-2xl mb-1 shadow-sm group-hover:scale-105 transition">🥓</div>
+                        <span class="text-xs text-gray-700 font-medium">족발·보쌈</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- REAL FAMOUS JEJU RESTAURANTS SECTION -->
+            <section class="px-4 py-4 bg-gray-50 mt-4 border-t border-gray-100">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="font-bold text-gray-900 text-base">🔥 도민 인정 real 제주 대표 맛집</h2>
+                    <span class="text-xs text-gray-400">실시간 주문가능</span>
+                </div>
+
+                <div class="space-y-3" id="famous-restaurants-list">
+                    <!-- Populated dynamically -->
+                </div>
+            </section>
+
+            <!-- JEJU GROCERY & RAW INGREDIENTS SECTION -->
+            <section id="section-grocery" class="px-4 py-4 border-t border-gray-100">
+                <div class="flex items-center justify-between mb-2">
+                    <div>
+                        <h2 class="font-bold text-gray-900 text-base">🛒 제주장보기 (신선 식자재 & 특산품)</h2>
+                        <p class="text-xs text-gray-500">산지 직송 제주 신선 육류, 생선, 농산물 당일 배달</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 mt-3" id="grocery-items-grid">
+                    <!-- Populated dynamically -->
+                </div>
+            </section>
+
+        </main>
+
+        <!-- BOTTOM FLOATING CART BAR -->
+        <div id="floating-cart-bar" class="hidden fixed bottom-16 left-1/2 transform -translate-x-1/2 w-[90%] max-w-md z-20">
+            <button onclick="toggleCartModal()" class="w-full bg-jejuOrange text-white rounded-2xl p-3 shadow-xl flex items-center justify-between hover:bg-jejuOrangeDark transition">
+                <div class="flex items-center space-x-2">
+                    <span id="floating-cart-count" class="bg-white text-jejuOrange font-bold text-xs px-2 py-0.5 rounded-full">0</span>
+                    <span class="text-sm font-bold">장바구니 보기</span>
+                </div>
+                <span id="floating-cart-total" class="font-black text-sm">0원</span>
+            </button>
+        </div>
+
+        <!-- BOTTOM NAVIGATION TAB BAR -->
+        <footer class="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-200 py-2 px-6 flex justify-between items-center z-20">
+            <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center text-jejuOrange font-bold">
+                <i class="fa-solid fa-house text-lg"></i>
+                <span class="text-[11px] mt-1">홈</span>
+            </button>
+            <button onclick="switchTab('shopping')" id="nav-shopping" class="flex flex-col items-center text-gray-400 hover:text-gray-700">
+                <i class="fa-solid fa-basket-shopping text-lg"></i>
+                <span class="text-[11px] mt-1">제주장보기</span>
+            </button>
+            <button onclick="switchTab('orders')" id="nav-orders" class="flex flex-col items-center text-gray-400 hover:text-gray-700">
+                <i class="fa-solid fa-receipt text-lg"></i>
+                <span class="text-[11px] mt-1">주문내역</span>
+            </button>
+            <button onclick="switchTab('my')" id="nav-my" class="flex flex-col items-center text-gray-400 hover:text-gray-700">
+                <i class="fa-solid fa-user text-lg"></i>
+                <span class="text-[11px] mt-1">마이페이지</span>
+            </button>
+        </footer>
+
+        <!-- ================= MODALS SECTION ================= -->
+
+        <!-- 1. ADDRESS & ROAD NAME MODAL -->
+        <div id="address-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-end justify-center">
+            <div class="bg-white w-full max-w-md rounded-t-3xl p-5 relative max-h-[85vh] overflow-y-auto">
+                <div class="flex justify-between items-center mb-4 border-b pb-3">
+                    <h3 class="text-base font-bold text-gray-900"><i class="fa-solid fa-location-dot text-jejuOrange mr-1.5"></i>배송지 설정</h3>
+                    <button onclick="closeAddressModal()" class="text-gray-400 hover:text-gray-600 p-1 text-xl">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-600 mb-1">도로명 주소 입력</label>
+                        <input type="text" id="input-road-address" placeholder="예: 제주시 신대로 10길 12" class="w-full border rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-jejuOrange focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-600 mb-1">주소 별칭 저장 (선택)</label>
+                        <div class="grid grid-cols-3 gap-2 mb-2">
+                            <button type="button" onclick="setLabelPreset('우리집')" class="border py-1.5 text-xs rounded-lg hover:bg-orange-50 hover:border-jejuOrange focus:border-jejuOrange">우리집</button>
+                            <button type="button" onclick="setLabelPreset('회사')" class="border py-1.5 text-xs rounded-lg hover:bg-orange-50 hover:border-jejuOrange focus:border-jejuOrange">회사</button>
+                            <button type="button" onclick="setLabelPreset('제주 숙소')" class="border py-1.5 text-xs rounded-lg hover:bg-orange-50 hover:border-jejuOrange focus:border-jejuOrange">제주 숙소</button>
+                        </div>
+                        <input type="text" id="input-address-label" placeholder="직접 입력 (예: 친구집)" class="w-full border rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-jejuOrange focus:outline-none">
+                    </div>
+
+                    <button onclick="saveNewAddress()" class="w-full bg-jejuOrange text-white font-bold py-3 rounded-xl hover:bg-jejuOrangeDark transition">
+                        이 주소로 설정하기
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. AUTH & MY PAGE MODAL -->
+        <div id="auth-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-end justify-center">
+            <div class="bg-white w-full max-w-md rounded-t-3xl p-5 relative max-h-[85vh] overflow-y-auto">
+                <div class="flex justify-between items-center mb-4 border-b pb-3">
+                    <h3 id="auth-modal-title" class="text-base font-bold text-gray-900">로그인 / 회원가입</h3>
+                    <button onclick="closeAuthModal()" class="text-gray-400 hover:text-gray-600 p-1 text-xl">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- AUTH TAB BUTTONS (Form Switcher) -->
+                <div id="auth-tab-bar" class="flex border-b mb-4">
+                    <button onclick="switchAuthTab('login')" id="auth-tab-login" class="flex-1 py-2 font-bold text-sm text-jejuOrange border-b-2 border-jejuOrange">로그인</button>
+                    <button onclick="switchAuthTab('signup')" id="auth-tab-signup" class="flex-1 py-2 font-bold text-sm text-gray-400">회원가입</button>
+                </div>
+
+                <!-- LOGIN FORM -->
+                <div id="login-form-container" class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-600 mb-1">아이디 (휴대폰 번호)</label>
+                        <input type="tel" id="login-id" placeholder="010-1234-5678" class="w-full border rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-jejuOrange focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-600 mb-1">비밀번호</label>
+                        <input type="password" id="login-pw" placeholder="비밀번호 입력" class="w-full border rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-jejuOrange focus:outline-none">
+                    </div>
+                    <button onclick="handleLogin()" class="w-full bg-jejuOrange text-white font-bold py-3 rounded-xl hover:bg-jejuOrangeDark transition mt-2">
+                        로그인
+                    </button>
+                </div>
+
+                <!-- SIGNUP FORM -->
+                <div id="signup-form-container" class="hidden space-y-3">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-600 mb-1">이름</label>
+                        <input type="text" id="signup-name" placeholder="홍길동" class="w-full border rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-jejuOrange focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-600 mb-1">아이디 (휴대폰 번호)</label>
+                        <input type="tel" id="signup-id" placeholder="010-1234-5678" class="w-full border rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-jejuOrange focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-600 mb-1">비밀번호</label>
+                        <input type="password" id="signup-pw" placeholder="••••••••" class="w-full border rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-jejuOrange focus:outline-none">
+                    </div>
+                    <button onclick="handleSignup()" class="w-full bg-jejuOrange text-white font-bold py-3 rounded-xl hover:bg-jejuOrangeDark transition mt-2">
+                        회원가입 완료
+                    </button>
+                </div>
+
+                <!-- PROFILE & EDIT CONTAINER (Visible when logged in) -->
+                <div id="profile-container" class="hidden space-y-4">
+                    <div class="bg-orange-50 p-4 rounded-2xl flex items-center space-x-3 border border-orange-100">
+                        <div class="w-12 h-12 bg-jejuOrange text-white rounded-full flex items-center justify-center text-xl font-bold">
+                            🍊
+                        </div>
+                        <div>
+                            <h4 id="profile-display-name" class="font-bold text-gray-900">제주도민 회원님</h4>
+                            <p id="profile-display-phone" class="text-xs text-gray-500">010-****-****</p>
+                        </div>
+                    </div>
+
+                    <!-- USER INFO DISPLAY / EDIT TOGGLE -->
+                    <div class="border rounded-2xl p-4 bg-gray-50 space-y-2">
+                        <div class="flex justify-between items-center border-b pb-2">
+                            <span class="font-bold text-xs text-gray-700">회원 정보</span>
+                            <button onclick="toggleProfileEditMode()" id="btn-edit-toggle" class="text-xs text-jejuOrange font-bold hover:underline">수정하기</button>
+                        </div>
+
+                        <!-- Info View Mode -->
+                        <div id="profile-view-mode" class="space-y-1.5 text-xs text-gray-700 pt-1">
+                            <p><strong>이름:</strong> <span id="info-view-name"></span></p>
+                            <p><strong>아이디(연락처):</strong> <span id="info-view-phone"></span></p>
+                            <p><strong>배송지:</strong> <span id="info-view-addr">제주시 연동 123-45</span></p>
+                        </div>
+
+                        <!-- Info Edit Form Mode -->
+                        <div id="profile-edit-mode" class="hidden space-y-2 pt-1">
+                            <div>
+                                <label class="block text-[11px] text-gray-500">이름 수정</label>
+                                <input type="text" id="edit-name" class="w-full border rounded-lg p-2 text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] text-gray-500">연락처 수정</label>
+                                <input type="text" id="edit-phone" class="w-full border rounded-lg p-2 text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] text-gray-500">새 비밀번호 (선택)</label>
+                                <input type="password" id="edit-pw" placeholder="변경할 경우에만 입력" class="w-full border rounded-lg p-2 text-xs">
+                            </div>
+                            <button onclick="saveProfileEdit()" class="w-full bg-jejuOcean text-white font-bold py-2 rounded-lg text-xs hover:opacity-90 mt-1">
+                                정보 저장하기
+                            </button>
+                        </div>
+                    </div>
+
+                    <button onclick="handleLogout()" class="w-full bg-gray-200 text-gray-700 font-bold py-2.5 rounded-xl hover:bg-gray-300 transition text-xs">
+                        로그아웃
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 3. CATEGORY & STORES MODAL -->
+        <div id="category-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-end justify-center">
+            <div class="bg-white w-full max-w-md rounded-t-3xl p-5 relative max-h-[90vh] flex flex-col">
+                <div class="flex justify-between items-center pb-3 border-b">
+                    <h3 id="category-modal-title" class="text-base font-bold text-gray-900">식당 목록</h3>
+                    <button onclick="closeCategoryModal()" class="text-gray-400 hover:text-gray-600 p-1 text-xl">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div id="store-list-container" class="flex-1 overflow-y-auto py-3 space-y-4">
+                    <!-- Dynamic store list -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. CART & CHECKOUT MODAL -->
+        <div id="cart-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-end justify-center">
+            <div class="bg-white w-full max-w-md rounded-t-3xl p-5 relative max-h-[85vh] flex flex-col">
+                <div class="flex justify-between items-center pb-3 border-b">
+                    <h3 class="text-base font-bold text-gray-900"><i class="fa-solid fa-basket-shopping text-jejuOrange mr-1.5"></i>장바구니</h3>
+                    <button onclick="toggleCartModal()" class="text-gray-400 hover:text-gray-600 p-1 text-xl">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div id="cart-items-container" class="flex-1 overflow-y-auto py-3 space-y-3 divide-y">
+                    <!-- Dynamic cart items -->
+                </div>
+
+                <div class="border-t pt-3 space-y-2">
+                    <div class="flex justify-between text-xs text-gray-500">
+                        <span>배달/포장 방식</span>
+                        <span id="cart-order-type-label" class="font-bold text-gray-700">일반 배달</span>
+                    </div>
+                    <div class="flex justify-between text-xs text-gray-500">
+                        <span>배달팁</span>
+                        <span id="cart-modal-delivery-fee">2,000원</span>
+                    </div>
+                    <div class="flex justify-between text-base font-black text-gray-900">
+                        <span>총 결제금액</span>
+                        <span id="cart-modal-total-price" class="text-jejuOrange">0원</span>
+                    </div>
+
+                    <button onclick="openAgentPreview()" class="w-full border border-jejuOcean text-jejuOcean font-bold py-2.5 rounded-xl hover:bg-emerald-50 transition mt-2">
+                        <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> 에이전트 추천 장바구니 확인
+                    </button>
+                    <div id="agent-preview" class="hidden border border-emerald-100 bg-emerald-50 rounded-xl p-3 mt-2">
+                        <div class="flex items-center justify-between mb-2">
+                            <p class="text-xs font-black text-emerald-800">🤖 추천 상품 미리보기</p>
+                            <button onclick="closeAgentPreview()" class="text-xs text-gray-500">닫기</button>
+                        </div>
+                        <p class="text-[11px] text-gray-600 mb-2">원하는 추천 상품을 선택한 뒤 장바구니에 적용할 수 있어요.</p>
+                        <div id="agent-suggestion-list" class="space-y-2"></div>
+                        <button onclick="applyAgentSuggestions()" class="w-full bg-jejuOcean text-white font-bold text-xs py-2.5 rounded-lg mt-3">선택한 추천 상품 적용</button>
+                    </div>
+                    <button onclick="checkout()" class="w-full bg-jejuOrange text-white font-bold py-3.5 rounded-xl hover:bg-jejuOrangeDark transition mt-2">
+                        주문하기
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. PICKUP STORES MODAL -->
+        <div id="pickup-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-end justify-center">
+            <div class="bg-white w-full max-w-md rounded-t-3xl p-5 relative max-h-[85vh] flex flex-col">
+                <div class="flex justify-between items-center pb-3 border-b">
+                    <h3 class="text-base font-bold text-gray-900"><i class="fa-solid fa-bag-shopping text-jejuOrange mr-1.5"></i>포장 · 픽업 매장 선택</h3>
+                    <button onclick="closePickupModal()" class="text-gray-400 hover:text-gray-600 p-1 text-xl">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div class="py-2 text-xs text-gray-500 border-b">
+                    📍 내 위치(제주시 연동) 기준으로 가까운 픽업 매장입니다. (배달팁 0원)
+                </div>
+
+                <div id="pickup-store-list" class="flex-1 overflow-y-auto py-3 space-y-3">
+                    <!-- Dynamic pickup stores -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. ORDERS HISTORY MODAL -->
+        <div id="orders-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-end justify-center">
+            <div class="bg-white w-full max-w-md rounded-t-3xl p-5 relative max-h-[85vh] flex flex-col">
+                <div class="flex justify-between items-center pb-3 border-b">
+                    <h3 class="text-base font-bold text-gray-900"><i class="fa-solid fa-receipt text-jejuOcean mr-1.5"></i>주문 내역</h3>
+                    <button onclick="closeOrdersModal()" class="text-gray-400 hover:text-gray-600 p-1 text-xl">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div id="orders-list-container" class="flex-1 overflow-y-auto py-3 space-y-4">
+                    <!-- Dynamic order history list -->
+                </div>
+            </div>
+        </div>
+
+        <!-- TOAST NOTIFICATION -->
+        <div id="toast" class="fixed top-5 left-1/2 transform -translate-x-1/2 bg-gray-900/90 text-white text-xs px-4 py-2.5 rounded-full shadow-lg z-50 pointer-events-none opacity-0 transition-opacity duration-300 flex items-center space-x-2">
+            <span id="toast-message">알림 메시지</span>
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    
+    <script src="app.js" defer></script>
+</body>
+</html>
