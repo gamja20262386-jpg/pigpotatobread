@@ -1,12 +1,13 @@
 import { Router } from "express";
 import { readDb, updateDb } from "../lib/db.js";
 import { optionalAuth } from "../middleware/auth.js";
-
 const router = Router();
 router.use(optionalAuth);
 
+// Keep the same browser session key before and after login so the cart does not disappear.
 function cartKey(req) {
-  return req.user?.id || (req.headers["x-session-id"] ? "guest:" + String(req.headers["x-session-id"]).slice(0, 80) : null);
+  const sessionId = req.headers["x-session-id"];
+  return sessionId ? "guest:" + String(sessionId).slice(0, 80) : (req.user?.id || null);
 }
 function getCart(db, key) { return db.carts[key] || []; }
 function responseCart(db, key) {
@@ -16,7 +17,9 @@ function responseCart(db, key) {
     return product && store ? { ...product, store: store.name, quantity: item.quantity, deliveryFee: store.deliveryFee } : null;
   }).filter(Boolean);
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const deliveryFee = items.reduce((sum, item) => sum + (items.findIndex(x => x.storeId === item.storeId) === items.indexOf(item) ? item.deliveryFee : 0), 0);
+  const feeByStore = new Map();
+  for (const item of items) feeByStore.set(item.storeId, item.deliveryFee);
+  const deliveryFee = [...feeByStore.values()].reduce((sum, fee) => sum + fee, 0);
   return { items, subtotal, deliveryFee, total: subtotal + deliveryFee };
 }
 router.get("/", (req, res) => {
@@ -27,8 +30,7 @@ router.get("/", (req, res) => {
 router.post("/items", (req, res) => {
   const key = cartKey(req), { productId } = req.body || {};
   if (!key) return res.status(400).json({ error: "장바구니 세션 정보가 없습니다." });
-  const product = readDb().products.find(p => p.id === productId);
-  if (!product) return res.status(404).json({ error: "상품을 찾을 수 없습니다." });
+  if (!readDb().products.some(p => p.id === productId)) return res.status(404).json({ error: "상품을 찾을 수 없습니다." });
   updateDb(db => {
     const cart = db.carts[key] ||= [];
     const existing = cart.find(item => item.productId === productId);
