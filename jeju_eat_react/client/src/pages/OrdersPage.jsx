@@ -1,0 +1,4 @@
+import {useEffect,useState} from "react";
+import {Link} from "react-router-dom";
+import {api,getToken} from "../api.js";
+export default function OrdersPage(){const[orders,setOrders]=useState([]),[message,setMessage]=useState("");useEffect(()=>{if(!getToken()){setMessage("주문 내역을 보려면 로그인해주세요.");return;}api("/orders").then(d=>setOrders(d.orders)).catch(e=>setMessage(e.message));},[]);return <section><p className="eyebrow">ORDER HISTORY</p><h1>주문 내역</h1>{message&&<p className="notice">{message} <Link to="/login">로그인하기</Link></p>}{orders.map(o=><article className="order-card" key={o.id}><b>{o.id}</b><span>{new Date(o.createdAt).toLocaleString("ko-KR")}</span><p>{o.status}</p>{o.stores.map(s=><p key={s.storeId}>{s.store} · {s.subtotal.toLocaleString()}원</p>)}<strong>{o.total.toLocaleString()}원</strong></article>)}{!orders.length&&!message&&<p className="empty">주문 내역이 없습니다.</p>}</section>;}
