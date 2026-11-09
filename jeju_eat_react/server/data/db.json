@@ -1,0 +1,36 @@
+{
+  "users": [],
+  "carts": {},
+  "orders": [],
+  "categories": [
+    {"id":"japanese","name":"돈까스·일식","emoji":"🍱"},
+    {"id":"pork","name":"흑돼지·구이","emoji":"🥩"},
+    {"id":"soup","name":"향토·해장국","emoji":"🍲"},
+    {"id":"chicken","name":"치킨","emoji":"🍗"},
+    {"id":"cafe","name":"카페·디저트","emoji":"☕"},
+    {"id":"snack","name":"분식·국수","emoji":"🍜"},
+    {"id":"western","name":"피자·양식","emoji":"🍕"},
+    {"id":"chinese","name":"중식","emoji":"🥟"},
+    {"id":"seafood","name":"회·해산물","emoji":"🐟"},
+    {"id":"grocery","name":"제주장보기","emoji":"🛒"}
+  ],
+  "stores": [
+    {"id":"store-1","name":"제주 돈카츠","category":"japanese","rating":4.8,"deliveryFee":2000},
+    {"id":"store-2","name":"한라 흑돼지","category":"pork","rating":4.9,"deliveryFee":2000},
+    {"id":"store-3","name":"제주 고사리식당","category":"soup","rating":4.7,"deliveryFee":2000},
+    {"id":"store-4","name":"바다 한 접시","category":"seafood","rating":4.8,"deliveryFee":2000},
+    {"id":"store-5","name":"제주 산지마켓","category":"grocery","rating":4.9,"deliveryFee":2000}
+  ],
+  "products": [
+    {"id":"p-1","storeId":"store-1","name":"제주 흑돼지 돈카츠","description":"바삭하게 튀긴 대표 메뉴","price":12500,"category":"japanese","emoji":"🍱"},
+    {"id":"p-2","storeId":"store-1","name":"치즈 돈카츠","description":"고소한 치즈가 가득","price":14500,"category":"japanese","emoji":"🧀"},
+    {"id":"p-3","storeId":"store-2","name":"흑돼지 오겹살 도시락","description":"제주 흑돼지를 든든하게","price":16000,"category":"pork","emoji":"🥩"},
+    {"id":"p-4","storeId":"store-2","name":"흑돼지 제육볶음","description":"매콤달콤한 한 끼","price":11000,"category":"pork","emoji":"🍖"},
+    {"id":"p-5","storeId":"store-3","name":"제주 고사리육개장","description":"제주 향토 음식","price":10000,"category":"soup","emoji":"🍲"},
+    {"id":"p-6","storeId":"store-3","name":"몸국","description":"진한 제주식 국물","price":11000,"category":"soup","emoji":"🥣"},
+    {"id":"p-7","storeId":"store-4","name":"모둠회 소","description":"신선한 제철 해산물","price":32000,"category":"seafood","emoji":"🐟"},
+    {"id":"p-8","storeId":"store-4","name":"딱새우회","description":"제주 바다의 별미","price":22000,"category":"seafood","emoji":"🦐"},
+    {"id":"p-9","storeId":"store-5","name":"제주 노지감귤 3kg","description":"산지 직송 감귤","price":12900,"category":"grocery","emoji":"🍊"},
+    {"id":"p-10","storeId":"store-5","name":"제주 흙당근 1kg","description":"신선한 제주 농산물","price":4500,"category":"grocery","emoji":"🥕"}
+  ]
+}
