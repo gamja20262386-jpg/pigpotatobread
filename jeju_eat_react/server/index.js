@@ -8,12 +8,15 @@ import catalogRoutes from "./routes/catalog.js";
 import cartRoutes from "./routes/cart.js";
 import orderRoutes from "./routes/orders.js";
 import recommendationRoutes from "./routes/recommendations.js";
+import { optionalAuth } from "./middleware/auth.js";
 
 const app = express();
 const port = Number(process.env.PORT || 4000);
 const origin = process.env.CLIENT_ORIGIN || "http://localhost:5173";
 app.use(cors({ origin, credentials: true }));
 app.use(express.json({ limit: "100kb" }));
+// Decode the JWT once so protected routes such as /auth/me and /orders can identify the user.
+app.use(optionalAuth);
 app.get("/api/health", (_req, res) => res.json({ status: "ok", service: "jeju-eat-api" }));
 app.use("/api/auth", authRoutes);
 app.use("/api", catalogRoutes);
