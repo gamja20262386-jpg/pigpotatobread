@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="제주 동문시장 콘셉트의 AI 상점 추천 서비스">
+<title>제주마켓 AI</title><link rel="stylesheet" href="/css/style.css">
+<script type="module" src="/js/app.js"></script>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="/">🍊 제주마켓 <b>AI</b></a><span>제주 동문시장 가상 체험</span></header>
+<section class="hero"><div><p class="eyebrow">JEJU · DONGMUN MARKET</p><h1>제주 시장의 매력을<br>AI와 함께 발견하세요</h1><p>취향과 예산에 맞는 가게와 상품을 찾아보세요.</p></div><button id="open-chat" class="primary">✦ AI 추천받기</button></section>
+<main class="layout">
+<section><div class="section-title"><div><h2>시장 상점</h2><p>가게를 선택하면 해당 가게의 상품을 볼 수 있어요.</p></div><button id="all-stores" class="subtle">전체 보기</button></div><div id="store-list" class="store-grid"></div></section>
+<section class="products-section"><div class="section-title"><div><h2 id="product-heading">전체 상품</h2><p id="product-subtitle">마음에 드는 상품을 골라보세요.</p></div></div><nav id="category-list" class="categories" aria-label="상품 카테고리"></nav><div id="product-list" class="product-grid" aria-live="polite"></div></section>
+<aside class="cart"><h2>🛒 장바구니</h2><div id="cart-items"><p class="muted">담긴 상품이 없습니다.</p></div><div class="cart-total"><span>합계</span><strong id="cart-total">0원</strong></div></aside>
+</main>
+<aside id="chat-panel" class="chat-panel" aria-label="AI 추천 채팅" hidden><div class="chat-head"><div><b>✦ 제주마켓 AI 추천</b><small>예산과 취향을 알려주세요.</small></div><button id="close-chat" aria-label="채팅 닫기">✕</button></div><div id="chat-log" class="chat-log" aria-live="polite"><p class="bubble bot">안녕하세요! 어떤 상품을 찾으세요? 예: 1만원 이하 제주 간식 추천해줘.</p></div><div class="quick-prompts"><button data-prompt="1만원 이하 간식 추천해줘">1만원 이하 간식</button><button data-prompt="제주 기념품 추천해줘">기념품 추천</button><button data-prompt="시원한 음료 추천해줘">음료 추천</button></div><form id="chat-form"><input id="chat-input" placeholder="예산이나 원하는 상품을 입력하세요" autocomplete="off"><button class="primary">보내기</button></form></aside>
+<footer>※ 과제 시연용 가상 매장 및 상품 데이터입니다. 추천은 규칙 기반 프로토타입입니다.</footer>
+</body></html>
