@@ -1,8 +1,9 @@
-// 장바구니 제안 카드(plan_order): 가게별 묶음·봉투·배달비·도착 예상·경고 → 이대로 담기 / 고쳐서 담기
+// 장바구니 제안 카드(plan_order): 가게별 묶음(품목마다 이유 한 줄)·봉투·배달비·도착 예상·경고 → 이대로 담기 / 고쳐서 담기
 import { useState } from 'react';
 import { View } from 'react-native';
 import type { CartLine } from '../store/cart';
-import type { Proposal, Quote } from '../types';
+import type { Claim, Proposal, Quote, QuoteLine } from '../types';
+import { isSubstitution } from './ClaimList';
 import { color as C, radius, space, won } from '../theme';
 import { BagChips, Warnings } from './QuoteParts';
 import { Button } from './Button';
@@ -22,7 +23,32 @@ export const quoteToLines = (quote: Quote, qty?: Record<string, number>): CartLi
     temp: l.temp,
   }));
 
-export function ProposalCard({ proposal, accepted, onAccept, onOpenCart }: { proposal: Proposal; accepted?: boolean; onAccept: (lines: CartLine[]) => void; onOpenCart: () => void }) {
+// 품목 이유 한 줄: 원한 메뉴 · (대체/예산 조정 | N명 기준) · 봉투 — 하르방 팀 주장에서 뽑는다
+function reasonFor(line: QuoteLine, quote: Quote, claims: Claim[]) {
+  const core = line.name.replace(/\s*\(.*?\)/g, '').trim();
+  const texts = claims.map((c) => c.text);
+  const wish = texts.map((t) => t.match(/원하는 메뉴:\s*(.+)$/)?.[1]).find(Boolean)?.split(/[,，]\s*/).find((w) => w && line.name.includes(w));
+  const people = texts.map((t) => t.match(/인원 (\d+)명/)?.[1]).find(Boolean);
+  const sub = texts.find((t) => isSubstitution(t) && t.includes(core));
+  const adj = texts.map((t) => (t.includes(core) ? t.match(/수량을 (\d+)개에서 (\d+)개로/) : null)).find(Boolean);
+  const bag = quote.bags.find((b) => b.items.some((it) => it.startsWith(line.name)))?.label;
+  const why = sub ? sub.replace(/^\s*단[,，]\s*/, '') : adj ? `예산 맞춰 ${adj[1]}개→${adj[2]}개` : people ? `${people}명 기준` : undefined;
+  return [wish, why, sub ? undefined : bag].filter(Boolean).join(' · ');
+}
+
+export function ProposalCard({
+  proposal,
+  claims = [],
+  accepted,
+  onAccept,
+  onOpenCart,
+}: {
+  proposal: Proposal;
+  claims?: Claim[];
+  accepted?: boolean;
+  onAccept: (lines: CartLine[]) => void;
+  onOpenCart: () => void;
+}) {
   const q = proposal.quote;
   const [editing, setEditing] = useState(false);
   const [qty, setQty] = useState<Record<string, number>>(() => Object.fromEntries(q.lines.map((l) => [l.product_id, l.qty])));
@@ -58,10 +84,17 @@ export function ProposalCard({ proposal, accepted, onAccept, onOpenCart }: { pro
               .filter((l) => l.store_id === g.store_id)
               .map((l) => (
                 <View key={l.product_id} style={{ flexDirection: 'row', alignItems: 'center', gap: 8, minHeight: editing ? 40 : 22 }}>
-                  <Txt v="caption" color={l.sold_out ? C.danger : C.ink} style={{ flex: 1, fontSize: 14, textDecorationLine: l.sold_out ? 'line-through' : 'none' }} numberOfLines={2}>
-                    {l.name}
-                    {editing ? '' : ` × ${l.qty}`}
-                  </Txt>
+                  <View style={{ flex: 1, gap: 1 }}>
+                    <Txt v="caption" color={l.sold_out ? C.danger : C.ink} style={{ fontSize: 14, textDecorationLine: l.sold_out ? 'line-through' : 'none' }} numberOfLines={2}>
+                      {l.name}
+                      {editing ? '' : ` × ${l.qty}`}
+                    </Txt>
+                    {reasonFor(l, q, claims) ? (
+                      <Txt v="caption" color={C.sub} style={{ fontSize: 12, lineHeight: 16 }} numberOfLines={1}>
+                        {reasonFor(l, q, claims)}
+                      </Txt>
+                    ) : null}
+                  </View>
                   {l.sold_out ? <Chip small label="품절" tone="danger" /> : null}
                   {editing ? (
                     <Stepper value={qty[l.product_id] ?? l.qty} onChange={(n) => setQty((s) => ({ ...s, [l.product_id]: Math.max(0, n) }))} />

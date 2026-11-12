@@ -20,6 +20,9 @@ const PATHS = {
   clock: ['M12 7v5l3 2'],
   team: ['M3 20c0-3 2.5-5 6-5s6 2 6 5', 'M15 14c3 0 6 1.8 6 5'],
   store: ['M4 10v10h16V10', 'M2 10l2-6h16l2 6z', 'M9 20v-6h6v6'],
+  search: ['M20 20l-4.2-4.2'],
+  info: ['M12 11v5', 'M12 8h.01'],
+  heart: ['M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z'],
   spark: ['M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z'],
 } as const;
 
@@ -27,16 +30,18 @@ const CIRCLES: Partial<Record<keyof typeof PATHS, [number, number, number][]>> =
   user: [[12, 8, 4]],
   pin: [[12, 10, 2.5]],
   clock: [[12, 12, 9]],
+  search: [[11, 11, 6.5]],
+  info: [[12, 12, 9]],
   team: [[9, 8, 3.5], [16, 7, 2.8]],
 };
 
 export type IconName = keyof typeof PATHS;
 
-export function Icon({ name, size = 22, color = C.ink, stroke = 2 }: { name: IconName; size?: number; color?: string; stroke?: number }) {
+export function Icon({ name, size = 22, color = C.ink, stroke = 2, fill = 'none' }: { name: IconName; size?: number; color?: string; stroke?: number; fill?: string }) {
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       {PATHS[name].map((d) => (
-        <Path key={d} d={d} stroke={color} strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" />
+        <Path key={d} d={d} fill={fill} stroke={color} strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" />
       ))}
       {CIRCLES[name]?.map(([cx, cy, r]) => (
         <Circle key={`${cx}-${cy}`} cx={cx} cy={cy} r={r} stroke={color} strokeWidth={stroke} />

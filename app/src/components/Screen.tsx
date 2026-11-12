@@ -1,13 +1,11 @@
-// 화면 틀: 안전 영역 + 미색 바탕 + 세로 스크롤. tab=true면 NavPill 높이만큼 아래 여백.
+// 화면 틀: 안전 영역 + 미색 바탕 + 세로 스크롤. tab=true면 탭 바(안전 영역 포함) 위라서 떠 있는 오브만큼만 아래 여백.
 import { router } from 'expo-router';
-import type { ReactNode } from 'react';
-import { Pressable, RefreshControl, ScrollView, View } from 'react-native';
+import type { ReactNode, RefObject } from 'react';
+import { Pressable, RefreshControl, ScrollView, View, type ScrollViewInstance } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { color as C, radius, space } from '../theme';
 import { Icon } from './Icon';
 import { Txt } from './Txt';
-
-export const NAV_SPACE = 112;
 
 export function Screen({
   children,
@@ -15,20 +13,23 @@ export function Screen({
   footer,
   header,
   onRefresh,
+  scrollRef,
 }: {
   children: ReactNode;
   tab?: boolean;
   footer?: ReactNode;
   header?: ReactNode;
   onRefresh?: () => void;
+  scrollRef?: RefObject<ScrollViewInstance | null>;
 }) {
   const insets = useSafeAreaInsets();
   return (
     <View style={{ flex: 1, backgroundColor: C.bg, paddingTop: insets.top }}>
       {header}
       <ScrollView
+        ref={scrollRef}
         style={{ flex: 1 }}
-        contentContainerStyle={{ paddingHorizontal: space.screen, paddingTop: space.m, paddingBottom: (tab ? NAV_SPACE : space.xxl) + (footer ? 0 : insets.bottom), gap: space.xl }}
+        contentContainerStyle={{ paddingHorizontal: space.screen, paddingTop: space.m, paddingBottom: tab ? space.xxxl : space.xxl + (footer ? 0 : insets.bottom), gap: space.xl }}
         keyboardShouldPersistTaps="handled"
         refreshControl={onRefresh ? <RefreshControl refreshing={false} onRefresh={onRefresh} tintColor={C.brand} /> : undefined}
       >

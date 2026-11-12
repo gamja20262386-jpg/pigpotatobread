@@ -8,7 +8,7 @@ export default function TabsLayout() {
       <Tabs.Screen name="index" options={{ title: '홈' }} />
       <Tabs.Screen name="market" options={{ title: '시장' }} />
       <Tabs.Screen name="agent" options={{ title: '하르방' }} />
-      <Tabs.Screen name="orders" options={{ title: '주문' }} />
+      <Tabs.Screen name="orders" options={{ title: '주문내역' }} />
       <Tabs.Screen name="my" options={{ title: '마이' }} />
     </Tabs>
   );

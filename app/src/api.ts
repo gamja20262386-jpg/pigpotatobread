@@ -15,6 +15,7 @@ import type {
   RunResult,
   StockChange,
   Store,
+  StoreSort,
   User,
 } from './types';
 
@@ -92,11 +93,13 @@ export const api = {
   setPrefs: (prefs: { destination_id?: string; likes?: string[] }) => request<{ user: User }>('/me/prefs', 'PATCH', prefs),
 
   categories: () => request<{ categories: Category[] }>('/catalog/categories'),
-  stores: (q: { kind?: string; category?: string } = {}) => {
-    const qs = new URLSearchParams(Object.entries(q).filter(([, v]) => !!v) as [string, string][]).toString();
-    return request<{ stores: Store[] }>(`/catalog/stores${qs ? `?${qs}` : ''}`);
+  stores: (q: { kind?: string; category?: string; sort?: StoreSort; open_only?: boolean; destination_id?: string | null } = {}) => {
+    const qs = new URLSearchParams(Object.entries(q).filter(([, v]) => !!v).map(([k, v]) => [k, String(v)])).toString();
+    return request<{ stores: Store[]; destination: { id: string; name: string } }>(`/catalog/stores${qs ? `?${qs}` : ''}`);
   },
-  store: (id: string) => request<{ store: Store; products: Product[] }>(`/catalog/stores/${encodeURIComponent(id)}`),
+  store: (id: string, destination_id?: string | null) =>
+    request<{ store: Store; products: Product[] }>(`/catalog/stores/${encodeURIComponent(id)}${destination_id ? `?destination_id=${encodeURIComponent(destination_id)}` : ''}`),
+  product: (id: string) => request<{ product: Product; store: Store }>(`/catalog/products/${encodeURIComponent(id)}`),
   products: () => request<{ products: Product[] }>('/catalog/products'),
   market: () => request<{ market: Market }>('/market'),
 

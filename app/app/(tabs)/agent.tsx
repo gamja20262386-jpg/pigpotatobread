@@ -39,6 +39,17 @@ export default function AgentScreen() {
     return () => clearTimeout(t);
   }, [turns.length, last?.status, last?.id]);
 
+  // 홈 카드 "자세히 ›": 이미 열려 있던 하르방 탭도 그 턴의 시작으로 이동
+  const focus = useAgent((s) => s.focus);
+  useEffect(() => {
+    if (!focus) return;
+    const t = setTimeout(() => {
+      const y = turnY.current[focus.id];
+      if (y !== undefined) scroll.current?.scrollTo({ y: Math.max(0, y - space.s), animated: true });
+    }, 80);
+    return () => clearTimeout(t);
+  }, [focus]);
+
   return (
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: C.bg, paddingTop: insets.top }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.m, paddingHorizontal: space.screen, paddingVertical: space.s, borderBottomWidth: 1, borderBottomColor: C.line }}>
@@ -70,7 +81,7 @@ export default function AgentScreen() {
         ))}
       </ScrollView>
 
-      <View style={{ paddingHorizontal: space.screen, paddingTop: space.m, paddingBottom: 64 + Math.max(insets.bottom, 12) + 4 + space.m, borderTopWidth: 1, borderTopColor: C.line, backgroundColor: C.bg }}>
+      <View style={{ paddingHorizontal: space.screen, paddingTop: space.m, paddingBottom: space.m, borderTopWidth: 1, borderTopColor: C.line, backgroundColor: C.bg }}>
         <AgentInput onSend={(m) => void send(m)} busy={busy} suggestions={turns.length ? [...SUGGESTIONS, ...CHAT_SUGGESTIONS] : undefined} />
       </View>
     </KeyboardAvoidingView>
@@ -85,7 +96,7 @@ function Intro({ onPick }: { onPick: (m: string) => void }) {
       </Txt>
       <Txt v="display">한 문장이면 하르방 팀이 장바구니를 짜요</Txt>
       <Txt v="caption" color={C.sub} style={{ fontSize: 14, lineHeight: 21 }}>
-        말 이해 → 메뉴 고르기 → 묶음 배송 → 배달비·도착 → 신선 지킴, 다섯 에이전트가 차례로 확인하고 근거와 함께 보여 드려요. 담기 전에는 아무것도 주문되지 않아요.
+        다섯 에이전트가 근거와 함께 확인해요 · 담기 전엔 주문되지 않아요
       </Txt>
       <View style={{ gap: space.s }}>
         {[...SUGGESTIONS, ...CHAT_SUGGESTIONS].map((s) => (
@@ -149,10 +160,10 @@ function TurnView({ turn, latest }: { turn: Turn; latest: boolean }) {
                   {run.summary_source === 'llm' ? 'AI가 다듬은 문장 · 숫자는 코드가 계산' : '규칙으로 만든 문장 · 숫자는 코드가 계산'}
                 </Txt>
               </View>
-              <RunTimeline run={run} animate={latest} defaultOpen={latest} />
+              <RunTimeline run={run} animate={latest} ms={turn.ms} />
               <ClaimList claims={run.public_claims} />
               {turn.proposal ? (
-                <ProposalCard proposal={turn.proposal} accepted={turn.accepted} onAccept={accept} onOpenCart={() => router.push('/cart')} />
+                <ProposalCard proposal={turn.proposal} claims={run.public_claims} accepted={turn.accepted} onAccept={accept} onOpenCart={() => router.push('/cart')} />
               ) : turn.kind === 'plan' ? (
                 <Txt v="caption" color={C.sub} style={{ fontSize: 14 }}>
                   조건에 맞는 상품을 다 찾지 못했어요. 인원·예산·먹고 싶은 것을 바꿔 말해 보세요.

@@ -1,12 +1,19 @@
-// 근거: 주장 목록. 주장마다 근거 칩, 기본 3개 + "근거 N개 더 보기". "단, …" 대체 주장은 warnSoft 띠.
+// 근거(v0.2 P): 주장 목록, 기본 3개 + "근거 N개 더 보기". 주장마다 수준 배지(확실/추정/확인 필요) + 근거 칩 1개 + "+N" → 누르면 작은 시트.
+// "단, …" 대체 주장은 warnSoft 띠.
 import { useState } from 'react';
 import { Pressable, View } from 'react-native';
 import type { Claim } from '../types';
 import { color as C, radius, space } from '../theme';
-import { EvidenceChip } from './EvidenceChip';
+import { EVIDENCE, EvidenceChip } from './EvidenceChip';
+import { Sheet } from './Sheet';
 import { Txt } from './Txt';
 
-const LEVEL: Partial<Record<Claim['level'], string>> = { estimate: '추정', assumption: '가정', question: '확인 필요' };
+const LEVEL: Record<Claim['level'], { label: string; fg: string; bg: string }> = {
+  fact: { label: '확실', fg: C.leaf, bg: C.leafSoft },
+  estimate: { label: '추정', fg: C.warn, bg: C.warnSoft },
+  assumption: { label: '추정', fg: C.warn, bg: C.warnSoft },
+  question: { label: '확인 필요', fg: C.danger, bg: C.dangerSoft },
+};
 export const isSubstitution = (text: string) => /^\s*단[,，]|\s단[,，]\s/.test(text);
 
 export function ClaimList({ claims, initial = 3 }: { claims: Claim[]; initial?: number }) {
@@ -37,12 +44,17 @@ export function ClaimList({ claims, initial = 3 }: { claims: Claim[]; initial?: 
 }
 
 function ClaimRow({ claim }: { claim: Claim }) {
+  const [sheet, setSheet] = useState(false);
   const sub = isSubstitution(claim.text);
-  const level = LEVEL[claim.level];
+  const level = LEVEL[claim.level] ?? LEVEL.fact;
+  const first = claim.evidence[0];
+  const more = claim.evidence.length - 1;
   return (
     <View
       style={{
-        gap: 6,
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        gap: space.s,
         paddingVertical: sub ? space.s : 2,
         paddingHorizontal: sub ? space.m : 0,
         backgroundColor: sub ? C.warnSoft : 'transparent',
@@ -51,16 +63,38 @@ function ClaimRow({ claim }: { claim: Claim }) {
         borderRadius: sub ? radius.chip : 0,
       }}
     >
-      <Txt v="caption" color={sub ? C.warn : C.ink} style={{ fontSize: 14, lineHeight: 20 }}>
-        {level ? <Txt v="captionMedium" color={C.sub} style={{ fontSize: 12 }}>{`${level}  `}</Txt> : null}
-        {claim.text}
-      </Txt>
-      {claim.evidence.length ? (
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 4 }}>
-          {claim.evidence.map((e, i) => (
-            <EvidenceChip key={`${e.kind}-${e.ref}-${i}`} ev={e} />
-          ))}
+      <View style={{ flex: 1, gap: 4 }}>
+        <Txt v="caption" color={sub ? C.warn : C.ink} style={{ fontSize: 14, lineHeight: 20 }}>
+          {claim.text}
+        </Txt>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+          <View style={{ backgroundColor: level.bg, borderRadius: radius.chip, paddingHorizontal: 6, paddingVertical: 1 }}>
+            <Txt v="captionMedium" color={level.fg} style={{ fontSize: 11, lineHeight: 16 }}>
+              {level.label}
+            </Txt>
+          </View>
+          {first ? (
+            <Pressable onPress={() => setSheet(true)} accessibilityRole="button" accessibilityLabel={`근거 ${claim.evidence.length}개 보기`} hitSlop={6}>
+              <View style={{ backgroundColor: (EVIDENCE[first.kind] ?? EVIDENCE.dataset).bg, borderRadius: radius.chip, paddingHorizontal: 6, paddingVertical: 1 }}>
+                <Txt v="captionMedium" color={(EVIDENCE[first.kind] ?? EVIDENCE.dataset).fg} style={{ fontSize: 11, lineHeight: 16 }}>
+                  {`${(EVIDENCE[first.kind] ?? EVIDENCE.dataset).label}${more > 0 ? ` +${more}` : ''}`}
+                </Txt>
+              </View>
+            </Pressable>
+          ) : null}
         </View>
+      </View>
+      {first ? (
+        <Sheet visible={sheet} onClose={() => setSheet(false)} title="근거">
+          <Txt v="body" style={{ fontSize: 15, lineHeight: 22 }}>
+            {claim.text}
+          </Txt>
+          <View style={{ gap: space.s, alignItems: 'flex-start' }}>
+            {claim.evidence.map((e, i) => (
+              <EvidenceChip key={`${e.kind}-${e.ref}-${i}`} ev={e} />
+            ))}
+          </View>
+        </Sheet>
       ) : null}
     </View>
   );

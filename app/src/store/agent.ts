@@ -14,11 +14,14 @@ export type Turn = {
   suggestPlan?: boolean;
   error?: string;
   accepted?: boolean;
+  ms?: number; // 보내고 답 받기까지 걸린 시간(접힌 타임라인 "N초")
 };
 
 type Agent = {
   turns: Turn[];
   busy: boolean;
+  focus: { id: string; at: number } | null; // 홈 카드 "자세히"가 하르방 탭에 그 턴으로 가 달라고 남기는 요청
+  requestFocus: (id: string) => void;
   send: (message: string, kind?: 'plan' | 'chat') => Promise<void>;
   markAccepted: (id: string) => void;
   reset: () => void;
@@ -36,13 +39,16 @@ export const looksLikeOrder = (message: string) => PLAN_HINT.test(message) && !/
 export const useAgent = create<Agent>()((set, get) => ({
   turns: [],
   busy: false,
+  focus: null,
+  requestFocus: (id) => set({ focus: { id, at: Date.now() } }),
   send: async (raw, forced) => {
     const message = raw.trim().slice(0, 300);
     if (!message || get().busy) return;
     const kind = forced ?? (looksLikeOrder(message) ? 'plan' : 'chat');
     const id = makeId();
     set((s) => ({ busy: true, turns: [...s.turns, { id, message, kind, status: 'pending' }] }));
-    const patch = (p: Partial<Turn>) => set((s) => ({ turns: s.turns.map((t) => (t.id === id ? { ...t, ...p } : t)) }));
+    const t0 = Date.now();
+    const patch = (p: Partial<Turn>) => set((s) => ({ turns: s.turns.map((t) => (t.id === id ? { ...t, ...p, ms: Date.now() - t0 } : t)) }));
     try {
       if (kind === 'plan') {
         const { run, proposal } = await api.plan(message, useSession.getState().destinationId);

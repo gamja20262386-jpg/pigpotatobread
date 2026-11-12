@@ -43,6 +43,7 @@ export default function RootLayout() {
             <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: C.bg } }}>
               <Stack.Screen name="(tabs)" />
               <Stack.Screen name="cart" options={{ presentation: 'modal' }} />
+              <Stack.Screen name="product/[id]" options={{ presentation: 'modal' }} />
             </Stack>
             <SheetHost />
           </>

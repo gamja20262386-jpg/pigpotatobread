@@ -54,7 +54,17 @@ export type Store = {
   delivery_fee: number;
   is_open: boolean;
   closes_in_min: number | null;
+  min_order: number;
+  pickup: boolean;
+  image: string | null;
+  // 배송지 기준(목록·상세 응답에만 붙는다)
+  eta_min?: number;
+  distance_km?: number;
+  delivery_tip?: number;
+  in_zone?: boolean;
 };
+export type StoreSort = 'default' | 'fast' | 'rating' | 'fee';
+export type MenuGroup = '대표 메뉴' | '메뉴' | '사이드·음료';
 export type Product = {
   id: string;
   store_id: string;
@@ -68,6 +78,9 @@ export type Product = {
   sold_out: boolean;
   serves: number;
   tags: string[];
+  group: MenuGroup;
+  popular: boolean;
+  image: string | null;
 };
 export type Category = { id: string; name: string; emoji: string };
 export type CartItem = { product_id: string; qty: number };

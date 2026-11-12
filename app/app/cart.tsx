@@ -1,4 +1,4 @@
-// 장바구니(모달): 배송지, 가게별 묶음, 수량, 하르방 점검(/cart/quote, 바뀌면 0.4초 뒤 다시), 주문하기
+// 장바구니(모달): 배송지, 가게별 묶음, 수량, 하르방 점검(/cart/quote, 바뀌면 0.4초 뒤 다시), 주문하기 → 주문 확인 시트
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable, View } from 'react-native';
@@ -40,6 +40,7 @@ export default function CartScreen() {
   const { id: destId, current } = useDestination();
   const [destOpen, setDestOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [ordering, setOrdering] = useState(false);
   const [orderError, setOrderError] = useState('');
 
@@ -61,12 +62,17 @@ export default function CartScreen() {
   const localSubtotal = lines.reduce((s, l) => s + l.price * l.qty, 0);
   const canOrder = !!q && !stale && !quote.loading && q.in_zone && soldOut.length === 0 && !!destId;
 
-  const placeOrder = async () => {
+  // 주문은 되돌릴 수 없어서 확인 시트를 한 번 거친다
+  const askOrder = () => {
     if (!token) {
       setLoginOpen(true);
       return;
     }
+    setConfirmOpen(true);
+  };
+  const placeOrder = async () => {
     if (!destId) return;
+    setConfirmOpen(false);
     setOrdering(true);
     setOrderError('');
     try {
@@ -94,7 +100,7 @@ export default function CartScreen() {
             ) : null}
             <Button
               label={`주문하기 · ${won(q && !stale ? q.total : localSubtotal)}`}
-              onPress={() => void placeOrder()}
+              onPress={askOrder}
               busy={ordering}
               disabled={!canOrder}
             />
@@ -177,6 +183,20 @@ export default function CartScreen() {
       )}
 
       <DestinationSheet visible={destOpen} onClose={() => setDestOpen(false)} />
+      <Sheet visible={confirmOpen} onClose={() => setConfirmOpen(false)} title="이대로 주문할까요">
+        {q ? (
+          <View style={{ gap: space.s }}>
+            <ConfirmRow label="합계" value={won(q.total)} strong />
+            <ConfirmRow label="품목" value={`${q.lines.reduce((n, l) => n + l.qty, 0)}개 · 가게 ${q.groups.length}곳`} />
+            <ConfirmRow label="도착 예상" value={`약 ${q.eta_min}분`} />
+            <ConfirmRow label="배송지" value={q.destination.name} />
+          </View>
+        ) : null}
+        <View style={{ flexDirection: 'row', gap: space.s }}>
+          <Button label="닫기" kind="outline" onPress={() => setConfirmOpen(false)} style={{ flex: 1 }} />
+          <Button label="주문하기" onPress={() => void placeOrder()} disabled={!canOrder} style={{ flex: 2 }} />
+        </View>
+      </Sheet>
       <Sheet visible={loginOpen} onClose={() => setLoginOpen(false)} title="시연 로그인">
         <Txt v="caption" color={C.sub} style={{ fontSize: 14 }}>
           주문은 로그인한 고객만 할 수 있어요. 시연 계정으로 바로 들어가요.
@@ -189,5 +209,18 @@ export default function CartScreen() {
         />
       </Sheet>
     </Screen>
+  );
+}
+
+function ConfirmRow({ label, value, strong }: { label: string; value: string; strong?: boolean }) {
+  return (
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', gap: space.m }}>
+      <Txt v="caption" color={C.sub} style={{ fontSize: 14 }}>
+        {label}
+      </Txt>
+      <Txt v={strong ? 'title' : 'bodyMedium'} color={strong ? C.brand : C.ink} style={{ flexShrink: 1, textAlign: 'right' }}>
+        {value}
+      </Txt>
+    </View>
   );
 }
