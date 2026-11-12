@@ -30,7 +30,9 @@ router.get("/", (req, res) => {
 router.post("/items", (req, res) => {
   const key = cartKey(req), { productId } = req.body || {};
   if (!key) return res.status(400).json({ error: "장바구니 세션 정보가 없습니다." });
-  if (!readDb().products.some(p => p.id === productId)) return res.status(404).json({ error: "상품을 찾을 수 없습니다." });
+  const product = readDb().products.find(p => p.id === productId);
+  if (!product) return res.status(404).json({ error: "상품을 찾을 수 없습니다." });
+  if (product.soldOut) return res.status(409).json({ error: "품절된 상품입니다." });
   updateDb(db => {
     const cart = db.carts[key] ||= [];
     const existing = cart.find(item => item.productId === productId);

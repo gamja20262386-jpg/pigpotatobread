@@ -4,3 +4,5 @@ node_modules/
 !.env.example
 .DS_Store
 .vscode/
+jeju_eat_react/client/dist/
+jeju_eat_react/server/data/db.json.tmp

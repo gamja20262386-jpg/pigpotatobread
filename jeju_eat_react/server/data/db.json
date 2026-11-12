@@ -52,6 +52,11 @@
       "id": "grocery",
       "name": "제주장보기",
       "emoji": "🛒"
+    },
+    {
+      "id": "market",
+      "name": "동문시장",
+      "emoji": "🏮"
     }
   ],
   "stores": [
@@ -123,6 +128,60 @@
       "name": "제주 짬뽕관",
       "category": "chinese",
       "rating": 4.6,
+      "deliveryFee": 2000
+    },
+    {
+      "id": "jeju-bite",
+      "name": "제주한입",
+      "category": "market",
+      "marketLabel": "제주 간식",
+      "icon": "🍊",
+      "description": "제주 감귤을 활용한 간식",
+      "deliveryFee": 2000
+    },
+    {
+      "id": "dolharubang",
+      "name": "돌하르방분식",
+      "category": "market",
+      "marketLabel": "분식",
+      "icon": "🍢",
+      "description": "든든하게 즐기는 시장 분식",
+      "deliveryFee": 2000
+    },
+    {
+      "id": "gyul-dessert",
+      "name": "귤빛디저트",
+      "category": "market",
+      "marketLabel": "디저트",
+      "icon": "🍰",
+      "description": "상큼한 감귤 디저트",
+      "deliveryFee": 2000
+    },
+    {
+      "id": "badang-skewer",
+      "name": "바당꼬치",
+      "category": "market",
+      "marketLabel": "꼬치",
+      "icon": "🔥",
+      "description": "바로 구워 먹는 꼬치 메뉴",
+      "deliveryFee": 2000
+    },
+    {
+      "id": "souvenir",
+      "name": "제주선물상점",
+      "category": "market",
+      "marketLabel": "기념품",
+      "icon": "🎁",
+      "description": "제주 여행 기념 소품",
+      "deliveryFee": 2000
+    },
+    {
+      "id": "oreum-drink",
+      "name": "오름음료",
+      "category": "market",
+      "marketLabel": "음료",
+      "icon": "🥤",
+      "description": "제주 과일을 담은 음료",
       "deliveryFee": 2000
     }
   ],
@@ -261,6 +320,138 @@
       "price": 11000,
       "category": "chinese",
       "emoji": "🥟"
+    },
+    {
+      "id": "m-1",
+      "storeId": "jeju-bite",
+      "name": "한라봉 타르트",
+      "description": "한라봉 향이 은은한 타르트",
+      "price": 4500,
+      "category": "market",
+      "marketCategory": "간식",
+      "emoji": "🥧",
+      "soldOut": false
+    },
+    {
+      "id": "m-2",
+      "storeId": "jeju-bite",
+      "name": "감귤 초콜릿",
+      "description": "새콤달콤한 감귤 초콜릿",
+      "price": 6000,
+      "category": "market",
+      "marketCategory": "간식",
+      "emoji": "🍫",
+      "soldOut": true
+    },
+    {
+      "id": "m-3",
+      "storeId": "dolharubang",
+      "name": "흑돼지 떡볶이",
+      "description": "매콤한 소스와 쫄깃한 떡",
+      "price": 8000,
+      "category": "market",
+      "marketCategory": "분식",
+      "emoji": "🍲",
+      "soldOut": false
+    },
+    {
+      "id": "m-4",
+      "storeId": "dolharubang",
+      "name": "고기 김밥",
+      "description": "간편하게 먹기 좋은 김밥",
+      "price": 5000,
+      "category": "market",
+      "marketCategory": "분식",
+      "emoji": "🍙",
+      "soldOut": false
+    },
+    {
+      "id": "m-5",
+      "storeId": "gyul-dessert",
+      "name": "감귤 마카롱",
+      "description": "감귤 크림을 넣은 마카롱",
+      "price": 3000,
+      "category": "market",
+      "marketCategory": "디저트",
+      "emoji": "🍊",
+      "soldOut": false
+    },
+    {
+      "id": "m-6",
+      "storeId": "gyul-dessert",
+      "name": "우도 땅콩 쿠키",
+      "description": "고소한 땅콩 풍미의 쿠키",
+      "price": 5500,
+      "category": "market",
+      "marketCategory": "디저트",
+      "emoji": "🍪",
+      "soldOut": false
+    },
+    {
+      "id": "m-7",
+      "storeId": "badang-skewer",
+      "name": "흑돼지 꼬치",
+      "description": "숯불 향을 입힌 흑돼지 꼬치",
+      "price": 7000,
+      "category": "market",
+      "marketCategory": "꼬치",
+      "emoji": "🍢",
+      "soldOut": false
+    },
+    {
+      "id": "m-8",
+      "storeId": "badang-skewer",
+      "name": "새우 꼬치",
+      "description": "바삭하게 구운 새우 꼬치",
+      "price": 6500,
+      "category": "market",
+      "marketCategory": "꼬치",
+      "emoji": "🍤",
+      "soldOut": true
+    },
+    {
+      "id": "m-9",
+      "storeId": "souvenir",
+      "name": "제주 감귤 키링",
+      "description": "감귤 모양의 여행 기념품",
+      "price": 5000,
+      "category": "market",
+      "marketCategory": "기념품",
+      "emoji": "🔑",
+      "soldOut": false
+    },
+    {
+      "id": "m-10",
+      "storeId": "souvenir",
+      "name": "돌하르방 자석",
+      "description": "작은 돌하르방 냉장고 자석",
+      "price": 4000,
+      "category": "market",
+      "marketCategory": "기념품",
+      "emoji": "🗿",
+      "soldOut": false
+    },
+    {
+      "id": "m-11",
+      "storeId": "oreum-drink",
+      "name": "한라봉 에이드",
+      "description": "시원하고 상큼한 한라봉 음료",
+      "price": 5500,
+      "category": "market",
+      "marketCategory": "음료",
+      "emoji": "🥤",
+      "soldOut": false
+    },
+    {
+      "id": "m-12",
+      "storeId": "oreum-drink",
+      "name": "청귤 주스",
+      "description": "청귤의 산뜻한 맛을 담은 주스",
+      "price": 5000,
+      "category": "market",
+      "marketCategory": "음료",
+      "emoji": "🍹",
+      "soldOut": false
     }
   ]
 }

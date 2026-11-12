@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 import CartPage from "./pages/CartPage.jsx";
 import OrdersPage from "./pages/OrdersPage.jsx";
 import MyPage from "./pages/MyPage.jsx";
+import MarketPage from "./pages/MarketPage.jsx";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -52,6 +53,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/category/:categoryId" element={<CategoryPage />} />
+        <Route path="/market" element={<MarketPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/orders" element={<OrdersPage />} />

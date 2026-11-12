@@ -1,9 +1,17 @@
 import { Router } from "express";
 import { readDb } from "../lib/db.js";
 import { optionalAuth } from "../middleware/auth.js";
+import { recommendProducts, recommendationReply } from "../lib/recommendation.js";
 
 const router = Router();
 router.use(optionalAuth);
+// 동문시장 추천 채팅: 문장에서 예산·키워드를 읽어 품절이 아닌 상품을 최대 3개 고른다.
+router.post("/chat", (req, res) => {
+  const message = String(req.body?.message ?? "").slice(0, 200);
+  const db = readDb();
+  const items = recommendProducts(message, { products: db.products.filter(p => p.category === "market"), stores: db.stores });
+  res.json({ type: "rule-based-demo", reply: recommendationReply(message, items), items });
+});
 router.post("/", (req, res) => {
   const key = req.user?.id || (req.headers["x-session-id"] ? "guest:" + String(req.headers["x-session-id"]).slice(0,80) : null);
   if (!key) return res.status(400).json({ error: "세션 정보가 없습니다." });
