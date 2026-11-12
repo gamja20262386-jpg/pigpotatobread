@@ -14,6 +14,7 @@ router.post("/", (req, res) => {
   const db = readDb();
   const cart = db.carts[cartKey] || [];
   if (!cart.length) return res.status(400).json({ error: "장바구니가 비어 있습니다." });
+  if (cart.some(line => db.products.find(p => p.id === line.productId)?.soldOut)) return res.status(409).json({ error: "장바구니에 품절된 상품이 있습니다. 빼고 다시 주문해주세요." });
   const items = cart.map(line => {
     const product = db.products.find(p => p.id === line.productId);
     const store = product && db.stores.find(s => s.id === product.storeId);

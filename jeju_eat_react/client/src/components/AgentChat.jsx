@@ -18,6 +18,7 @@ export default function AgentChat({ open, onClose, onAdd }) {
   async function send(text) {
     const message = text.trim();
     if (!message || busy) return;
+    setInput("");
     setLog(l => [...l, { role: "user", text: message }]);
     setBusy(true);
     try {
@@ -43,7 +44,7 @@ export default function AgentChat({ open, onClose, onAdd }) {
       </div>)}
     </div>
     <div className="quick-prompts">{QUICK_PROMPTS.map(q => <button key={q.label} onClick={() => send(q.prompt)} disabled={busy}>{q.label}</button>)}</div>
-    <form className="chat-form" onSubmit={e => { e.preventDefault(); send(input); setInput(""); }}>
+    <form className="chat-form" onSubmit={e => { e.preventDefault(); send(input); }}>
       <input value={input} onChange={e => setInput(e.target.value)} placeholder="예산이나 원하는 상품을 입력하세요" />
       <button disabled={busy}>보내기</button>
     </form>

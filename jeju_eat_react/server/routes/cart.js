@@ -44,6 +44,7 @@ router.post("/items", (req, res) => {
 router.patch("/items/:productId", (req, res) => {
   const key = cartKey(req), quantity = Number(req.body?.quantity);
   if (!key || !Number.isInteger(quantity) || quantity < 0 || quantity > 99) return res.status(400).json({ error: "수량이 올바르지 않습니다." });
+  if (quantity > 0 && readDb().products.find(p => p.id === req.params.productId)?.soldOut) return res.status(409).json({ error: "품절된 상품입니다." });
   updateDb(db => {
     const cart = db.carts[key] ||= [];
     const item = cart.find(x => x.productId === req.params.productId);

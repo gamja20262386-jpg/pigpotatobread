@@ -9,7 +9,7 @@
 .store-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:12px 0 26px}
 .store-card{background:#fff;color:#333;border:1px solid #eee;border-radius:14px;padding:13px;text-align:left;display:grid;gap:3px}
 .store-card span{font-size:24px}.store-card b{font-size:13px}.store-card small{font-size:11px;color:#888}
-.store-card.active{border:2px solid #ff6b00;background:#fff7f0}
+.store-card.active{border-color:#ff6b00;box-shadow:0 0 0 1px #ff6b00;background:#fff7f0}
 .chips{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 16px}
 .chips button{background:#fff;color:#555;border:1px solid #e5e5e5;border-radius:30px;padding:7px 12px;font-size:12px}
 .chips button.selected{background:#ff6b00;color:#fff;border-color:#ff6b00}
