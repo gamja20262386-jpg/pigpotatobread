@@ -106,3 +106,11 @@ Order   = { id, created_at, status, status_label, destination: {id,name}, quote:
 5. **먼저 챙겼어요 카드**: /agent/nudges, 닫은 id는 다시 보내 반복하지 않음.
 6. **상인 말 입력**: 이전→이후 표 확인 후 반영.
 7. **에이전트 팀 화면**: /harness 팀·카드.
+
+## 7. v0.2 추가 (2026-11-13)
+- Store에 `min_order`, `pickup`, `image` 추가. 목록·상세 응답에는 배송지 기준 `eta_min`, `distance_km`, `delivery_tip`(시장 가게 = 묶음 배송 기본료), `in_zone`이 붙는다.
+- Product에 `group`("대표 메뉴"|"메뉴"|"사이드·음료"), `popular`, `image` 추가.
+- `GET /catalog/stores?kind=&category=&sort=default|fast|rating|fee&open_only=&destination_id=` → `{stores, destination}` (잘못된 sort·배송지는 400)
+- `GET /catalog/stores/{id}?destination_id=` → store에 배달 정보 포함
+- `GET /catalog/products/{id}` → `{product, store}` (404)
+- 데이터: 맛집 카테고리마다 가게 3곳(총 42곳, 상품 82개). 가상 데이터.

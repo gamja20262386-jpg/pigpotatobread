@@ -12,7 +12,10 @@
     "tags": [
       "흑돼지",
       "고기"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
   },
   {
     "id": "p-2",
@@ -26,7 +29,10 @@
     "serves": 1,
     "tags": [
       "고기"
-    ]
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
   },
   {
     "id": "p-3",
@@ -41,7 +47,10 @@
     "tags": [
       "흑돼지",
       "고기"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
   },
   {
     "id": "p-4",
@@ -56,7 +65,10 @@
     "tags": [
       "흑돼지",
       "고기"
-    ]
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
   },
   {
     "id": "p-5",
@@ -70,7 +82,10 @@
     "serves": 1,
     "tags": [
       "국물"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
   },
   {
     "id": "p-6",
@@ -84,7 +99,10 @@
     "serves": 1,
     "tags": [
       "국물"
-    ]
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
   },
   {
     "id": "p-7",
@@ -99,7 +117,10 @@
     "tags": [
       "회",
       "해산물"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": "https://images.unsplash.com/photo-1534482421-64566f976cfa"
   },
   {
     "id": "p-8",
@@ -114,7 +135,10 @@
     "tags": [
       "회",
       "해산물"
-    ]
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
   },
   {
     "id": "p-9",
@@ -128,7 +152,10 @@
     "serves": 4,
     "tags": [
       "귤"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b"
   },
   {
     "id": "p-10",
@@ -140,7 +167,10 @@
     "temp": "room",
     "stock": 40,
     "serves": 4,
-    "tags": []
+    "tags": [],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
   },
   {
     "id": "p-11",
@@ -155,7 +185,10 @@
     "tags": [
       "고기",
       "안주"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
   },
   {
     "id": "p-12",
@@ -170,7 +203,10 @@
     "tags": [
       "음료",
       "귤"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
   },
   {
     "id": "p-13",
@@ -185,7 +221,10 @@
     "tags": [
       "국수",
       "국물"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
   },
   {
     "id": "p-14",
@@ -200,7 +239,10 @@
     "tags": [
       "흑돼지",
       "고기"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
   },
   {
     "id": "p-15",
@@ -215,7 +257,10 @@
     "tags": [
       "국물",
       "해산물"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
   },
   {
     "id": "p-16",
@@ -230,7 +275,10 @@
     "tags": [
       "간식",
       "귤"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
   },
   {
     "id": "p-17",
@@ -246,7 +294,10 @@
       "간식",
       "귤",
       "기념품"
-    ]
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
   },
   {
     "id": "p-18",
@@ -261,7 +312,10 @@
     "tags": [
       "분식",
       "흑돼지"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
   },
   {
     "id": "p-19",
@@ -276,7 +330,10 @@
     "tags": [
       "분식",
       "김밥"
-    ]
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
   },
   {
     "id": "p-20",
@@ -292,7 +349,10 @@
       "디저트",
       "귤",
       "간식"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
   },
   {
     "id": "p-21",
@@ -308,7 +368,10 @@
       "디저트",
       "간식",
       "기념품"
-    ]
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
   },
   {
     "id": "p-22",
@@ -324,7 +387,10 @@
       "꼬치",
       "흑돼지",
       "안주"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
   },
   {
     "id": "p-23",
@@ -340,7 +406,10 @@
       "꼬치",
       "해산물",
       "안주"
-    ]
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
   },
   {
     "id": "p-24",
@@ -354,7 +423,10 @@
     "serves": 1,
     "tags": [
       "기념품"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
   },
   {
     "id": "p-25",
@@ -368,7 +440,10 @@
     "serves": 1,
     "tags": [
       "기념품"
-    ]
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
   },
   {
     "id": "p-26",
@@ -383,7 +458,10 @@
     "tags": [
       "음료",
       "귤"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
   },
   {
     "id": "p-27",
@@ -398,7 +476,10 @@
     "tags": [
       "음료",
       "귤"
-    ]
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
   },
   {
     "id": "p-28",
@@ -413,7 +494,10 @@
     "tags": [
       "회",
       "해산물"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": "https://images.unsplash.com/photo-1534482421-64566f976cfa"
   },
   {
     "id": "p-29",
@@ -429,7 +513,10 @@
       "회",
       "해산물",
       "고등어"
-    ]
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
   },
   {
     "id": "p-30",
@@ -444,7 +531,10 @@
     "tags": [
       "회",
       "해산물"
-    ]
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
   },
   {
     "id": "p-31",
@@ -460,7 +550,10 @@
       "갈치",
       "해산물",
       "구이"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
   },
   {
     "id": "p-32",
@@ -477,7 +570,10 @@
       "해산물",
       "구이",
       "갈치"
-    ]
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
   },
   {
     "id": "p-33",
@@ -494,7 +590,10 @@
       "고기",
       "구이",
       "안주"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
   },
   {
     "id": "p-34",
@@ -510,7 +609,10 @@
       "흑돼지",
       "고기",
       "구이"
-    ]
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba"
   },
   {
     "id": "p-35",
@@ -527,7 +629,10 @@
       "오메기떡",
       "간식",
       "기념품"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
   },
   {
     "id": "p-36",
@@ -543,7 +648,10 @@
       "떡",
       "오메기떡",
       "간식"
-    ]
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
   },
   {
     "id": "p-37",
@@ -558,7 +666,10 @@
     "tags": [
       "귤",
       "기념품"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b"
   },
   {
     "id": "p-38",
@@ -573,7 +684,10 @@
     "tags": [
       "귤",
       "기념품"
-    ]
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
   },
   {
     "id": "p-39",
@@ -587,7 +701,10 @@
     "serves": 2,
     "tags": [
       "술"
-    ]
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
   },
   {
     "id": "p-40",
@@ -602,6 +719,744 @@
     "tags": [
       "안주",
       "간식"
-    ]
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-41",
+    "store_id": "store-11",
+    "name": "숙성 등심카츠 정식",
+    "description": "밥·장국·샐러드 포함",
+    "price": 13500,
+    "emoji": "🍱",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "고기"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-42",
+    "store_id": "store-11",
+    "name": "치즈 카츠",
+    "description": "모짜렐라가 길게 늘어나요",
+    "price": 14500,
+    "emoji": "🧀",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "고기"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-43",
+    "store_id": "store-11",
+    "name": "카레 추가",
+    "description": "카츠에 곁들이는 카레",
+    "price": 3000,
+    "emoji": "🍛",
+    "temp": "hot",
+    "stock": 40,
+    "serves": 1,
+    "tags": [],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-44",
+    "store_id": "store-12",
+    "name": "제주 모둠초밥 12p",
+    "description": "광어·고등어·딱새우",
+    "price": 22000,
+    "emoji": "🍣",
+    "temp": "cold",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "회",
+      "해산물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-45",
+    "store_id": "store-12",
+    "name": "연어덮밥",
+    "description": "두툼한 연어와 간장소스",
+    "price": 15000,
+    "emoji": "🍚",
+    "temp": "cold",
+    "stock": 15,
+    "serves": 1,
+    "tags": [
+      "해산물"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-46",
+    "store_id": "store-13",
+    "name": "돔베고기 (2인)",
+    "description": "삶은 흑돼지를 도마째",
+    "price": 28000,
+    "emoji": "🥩",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 2,
+    "tags": [
+      "흑돼지",
+      "고기"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-47",
+    "store_id": "store-13",
+    "name": "멜젓 추가",
+    "description": "제주식 멸치젓",
+    "price": 2000,
+    "emoji": "🐟",
+    "temp": "room",
+    "stock": 50,
+    "serves": 1,
+    "tags": [],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-48",
+    "store_id": "store-14",
+    "name": "연탄 오겹살 도시락 (2인)",
+    "description": "초벌해서 바로 먹기 좋게",
+    "price": 32000,
+    "emoji": "🔥",
+    "temp": "hot",
+    "stock": 15,
+    "serves": 2,
+    "tags": [
+      "흑돼지",
+      "고기",
+      "구이",
+      "안주"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-49",
+    "store_id": "store-14",
+    "name": "김치찌개",
+    "description": "오겹살과 함께 끓인",
+    "price": 9000,
+    "emoji": "🍲",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "국물"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-50",
+    "store_id": "store-15",
+    "name": "보말칼국수",
+    "description": "진한 보말 국물 칼국수",
+    "price": 11000,
+    "emoji": "🍜",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "국물",
+      "해산물",
+      "국수"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-51",
+    "store_id": "store-15",
+    "name": "보말죽",
+    "description": "속이 편한 보말죽",
+    "price": 12000,
+    "emoji": "🥣",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "국물",
+      "해산물"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-52",
+    "store_id": "store-16",
+    "name": "제주 해장국",
+    "description": "선지와 콩나물 듬뿍",
+    "price": 10000,
+    "emoji": "🍲",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "국물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-53",
+    "store_id": "store-16",
+    "name": "몸국 특",
+    "description": "모자반 듬뿍",
+    "price": 12000,
+    "emoji": "🥣",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "국물"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-54",
+    "store_id": "store-17",
+    "name": "숯불 소금구이 치킨",
+    "description": "기름기 빼고 숯불 향",
+    "price": 19000,
+    "emoji": "🍗",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 2,
+    "tags": [
+      "고기",
+      "안주"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-55",
+    "store_id": "store-17",
+    "name": "치즈볼 5개",
+    "description": "쫀득한 치즈볼",
+    "price": 5000,
+    "emoji": "🧀",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "간식"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-56",
+    "store_id": "store-18",
+    "name": "감귤 양념치킨",
+    "description": "새콤달콤 감귤 양념",
+    "price": 20000,
+    "emoji": "🍗",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 2,
+    "tags": [
+      "고기",
+      "안주",
+      "귤"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-57",
+    "store_id": "store-18",
+    "name": "반반 치킨",
+    "description": "후라이드 반 양념 반",
+    "price": 20000,
+    "emoji": "🍗",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 2,
+    "tags": [
+      "고기",
+      "안주"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-58",
+    "store_id": "store-19",
+    "name": "한라봉 생크림 케이크",
+    "description": "조각 케이크",
+    "price": 7500,
+    "emoji": "🍰",
+    "temp": "cold",
+    "stock": 15,
+    "serves": 1,
+    "tags": [
+      "디저트",
+      "귤"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-59",
+    "store_id": "store-19",
+    "name": "우도땅콩 라떼",
+    "description": "고소한 땅콩 크림",
+    "price": 6500,
+    "emoji": "🥤",
+    "temp": "cold",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "음료",
+      "디저트"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-60",
+    "store_id": "store-20",
+    "name": "제주 녹차 라떼",
+    "description": "제주 녹차로 만든",
+    "price": 6000,
+    "emoji": "🍵",
+    "temp": "cold",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "음료"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-61",
+    "store_id": "store-20",
+    "name": "아메리카노",
+    "description": "직접 볶은 원두",
+    "price": 4500,
+    "emoji": "☕",
+    "temp": "hot",
+    "stock": 50,
+    "serves": 1,
+    "tags": [
+      "음료"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-62",
+    "store_id": "store-21",
+    "name": "떡볶이",
+    "description": "쌀떡 매콤달콤",
+    "price": 5000,
+    "emoji": "🍢",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "분식"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-63",
+    "store_id": "store-21",
+    "name": "순대",
+    "description": "찰순대와 내장",
+    "price": 6000,
+    "emoji": "🌭",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "분식"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-64",
+    "store_id": "store-21",
+    "name": "꼬마김밥 10줄",
+    "description": "겨자 소스",
+    "price": 6000,
+    "emoji": "🍙",
+    "temp": "room",
+    "stock": 20,
+    "serves": 2,
+    "tags": [
+      "분식",
+      "김밥"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-65",
+    "store_id": "store-22",
+    "name": "고기국수",
+    "description": "돼지 사골 육수에 수육",
+    "price": 9000,
+    "emoji": "🍜",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "국수",
+      "국물",
+      "흑돼지"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-66",
+    "store_id": "store-22",
+    "name": "비빔국수",
+    "description": "새콤달콤 비빔",
+    "price": 8500,
+    "emoji": "🍝",
+    "temp": "room",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "국수"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-67",
+    "store_id": "store-23",
+    "name": "한치 크림 파스타",
+    "description": "제주 한치를 듬뿍",
+    "price": 17000,
+    "emoji": "🍝",
+    "temp": "hot",
+    "stock": 15,
+    "serves": 1,
+    "tags": [
+      "해산물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-68",
+    "store_id": "store-23",
+    "name": "흑돼지 라구 파스타",
+    "description": "흑돼지로 끓인 라구",
+    "price": 16000,
+    "emoji": "🍝",
+    "temp": "hot",
+    "stock": 15,
+    "serves": 1,
+    "tags": [
+      "흑돼지",
+      "고기"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-69",
+    "store_id": "store-24",
+    "name": "흑돼지 수제버거",
+    "description": "두툼한 흑돼지 패티",
+    "price": 11000,
+    "emoji": "🍔",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "흑돼지",
+      "고기"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-70",
+    "store_id": "store-24",
+    "name": "감자튀김",
+    "description": "바삭한 웨지 감자",
+    "price": 4000,
+    "emoji": "🍟",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "간식"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-71",
+    "store_id": "store-25",
+    "name": "짜장면",
+    "description": "춘장을 직접 볶아요",
+    "price": 7000,
+    "emoji": "🍜",
+    "temp": "hot",
+    "stock": 40,
+    "serves": 1,
+    "tags": [
+      "국수"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-72",
+    "store_id": "store-25",
+    "name": "탕수육 소",
+    "description": "바삭한 찹쌀 탕수육",
+    "price": 16000,
+    "emoji": "🥢",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 2,
+    "tags": [
+      "고기",
+      "안주"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-73",
+    "store_id": "store-26",
+    "name": "보말 짬뽕",
+    "description": "시원하고 얼큰한",
+    "price": 11000,
+    "emoji": "🍜",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "국물",
+      "해산물",
+      "국수"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-74",
+    "store_id": "store-26",
+    "name": "군만두",
+    "description": "직접 빚은 군만두",
+    "price": 6000,
+    "emoji": "🥟",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "간식"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-75",
+    "store_id": "store-27",
+    "name": "광어회 소 (2인)",
+    "description": "쫄깃한 제주 광어",
+    "price": 30000,
+    "emoji": "🐟",
+    "temp": "cold",
+    "stock": 10,
+    "serves": 2,
+    "tags": [
+      "회",
+      "해산물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-76",
+    "store_id": "store-27",
+    "name": "한치 물회",
+    "description": "여름 별미 한치 물회",
+    "price": 15000,
+    "emoji": "🥣",
+    "temp": "cold",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "회",
+      "해산물"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-77",
+    "store_id": "store-28",
+    "name": "성게 미역국",
+    "description": "제주 성게 듬뿍",
+    "price": 14000,
+    "emoji": "🍲",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "국물",
+      "해산물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-78",
+    "store_id": "store-28",
+    "name": "전복죽",
+    "description": "전복 내장으로 끓인",
+    "price": 15000,
+    "emoji": "🥣",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "해산물"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-79",
+    "store_id": "store-29",
+    "name": "구좌 흙당근 2kg",
+    "description": "산지에서 바로",
+    "price": 8000,
+    "emoji": "🥕",
+    "temp": "room",
+    "stock": 30,
+    "serves": 4,
+    "tags": [],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-80",
+    "store_id": "store-29",
+    "name": "당근 착즙주스 3병",
+    "description": "당근만 짜낸",
+    "price": 9000,
+    "emoji": "🥤",
+    "temp": "cold",
+    "stock": 20,
+    "serves": 3,
+    "tags": [
+      "음료"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-81",
+    "store_id": "store-30",
+    "name": "한라봉 3kg",
+    "description": "선물용 한라봉",
+    "price": 32000,
+    "emoji": "🍊",
+    "temp": "room",
+    "stock": 15,
+    "serves": 4,
+    "tags": [
+      "귤",
+      "기념품"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-82",
+    "store_id": "store-30",
+    "name": "천혜향 2kg",
+    "description": "향이 진한 천혜향",
+    "price": 26000,
+    "emoji": "🍊",
+    "temp": "room",
+    "stock": 15,
+    "serves": 4,
+    "tags": [
+      "귤",
+      "기념품"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
   }
 ]

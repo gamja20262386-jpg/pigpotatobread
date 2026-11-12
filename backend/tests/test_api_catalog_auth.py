@@ -23,7 +23,7 @@ def test_stores_open_state_follows_demo_time(client):
     omegi = next(s for s in stores if s["id"] == "omegi")
     assert omegi["is_open"] is False and omegi["closes_in_min"] is None
     pork = client.get("/v1/catalog/stores", params={"category": "pork"}).json()["stores"]
-    assert [s["id"] for s in pork] == ["store-2"]
+    assert {s["id"] for s in pork} == {"store-2", "store-13", "store-14"} and all(s["category"] == "pork" for s in pork)
 
 
 def test_bad_demo_time_is_korean_400(client):
@@ -47,7 +47,9 @@ def test_product_search(client):
     assert ids == {"p-28", "p-29", "p-30"}                      # 가게명
     tagged = client.get("/v1/catalog/products", params={"tag": "오메기떡"}).json()["products"]
     assert {p["id"] for p in tagged} == {"p-35", "p-36"}
-    assert len(client.get("/v1/catalog/products").json()["products"]) == 40
+    import json, pathlib
+    seeded = json.loads((pathlib.Path(__file__).resolve().parents[2] / "data" / "products.json").read_text(encoding="utf-8"))
+    assert len(client.get("/v1/catalog/products").json()["products"]) == len(seeded)   # 시드 데이터 전부
 
 
 def test_unknown_route_detail_is_korean(client):
@@ -107,3 +109,29 @@ def test_market_exposes_delivery_rules_only(client):
     assert m["bundle_fee"] == {"base": 3000, "per_extra_stall": 500, "max": 5000}
     assert m["delivery_radius_km"] == 25
     assert "cold_max_transit_min" not in m
+
+
+def test_store_list_sort_filter_and_delivery_info(client):
+    h = {"X-Demo-Time": "18:30"}
+    stores = client.get("/v1/catalog/stores?category=market&sort=fast&destination_id=hamdeok", headers=h).json()
+    assert stores["destination"]["id"] == "hamdeok"
+    lst = stores["stores"]
+    assert all({"eta_min", "delivery_tip", "distance_km", "min_order", "pickup", "image"} <= set(s) for s in lst)
+    assert all(s["delivery_tip"] == 3000 and s["distance_km"] == 13.7 for s in lst)     # 시장 가게는 집하장 출발
+    open_etas = [s["eta_min"] for s in lst if s["is_open"]]
+    assert open_etas == sorted(open_etas)
+    rating = [s["rating"] for s in client.get("/v1/catalog/stores?sort=rating", headers=h).json()["stores"]]
+    assert rating == sorted(rating, reverse=True)
+    closed = client.get("/v1/catalog/stores?open_only=true", headers={"X-Demo-Time": "07:30"}).json()["stores"]
+    assert closed and all(s["is_open"] for s in closed)
+    assert client.get("/v1/catalog/stores?sort=nope").status_code == 400
+    assert client.get("/v1/catalog/stores?destination_id=moon").status_code == 400
+
+
+def test_product_detail_and_menu_groups(client):
+    d = client.get("/v1/catalog/products/p-28").json()
+    assert d["product"]["name"].startswith("방어·광어 모둠회") and d["product"]["group"] == "대표 메뉴" and d["product"]["popular"]
+    assert d["product"]["image"].startswith("https://images.unsplash.com/") and d["store"]["id"] == "dongmun-hoe"
+    assert client.get("/v1/catalog/products/nope").status_code == 404
+    groups = {p["group"] for p in client.get("/v1/catalog/stores/makgeolli").json()["products"]}
+    assert groups == {"대표 메뉴", "사이드·음료"} or groups <= {"대표 메뉴", "메뉴", "사이드·음료"}

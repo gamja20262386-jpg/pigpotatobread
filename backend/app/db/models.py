@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
-from sqlalchemy import JSON, DateTime, Float, ForeignKey, Integer, String
+from sqlalchemy import JSON, Boolean, DateTime, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
@@ -31,6 +31,9 @@ class Store(Base):
     lng: Mapped[float] = mapped_column(Float)
     rating: Mapped[float] = mapped_column(Float)
     delivery_fee: Mapped[int] = mapped_column(Integer, default=0)
+    min_order: Mapped[int] = mapped_column(Integer, default=0)        # 최소주문금액(시장 가게는 0: 묶음 배송)
+    pickup: Mapped[bool] = mapped_column(Boolean, default=True)       # 포장 가능
+    image: Mapped[str | None] = mapped_column(String, nullable=True)  # 사진 URL(없으면 앱이 아이콘 타일)
 
 
 class Product(Base):
@@ -45,6 +48,9 @@ class Product(Base):
     stock: Mapped[int] = mapped_column(Integer)
     serves: Mapped[int] = mapped_column(Integer, default=1)
     tags: Mapped[list] = mapped_column(JSON, default=list)
+    group: Mapped[str] = mapped_column(String, default="메뉴")         # 대표 메뉴 | 메뉴 | 사이드·음료 (가게 화면 메뉴 구역)
+    popular: Mapped[bool] = mapped_column(Boolean, default=False)      # 대표 배지
+    image: Mapped[str | None] = mapped_column(String, nullable=True)
 
 
 class User(Base):

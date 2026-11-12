@@ -13,7 +13,10 @@
     "lat": 33.4997,
     "lng": 126.5312,
     "rating": 4.8,
-    "delivery_fee": 2000
+    "delivery_fee": 2000,
+    "min_order": 12000,
+    "pickup": true,
+    "image": null
   },
   {
     "id": "store-2",
@@ -29,7 +32,10 @@
     "lat": 33.489,
     "lng": 126.489,
     "rating": 4.9,
-    "delivery_fee": 2000
+    "delivery_fee": 2000,
+    "min_order": 12000,
+    "pickup": true,
+    "image": null
   },
   {
     "id": "store-3",
@@ -45,7 +51,10 @@
     "lat": 33.5003,
     "lng": 126.529,
     "rating": 4.7,
-    "delivery_fee": 2000
+    "delivery_fee": 2000,
+    "min_order": 12000,
+    "pickup": true,
+    "image": null
   },
   {
     "id": "store-4",
@@ -61,7 +70,10 @@
     "lat": 33.516,
     "lng": 126.518,
     "rating": 4.8,
-    "delivery_fee": 3000
+    "delivery_fee": 3000,
+    "min_order": 20000,
+    "pickup": true,
+    "image": "https://images.unsplash.com/photo-1534482421-64566f976cfa"
   },
   {
     "id": "store-5",
@@ -77,7 +89,10 @@
     "lat": 33.488,
     "lng": 126.495,
     "rating": 4.9,
-    "delivery_fee": 2000
+    "delivery_fee": 2000,
+    "min_order": 10000,
+    "pickup": true,
+    "image": null
   },
   {
     "id": "store-6",
@@ -93,7 +108,10 @@
     "lat": 33.484,
     "lng": 126.481,
     "rating": 4.7,
-    "delivery_fee": 2000
+    "delivery_fee": 2000,
+    "min_order": 15000,
+    "pickup": true,
+    "image": null
   },
   {
     "id": "store-7",
@@ -109,7 +127,10 @@
     "lat": 33.515,
     "lng": 126.523,
     "rating": 4.8,
-    "delivery_fee": 2000
+    "delivery_fee": 2000,
+    "min_order": 12000,
+    "pickup": true,
+    "image": null
   },
   {
     "id": "store-8",
@@ -125,7 +146,10 @@
     "lat": 33.5118,
     "lng": 126.526,
     "rating": 4.6,
-    "delivery_fee": 2000
+    "delivery_fee": 2000,
+    "min_order": 12000,
+    "pickup": true,
+    "image": null
   },
   {
     "id": "store-9",
@@ -141,7 +165,10 @@
     "lat": 33.463,
     "lng": 126.311,
     "rating": 4.7,
-    "delivery_fee": 3000
+    "delivery_fee": 3000,
+    "min_order": 15000,
+    "pickup": true,
+    "image": null
   },
   {
     "id": "store-10",
@@ -157,7 +184,10 @@
     "lat": 33.499,
     "lng": 126.53,
     "rating": 4.6,
-    "delivery_fee": 2000
+    "delivery_fee": 2000,
+    "min_order": 12000,
+    "pickup": true,
+    "image": null
   },
   {
     "id": "jeju-bite",
@@ -173,7 +203,10 @@
     "lat": 33.5124,
     "lng": 126.5266,
     "rating": 4.7,
-    "delivery_fee": 0
+    "delivery_fee": 0,
+    "min_order": 0,
+    "pickup": true,
+    "image": null
   },
   {
     "id": "dolharubang",
@@ -189,7 +222,10 @@
     "lat": 33.5121,
     "lng": 126.5272,
     "rating": 4.6,
-    "delivery_fee": 0
+    "delivery_fee": 0,
+    "min_order": 0,
+    "pickup": true,
+    "image": null
   },
   {
     "id": "gyul-dessert",
@@ -205,7 +241,10 @@
     "lat": 33.5126,
     "lng": 126.527,
     "rating": 4.7,
-    "delivery_fee": 0
+    "delivery_fee": 0,
+    "min_order": 0,
+    "pickup": true,
+    "image": null
   },
   {
     "id": "badang-skewer",
@@ -221,7 +260,10 @@
     "lat": 33.5119,
     "lng": 126.5265,
     "rating": 4.8,
-    "delivery_fee": 0
+    "delivery_fee": 0,
+    "min_order": 0,
+    "pickup": true,
+    "image": null
   },
   {
     "id": "souvenir",
@@ -237,7 +279,10 @@
     "lat": 33.5123,
     "lng": 126.5275,
     "rating": 4.5,
-    "delivery_fee": 0
+    "delivery_fee": 0,
+    "min_order": 0,
+    "pickup": true,
+    "image": null
   },
   {
     "id": "oreum-drink",
@@ -253,7 +298,10 @@
     "lat": 33.512,
     "lng": 126.5268,
     "rating": 4.6,
-    "delivery_fee": 0
+    "delivery_fee": 0,
+    "min_order": 0,
+    "pickup": true,
+    "image": null
   },
   {
     "id": "dongmun-hoe",
@@ -269,7 +317,10 @@
     "lat": 33.5125,
     "lng": 126.5262,
     "rating": 4.9,
-    "delivery_fee": 0
+    "delivery_fee": 0,
+    "min_order": 0,
+    "pickup": true,
+    "image": "https://images.unsplash.com/photo-1534482421-64566f976cfa"
   },
   {
     "id": "galchi-house",
@@ -285,7 +336,10 @@
     "lat": 33.5127,
     "lng": 126.5273,
     "rating": 4.8,
-    "delivery_fee": 0
+    "delivery_fee": 0,
+    "min_order": 0,
+    "pickup": true,
+    "image": null
   },
   {
     "id": "heukdwaeji",
@@ -301,7 +355,10 @@
     "lat": 33.5118,
     "lng": 126.5271,
     "rating": 4.8,
-    "delivery_fee": 0
+    "delivery_fee": 0,
+    "min_order": 0,
+    "pickup": true,
+    "image": "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba"
   },
   {
     "id": "omegi",
@@ -317,7 +374,10 @@
     "lat": 33.5123,
     "lng": 126.5258,
     "rating": 4.9,
-    "delivery_fee": 0
+    "delivery_fee": 0,
+    "min_order": 0,
+    "pickup": true,
+    "image": null
   },
   {
     "id": "gamgyul",
@@ -333,7 +393,10 @@
     "lat": 33.5121,
     "lng": 126.5277,
     "rating": 4.7,
-    "delivery_fee": 0
+    "delivery_fee": 0,
+    "min_order": 0,
+    "pickup": true,
+    "image": "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b"
   },
   {
     "id": "makgeolli",
@@ -349,6 +412,389 @@
     "lat": 33.5116,
     "lng": 126.5264,
     "rating": 4.6,
-    "delivery_fee": 0
+    "delivery_fee": 0,
+    "min_order": 0,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-11",
+    "name": "연동 카츠공방",
+    "kind": "restaurant",
+    "category": "japanese",
+    "label": "돈까스",
+    "icon": "🍱",
+    "story": "숙성 등심을 저온에서 튀겨요",
+    "open": "11:00",
+    "close": "21:30",
+    "prep_min": 20,
+    "lat": 33.489,
+    "lng": 126.493,
+    "rating": 4.7,
+    "delivery_fee": 2500,
+    "min_order": 13000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-12",
+    "name": "탑동 초밥",
+    "kind": "restaurant",
+    "category": "japanese",
+    "label": "초밥",
+    "icon": "🍣",
+    "story": "제주 생선으로 쥐는 초밥",
+    "open": "11:30",
+    "close": "21:00",
+    "prep_min": 25,
+    "lat": 33.516,
+    "lng": 126.521,
+    "rating": 4.8,
+    "delivery_fee": 3000,
+    "min_order": 18000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-13",
+    "name": "돔베고기 하우스",
+    "kind": "restaurant",
+    "category": "pork",
+    "label": "흑돼지",
+    "icon": "🥩",
+    "story": "도마 위에 썰어 내는 돔베고기",
+    "open": "11:00",
+    "close": "22:00",
+    "prep_min": 20,
+    "lat": 33.499,
+    "lng": 126.525,
+    "rating": 4.8,
+    "delivery_fee": 2000,
+    "min_order": 15000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-14",
+    "name": "연탄 흑돼지 골목",
+    "kind": "restaurant",
+    "category": "pork",
+    "label": "흑돼지 구이",
+    "icon": "🔥",
+    "story": "연탄불에 초벌한 오겹살",
+    "open": "16:00",
+    "close": "24:00",
+    "prep_min": 25,
+    "lat": 33.486,
+    "lng": 126.487,
+    "rating": 4.6,
+    "delivery_fee": 3000,
+    "min_order": 20000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-15",
+    "name": "보말 칼국수집",
+    "kind": "restaurant",
+    "category": "soup",
+    "label": "보말",
+    "icon": "🐚",
+    "story": "바다 고둥 보말로 끓인 국물",
+    "open": "08:00",
+    "close": "20:00",
+    "prep_min": 15,
+    "lat": 33.517,
+    "lng": 126.515,
+    "rating": 4.8,
+    "delivery_fee": 2000,
+    "min_order": 10000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-16",
+    "name": "제주 해장국 본가",
+    "kind": "restaurant",
+    "category": "soup",
+    "label": "해장국",
+    "icon": "🍲",
+    "story": "선지·우거지 듬뿍 해장국",
+    "open": "06:00",
+    "close": "15:00",
+    "prep_min": 10,
+    "lat": 33.501,
+    "lng": 126.532,
+    "rating": 4.7,
+    "delivery_fee": 2000,
+    "min_order": 9000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-17",
+    "name": "한라 숯불치킨",
+    "kind": "restaurant",
+    "category": "chicken",
+    "label": "숯불치킨",
+    "icon": "🔥",
+    "story": "숯불에 두 번 굽는 치킨",
+    "open": "16:00",
+    "close": "24:00",
+    "prep_min": 25,
+    "lat": 33.483,
+    "lng": 126.48,
+    "rating": 4.7,
+    "delivery_fee": 2500,
+    "min_order": 16000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-18",
+    "name": "감귤 양념치킨",
+    "kind": "restaurant",
+    "category": "chicken",
+    "label": "양념치킨",
+    "icon": "🍊",
+    "story": "감귤청으로 만든 양념",
+    "open": "15:00",
+    "close": "24:00",
+    "prep_min": 25,
+    "lat": 33.5,
+    "lng": 126.53,
+    "rating": 4.6,
+    "delivery_fee": 2000,
+    "min_order": 16000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-19",
+    "name": "오름 베이커리",
+    "kind": "restaurant",
+    "category": "cafe",
+    "label": "베이커리",
+    "icon": "🥐",
+    "story": "제주 재료로 굽는 빵",
+    "open": "08:00",
+    "close": "21:00",
+    "prep_min": 10,
+    "lat": 33.487,
+    "lng": 126.492,
+    "rating": 4.8,
+    "delivery_fee": 2000,
+    "min_order": 10000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-20",
+    "name": "바다뷰 커피",
+    "kind": "restaurant",
+    "category": "cafe",
+    "label": "카페",
+    "icon": "☕",
+    "story": "탑동 바다 앞 로스터리",
+    "open": "09:00",
+    "close": "23:00",
+    "prep_min": 10,
+    "lat": 33.517,
+    "lng": 126.519,
+    "rating": 4.7,
+    "delivery_fee": 2000,
+    "min_order": 8000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-21",
+    "name": "삼양 분식",
+    "kind": "restaurant",
+    "category": "snack",
+    "label": "분식",
+    "icon": "🍢",
+    "story": "학교 앞 그 맛 분식",
+    "open": "10:00",
+    "close": "21:00",
+    "prep_min": 10,
+    "lat": 33.518,
+    "lng": 126.58,
+    "rating": 4.6,
+    "delivery_fee": 2000,
+    "min_order": 10000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-22",
+    "name": "올레 국수",
+    "kind": "restaurant",
+    "category": "snack",
+    "label": "국수",
+    "icon": "🍜",
+    "story": "고기국수·비빔국수 전문",
+    "open": "09:00",
+    "close": "20:00",
+    "prep_min": 15,
+    "lat": 33.498,
+    "lng": 126.528,
+    "rating": 4.8,
+    "delivery_fee": 2000,
+    "min_order": 9000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-23",
+    "name": "협재 파스타",
+    "kind": "restaurant",
+    "category": "western",
+    "label": "파스타",
+    "icon": "🍝",
+    "story": "제주 해산물 파스타",
+    "open": "11:00",
+    "close": "21:30",
+    "prep_min": 20,
+    "lat": 33.489,
+    "lng": 126.486,
+    "rating": 4.7,
+    "delivery_fee": 3000,
+    "min_order": 15000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-24",
+    "name": "제주 버거 랩",
+    "kind": "restaurant",
+    "category": "western",
+    "label": "버거",
+    "icon": "🍔",
+    "story": "흑돼지 패티 수제버거",
+    "open": "10:30",
+    "close": "22:00",
+    "prep_min": 15,
+    "lat": 33.51,
+    "lng": 126.525,
+    "rating": 4.6,
+    "delivery_fee": 2500,
+    "min_order": 12000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-25",
+    "name": "용담 반점",
+    "kind": "restaurant",
+    "category": "chinese",
+    "label": "중식",
+    "icon": "🥢",
+    "story": "40년 된 동네 중국집",
+    "open": "10:30",
+    "close": "21:00",
+    "prep_min": 15,
+    "lat": 33.511,
+    "lng": 126.511,
+    "rating": 4.7,
+    "delivery_fee": 2000,
+    "min_order": 12000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-26",
+    "name": "보말 짬뽕",
+    "kind": "restaurant",
+    "category": "chinese",
+    "label": "짬뽕",
+    "icon": "🌶️",
+    "story": "보말로 국물 낸 짬뽕",
+    "open": "11:00",
+    "close": "20:30",
+    "prep_min": 15,
+    "lat": 33.495,
+    "lng": 126.535,
+    "rating": 4.8,
+    "delivery_fee": 2000,
+    "min_order": 12000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-27",
+    "name": "도두 활어회",
+    "kind": "restaurant",
+    "category": "seafood",
+    "label": "활어회",
+    "icon": "🐟",
+    "story": "도두항 앞 횟집",
+    "open": "12:00",
+    "close": "22:00",
+    "prep_min": 25,
+    "lat": 33.507,
+    "lng": 126.466,
+    "rating": 4.7,
+    "delivery_fee": 3000,
+    "min_order": 20000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-28",
+    "name": "성게 미역국집",
+    "kind": "restaurant",
+    "category": "seafood",
+    "label": "해산물",
+    "icon": "🦀",
+    "story": "성게·전복 요리",
+    "open": "08:00",
+    "close": "20:00",
+    "prep_min": 15,
+    "lat": 33.515,
+    "lng": 126.51,
+    "rating": 4.8,
+    "delivery_fee": 2000,
+    "min_order": 12000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-29",
+    "name": "구좌 당근밭 직판",
+    "kind": "restaurant",
+    "category": "grocery",
+    "label": "농산물",
+    "icon": "🥕",
+    "story": "구좌 당근 산지 직판",
+    "open": "08:00",
+    "close": "19:00",
+    "prep_min": 10,
+    "lat": 33.52,
+    "lng": 126.85,
+    "rating": 4.8,
+    "delivery_fee": 3000,
+    "min_order": 10000,
+    "pickup": true,
+    "image": null
+  },
+  {
+    "id": "store-30",
+    "name": "애월 한라봉 농장",
+    "kind": "restaurant",
+    "category": "grocery",
+    "label": "과일",
+    "icon": "🍊",
+    "story": "애월 언덕 한라봉 농장",
+    "open": "08:00",
+    "close": "19:00",
+    "prep_min": 10,
+    "lat": 33.46,
+    "lng": 126.33,
+    "rating": 4.9,
+    "delivery_fee": 3000,
+    "min_order": 15000,
+    "pickup": true,
+    "image": null
   }
 ]
