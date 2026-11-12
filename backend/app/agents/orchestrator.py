@@ -37,6 +37,8 @@ def _system(flow: str) -> str:
 SCHEMA = {"type": "object", "properties": {"summary": {"type": "string"}}, "required": ["summary"], "additionalProperties": False}
 PROPOSAL_FLOWS = ("plan_order", "cart_check")
 FRESHNESS_WARNING_REF = "eta_min > cold_max_transit_min"     # agents/care/freshness.py 경고 주장의 calc 근거
+HOT_WARNING_REF = "eta_min > hot_max_transit_min"
+MAX_SUMMARY_SENTENCES = 2       # 요약은 짧게(나머지는 근거·카드에)
 ORDERED_RE = re.compile(r"주문(?:했|을\s*했|하셨|되었|됐|완료)")
 
 
@@ -44,25 +46,39 @@ def must_include(flow: str, claims: list[Claim]) -> list[str]:
     """제안 흐름에서 요약에 빠지면 안 되는 주장: 품절 대체('단,'), 신선 경고(freshness estimate), 배달 범위 밖(delivery question)."""
     if flow not in PROPOSAL_FLOWS:
         return []
+    # 신선·온도·배달 범위 경고는 앱 제안 카드의 경고 상자에 그대로 나오므로 요약에는 넣지 않는다(같은 말 세 번 방지)
     return [c.text for c in claims if c.text.startswith("단,")
-            or (c.agent_id == "freshness" and any(e.ref == FRESHNESS_WARNING_REF for e in c.evidence))
-            or (c.agent_id == "delivery" and c.level == "question")
             or (c.agent_id == "curator" and any(e.kind == "input" and e.ref == "now" for e in c.evidence))]
+
+
+def warning_texts(claims: list[Claim]) -> list[str]:
+    """카드 경고 상자에 따로 나오는 문장: 신선·따뜻한 음식 경고, 배달 범위 밖."""
+    return [c.text for c in claims
+            if (c.agent_id == "freshness" and any(e.ref in (FRESHNESS_WARNING_REF, HOT_WARNING_REF) for e in c.evidence))
+            or (c.agent_id == "delivery" and c.level == "question")]
 
 
 def _norm(s: str) -> str:
     return re.sub(r"[\s.,!?~·]", "", s).removeprefix("현재").removeprefix("지금")
 
 
-def _with_key_sentences(summary: str, key: list[str]) -> str:
-    """꼭 알릴 문장을 원문 그대로 끝에 붙인다. LLM이 같은 내용을 자기 말로 쓴 문장(유사도 0.75 이상)은 빼서 겹치지 않게."""
-    if not key:
-        return summary
-    split = lambda text: [s.strip() for s in re.split(r"(?<=[.!?])\s+", text) if s.strip()]
-    key_sentences = [_norm(k) for t in key for k in split(t)]
-    keep = [s for s in split(summary)
-            if not any(SequenceMatcher(None, _norm(s), k).ratio() >= 0.75 or k in _norm(s) for k in key_sentences)]
-    return " ".join(keep + key).strip()
+def _split(text: str) -> list[str]:
+    return [s.strip() for s in re.split(r"(?<=[.!?])\s+", text) if s.strip()]
+
+
+def _similar(sentence: str, targets: list[str]) -> bool:
+    n = _norm(sentence)
+    return any(SequenceMatcher(None, n, t).ratio() >= 0.75 or t in n or (len(n) > 8 and n in t) for t in targets)
+
+
+def _with_key_sentences(summary: str, key: list[str], avoid: list[str] | None = None) -> str:
+    """LLM 요약을 다듬는다: 끝이 잘린 문장 빼기 → 카드 경고·꼭 알릴 문장과 같은 뜻의 문장 빼기 → 앞 2문장만 → 꼭 알릴 문장을 원문 그대로 붙이기."""
+    sentences = _split(summary)
+    if sentences and not re.search(r"[.!?]$|[요다죠]$", sentences[-1]):     # 토큰 한도로 잘린 꼬리
+        sentences = sentences[:-1]
+    targets = [_norm(k) for t in [*key, *(avoid or [])] for k in _split(t)]
+    keep = [s for s in sentences if not _similar(s, targets)][:MAX_SUMMARY_SENTENCES]
+    return " ".join(keep + key).strip() or summary
 
 
 def template_summary(flow: str, claims: list[Claim]) -> str:
@@ -87,6 +103,9 @@ def summarize(flow: str, claims: list[Claim], llm, log=None, ctx: dict | None = 
     key = must_include(flow, claims)
     if key:     # 꼭 알릴 문장은 코드가 요약 끝에 그대로 붙인다 → LLM은 같은 내용을 반복하지 않게
         user += "\n\n아래 문장은 앱이 요약 끝에 그대로 붙인다. 같은 내용을 다시 쓰지 마라:\n" + "\n".join(f"* {t}" for t in key)
+    warns = warning_texts(claims) if flow in PROPOSAL_FLOWS else []
+    if warns:   # 경고는 카드 경고 상자에 나오므로 요약에서 빼게
+        user += "\n\n아래 경고는 앱 카드에 따로 보여 준다. 요약에 쓰지 마라:\n" + "\n".join(f"* {t}" for t in warns)
     body = user
     retries = int(load_harness().get("summary", {}).get("max_retries", 1))
     for attempt in range(retries + 1):
@@ -106,6 +125,6 @@ def summarize(flow: str, claims: list[Claim], llm, log=None, ctx: dict | None = 
         if log:
             log.add("gate", target="summary", attempt=attempt + 1, passed=not reasons, reasons=reasons)
         if not reasons:
-            return _with_key_sentences(kept, key), "llm"
+            return _with_key_sentences(kept, key, warning_texts(claims)), "llm"
         user = body + "\n\n이전 요약이 다음 이유로 거절됨: " + "; ".join(reasons) + "\n항목에 있는 숫자와 낱말만 써서 다시 써라."
     return template_summary(flow, claims), "template"

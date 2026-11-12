@@ -19,11 +19,11 @@ def categories():
     return {"categories": load_json("categories.json")}
 
 
-SORTS = {   # 배민식 정렬: 기본(영업 중 먼저, 별점) · 배달 빠른 순 · 별점 높은 순 · 배달팁 낮은 순
+SORTS = {   # 배민식 정렬: 기본 · 배달 빠른 순 · 별점 높은 순 · 배달팁 낮은 순 — 어느 정렬이든 영업 중인 가게가 먼저
     "default": lambda s: (not s["is_open"], -s["rating"]),
     "fast": lambda s: (not s["is_open"], s["eta_min"]),
-    "rating": lambda s: (-s["rating"], s["eta_min"]),
-    "fee": lambda s: (s["delivery_tip"], s["eta_min"]),
+    "rating": lambda s: (not s["is_open"], -s["rating"], s["eta_min"]),
+    "fee": lambda s: (not s["is_open"], s["delivery_tip"], s["eta_min"]),
 }
 
 

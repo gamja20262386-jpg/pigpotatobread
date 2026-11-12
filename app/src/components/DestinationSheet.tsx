@@ -9,7 +9,7 @@ import { Sheet } from './Sheet';
 import { ErrorView, Loading } from './States';
 import { Txt } from './Txt';
 
-export function DestinationSheet({ visible, onClose }: { visible: boolean; onClose: () => void }) {
+export function DestinationSheet({ visible, onClose, onPicked }: { visible: boolean; onClose: () => void; onPicked?: (id: string) => void }) {
   const { id, list, market } = useDestination();
   const setDestination = useSession((s) => s.setDestination);
   const token = useSession((s) => s.token);
@@ -17,6 +17,7 @@ export function DestinationSheet({ visible, onClose }: { visible: boolean; onClo
   const pick = (destId: string) => {
     setDestination(destId);
     if (token) void api.setPrefs({ destination_id: destId }).then((r) => setUser(r.user)).catch(() => undefined);
+    onPicked?.(destId);
     onClose();
   };
   return (

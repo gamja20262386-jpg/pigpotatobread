@@ -35,8 +35,8 @@ export default function MyScreen() {
             </View>
             <View style={{ flex: 1, gap: 2 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                <Txt v="bodyMedium" style={{ fontFamily: font.bold, fontSize: 17, flexShrink: 1 }} numberOfLines={1}>
-                  {`${user.name}님`}
+                <Txt v="bodyMedium" style={{ fontFamily: font.bold, fontSize: 17, lineHeight: 23, flexShrink: 1 }} numberOfLines={2}>
+                  {user.name.trim().endsWith('님') ? user.name.trim() : `${user.name.trim()}님`}
                 </Txt>
                 <Chip small label={user.role === 'merchant' ? '상인' : '고객'} tone={user.role === 'merchant' ? 'sea' : 'brand'} />
               </View>

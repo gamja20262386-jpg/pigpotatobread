@@ -14,8 +14,9 @@ import { Sheet } from '../src/components/Sheet';
 import { Empty } from '../src/components/States';
 import { Stepper } from '../src/components/Stepper';
 import { TempBadge } from '../src/components/TempBadge';
+import { Thumb } from '../src/components/Thumb';
 import { Txt } from '../src/components/Txt';
-import { useDestination } from '../src/hooks';
+import { useDestination, useProductIndex } from '../src/hooks';
 import { cartItems, useCart, type CartLine } from '../src/store/cart';
 import { useSession } from '../src/store/session';
 import { useResource } from '../src/useResource';
@@ -43,6 +44,7 @@ export default function CartScreen() {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [ordering, setOrdering] = useState(false);
   const [orderError, setOrderError] = useState('');
+  const productIndex = useProductIndex().data;
 
   const items = cartItems(lines);
   const key = useDebounced(items.length ? `${JSON.stringify(items)}|${destId}|${demoTime}` : null, 400);
@@ -60,7 +62,19 @@ export default function CartScreen() {
   const kindOf = (storeId: string) => q?.groups.find((g) => g.store_id === storeId)?.kind;
   const soldOut = q?.lines.filter((l) => l.sold_out) ?? [];
   const localSubtotal = lines.reduce((s, l) => s + l.price * l.qty, 0);
-  const canOrder = !!q && !stale && !quote.loading && q.in_zone && soldOut.length === 0 && !!destId;
+  // 문 닫은 가게: 서버 경고("…지금 영업 시간이 아니에요") 또는 묶음의 is_open=false
+  const closedWarning = q && !stale ? q.warnings.find((w) => w.includes('영업 시간')) ?? (q.groups.some((g) => g.is_open === false) ? '지금 문 닫은 가게가 있어요' : undefined) : undefined;
+  const canOrder = !!q && !stale && !quote.loading && q.in_zone && soldOut.length === 0 && !closedWarning && !!destId;
+  // 주문하기가 막힌 이유 한 줄
+  const blockedWhy = !q || stale || quote.loading
+    ? ''
+    : !q.in_zone
+      ? '배달 범위 밖이에요 · 배송지를 바꿔 주세요'
+      : closedWarning
+        ? '문 닫은 가게가 있어 지금은 주문할 수 없어요'
+        : soldOut.length
+          ? '품절된 상품을 빼면 주문할 수 있어요'
+          : '';
 
   // 주문은 되돌릴 수 없어서 확인 시트를 한 번 거친다
   const askOrder = () => {
@@ -93,9 +107,9 @@ export default function CartScreen() {
       footer={
         lines.length ? (
           <View style={{ gap: 6 }}>
-            {orderError ? (
-              <Txt v="caption" color={C.danger}>
-                {orderError}
+            {orderError || (token && blockedWhy) ? (
+              <Txt v="caption" color={C.danger} numberOfLines={2} style={{ textAlign: 'center' }}>
+                {orderError || blockedWhy}
               </Txt>
             ) : null}
             <Button
@@ -116,7 +130,7 @@ export default function CartScreen() {
       {lines.length === 0 ? (
         <Empty
           title="장바구니가 비었어요"
-          body="하르방에게 한 문장으로 말하면 시장 가게를 묶어 담아 드려요"
+          body="메뉴를 담거나 하르방에게 맡겨 보세요"
           action={{ label: '하르방에게 말하기', onPress: () => router.navigate('/agent') }}
         />
       ) : (
@@ -152,9 +166,9 @@ export default function CartScreen() {
                   const ql = q?.lines.find((x) => x.product_id === l.product_id);
                   return (
                     <View key={l.product_id} style={{ flexDirection: 'row', alignItems: 'center', gap: space.m }}>
+                      <Thumb image={productIndex?.find((p) => p.id === l.product_id)?.image} emoji={l.emoji ?? '🛍'} category={kind === 'market' ? 'market' : undefined} emojiSize={22} style={{ width: 48, height: 48, borderRadius: radius.chip }} />
                       <View style={{ flex: 1, gap: 2 }}>
                         <Txt v="bodyMedium" style={{ fontSize: 15 }} numberOfLines={2}>
-                          {l.emoji ? `${l.emoji} ` : ''}
                           {l.name}
                         </Txt>
                         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
@@ -174,11 +188,6 @@ export default function CartScreen() {
           })}
 
           <QuoteCard quote={q} run={quote.data?.run} loading={quote.loading || stale} error={quote.error} onRetry={quote.reload} />
-          {soldOut.length ? (
-            <Txt v="caption" color={C.danger}>
-              {`품절된 상품(${soldOut.map((l) => l.name).join(', ')})을 빼면 주문할 수 있어요.`}
-            </Txt>
-          ) : null}
         </>
       )}
 
@@ -186,8 +195,20 @@ export default function CartScreen() {
       <Sheet visible={confirmOpen} onClose={() => setConfirmOpen(false)} title="이대로 주문할까요">
         {q ? (
           <View style={{ gap: space.s }}>
+            <View style={{ gap: 4, paddingBottom: space.s, borderBottomWidth: 1, borderBottomColor: C.line }}>
+              {q.lines.map((l) => (
+                <View key={l.product_id} style={{ flexDirection: 'row', justifyContent: 'space-between', gap: space.m }}>
+                  <Txt v="caption" style={{ flex: 1, fontSize: 14, lineHeight: 20 }} numberOfLines={1}>
+                    {`${l.name} × ${l.qty}`}
+                  </Txt>
+                  <Txt v="caption" color={C.sub} style={{ fontSize: 14, lineHeight: 20 }}>
+                    {won(l.line_total)}
+                  </Txt>
+                </View>
+              ))}
+            </View>
             <ConfirmRow label="합계" value={won(q.total)} strong />
-            <ConfirmRow label="품목" value={`${q.lines.reduce((n, l) => n + l.qty, 0)}개 · 가게 ${q.groups.length}곳`} />
+            <ConfirmRow label="가게" value={`${q.groups.length}곳`} />
             <ConfirmRow label="도착 예상" value={`약 ${q.eta_min}분`} />
             <ConfirmRow label="배송지" value={q.destination.name} />
           </View>

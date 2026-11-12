@@ -82,13 +82,40 @@ export default function OrderScreen() {
   );
 }
 
+// 도착까지 남은 시간(분): 주문 시각부터 지난 시간과 지금 단계 중 더 짧은 쪽. 시연 시각을 쓰면 그 시각이 '지금'.
+function remainingMin(order: Order, demoTime: string | null) {
+  const eta = order.quote.eta_min;
+  const created = new Date(order.created_at);
+  let now = new Date();
+  if (demoTime) {
+    const [h, m] = demoTime.split(':').map(Number);
+    now = new Date(created);
+    now.setHours(h, m, 0, 0);
+  }
+  const elapsed = (now.getTime() - created.getTime()) / 60000;
+  const hasMarket = order.quote.groups.some((g) => g.kind === 'market');
+  const steps = hasMarket ? STEPS : STEPS.filter((s) => s.status !== 'hub_packed');
+  const idx = Math.max(0, steps.findIndex((s) => s.status === order.status));
+  const byStep = Math.ceil((eta * (steps.length - 1 - idx)) / (steps.length - 1));
+  // 시각이 맞지 않으면(시연 시각과 다른 때 만든 주문 등) 단계 기준만 쓴다
+  const byTime = elapsed >= 0 && elapsed <= eta ? Math.round(eta - elapsed) : byStep;
+  return Math.max(1, Math.min(byTime, byStep));
+}
+
 function OrderHead({ order }: { order: Order }) {
+  const demoTime = useSession((s) => s.demoTime);
+  const done = order.status === 'delivered';
   return (
     <View style={{ gap: 4 }}>
       <Txt v="label" color={C.sub}>
-        {`ORDER · ${order.id.slice(0, 8).toUpperCase()}`}
+        {`주문번호 ${order.id.slice(0, 8).toUpperCase()}`}
       </Txt>
-      <Txt v="display">{order.status === 'delivered' ? '잘 도착했어요' : eyo(order.status_label)}</Txt>
+      <Txt v="display">{done ? '잘 도착했어요' : eyo(order.status_label)}</Txt>
+      {!done ? (
+        <Txt v="bodyMedium" color={C.brand}>
+          {`도착까지 약 ${remainingMin(order, demoTime)}분`}
+        </Txt>
+      ) : null}
       <Txt v="caption" color={C.sub}>
         {`${fmtTime(order.created_at)} 주문 · ${order.destination.name}${order.agent_run_id ? ' · 하르방 제안으로 담음' : ''}`}
       </Txt>
@@ -174,7 +201,7 @@ function Receipt({ order }: { order: Order }) {
     <View style={{ borderRadius: radius.card, overflow: 'hidden', borderWidth: 1, borderColor: C.line, backgroundColor: C.card }}>
       <View style={{ backgroundColor: C.basalt, padding: space.l, gap: 2 }}>
         <Txt v="label" color={C.brand}>
-          RECEIPT
+          영수증
         </Txt>
         <Txt v="serifTitle" color={C.white}>
           {`${q.groups.length}곳에서 ${q.lines.reduce((n, l) => n + l.qty, 0)}개`}

@@ -28,8 +28,10 @@ def next_status(status: str, quote: dict) -> str | None:
     return None
 
 
-def history_entry(status: str) -> dict:
-    return {"status": status, "status_label": STATUS_LABEL[status], "at": datetime.now(timezone.utc).isoformat()}
+def history_entry(status: str, at: datetime | None = None) -> dict:
+    """at: 시연 시각(X-Demo-Time 반영). 없으면 지금."""
+    when = (at or datetime.now(timezone.utc)).astimezone(timezone.utc)
+    return {"status": status, "status_label": STATUS_LABEL[status], "at": when.isoformat()}
 
 
 def order_view(o: Order) -> dict:

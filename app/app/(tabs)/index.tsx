@@ -10,7 +10,7 @@ import { NudgeCard } from '../../src/components/NudgeCard';
 import { Screen, SectionTitle } from '../../src/components/Screen';
 import { Empty, ErrorView, Loading } from '../../src/components/States';
 import { StoreCard, StoreRow } from '../../src/components/StoreCard';
-import { categoryTint } from '../../src/components/Thumb';
+import { Thumb, categoryTint } from '../../src/components/Thumb';
 import { Txt } from '../../src/components/Txt';
 import { useDestination } from '../../src/hooks';
 import { useAgent } from '../../src/store/agent';
@@ -25,6 +25,10 @@ const SERVICES: { id: Service; label: string }[] = [
   { id: 'market', label: '동문시장 장보기' },
   { id: 'pickup', label: '포장' },
 ];
+
+// 시장 장보기 칸 순서: 많이 찾는 라벨 먼저
+const MARKET_FIRST = ['회·해산물', '떡', '꼬치', '반찬', '건어물', '생선구이', '흑돼지', '과일', '제주 간식', '술·안주'];
+const marketRank = (label: string) => (MARKET_FIRST.includes(label) ? MARKET_FIRST.indexOf(label) : MARKET_FIRST.length);
 
 const inService = (service: Service) => (s: Store) =>
   service === 'delivery' ? s.kind === 'restaurant' : service === 'market' ? s.kind === 'market' : s.pickup;
@@ -52,7 +56,31 @@ export default function Home() {
   const marketList = (fast.data?.stores ?? []).filter((s) => s.kind === 'market').sort((a, b) => Number(b.is_open) - Number(a.is_open)).slice(0, 8);
   const topList = (rated.data?.stores ?? []).filter(pick).slice(0, 5);
   const visibleNudges = (nudges.data?.nudges ?? []).filter((n) => !dismissed.includes(n.id));
-  const grid = (categories.data?.categories ?? []).filter((c) => c.id !== 'market');
+  // 서비스 탭마다 5×2 칸이 바뀐다: 음식배달 = 카테고리, 동문시장 = 시장 라벨(→ /market 필터), 포장 = 포장 되는 가게
+  const allStores = fast.data?.stores ?? [];
+  const grid: { key: string; name: string; emoji: string; tint: string; image?: string | null; label: string; go: () => void }[] =
+    service === 'market'
+      ? [...new Map(allStores.filter((s) => s.kind === 'market').map((s) => [s.label, s])).values()].sort((a, b) => marketRank(a.label) - marketRank(b.label)).slice(0, 10).map((s) => ({
+          key: `m-${s.label}`,
+          name: s.label,
+          emoji: s.icon,
+          tint: categoryTint('market'),
+          label: `${s.label} 시장 가게`,
+          go: () => router.navigate({ pathname: '/market', params: { label: s.label, at: String(Date.now()) } }),
+        }))
+      : service === 'pickup'
+        ? allStores.filter((s) => s.pickup).slice(0, 10).map((s) => ({
+            key: `p-${s.id}`,
+            name: s.name,
+            emoji: s.icon,
+            tint: categoryTint(s.category),
+            image: s.image,
+            label: `${s.name} 포장 주문`,
+            go: () => router.push(`/store/${s.id}`),
+          }))
+        : (categories.data?.categories ?? [])
+            .filter((c) => c.id !== 'market')
+            .map((c) => ({ key: c.id, name: c.name, emoji: c.emoji, tint: categoryTint(c.id), label: `${c.name} 가게 목록`, go: () => router.push(`/category/${c.id}`) }));
   const count = cartCount(lines);
   const what = service === 'delivery' ? '맛집' : service === 'market' ? '시장 가게' : '포장 가게';
 
@@ -144,15 +172,13 @@ export default function Home() {
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', rowGap: space.m }}>
             {grid.map((c) => (
               <Pressable
-                key={c.id}
-                onPress={() => router.push(`/category/${c.id}`)}
+                key={c.key}
+                onPress={c.go}
                 accessibilityRole="button"
-                accessibilityLabel={`${c.name} 가게 목록`}
+                accessibilityLabel={c.label}
                 style={({ pressed }) => ({ width: '20%', alignItems: 'center', gap: 4, opacity: pressed ? 0.7 : 1 })}
               >
-                <View style={{ width: 54, height: 54, borderRadius: radius.card, backgroundColor: categoryTint(c.id), alignItems: 'center', justifyContent: 'center' }}>
-                  <Txt style={{ fontSize: 27, lineHeight: 34 }}>{c.emoji}</Txt>
-                </View>
+                <Thumb image={c.image} emoji={c.emoji} emojiSize={27} style={{ width: 54, height: 54, backgroundColor: c.tint }} />
                 <Txt v="caption" numberOfLines={1} style={{ fontSize: 11.5, lineHeight: 15, letterSpacing: -0.3 }}>
                   {c.name}
                 </Txt>

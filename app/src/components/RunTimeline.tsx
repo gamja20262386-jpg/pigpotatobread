@@ -1,5 +1,5 @@
 // 작업 과정(v0.2 P): 실행 중에는 한 줄 상태("시장 가게 고르는 중…"), 끝나면 접힌 한 줄 "✓ 5단계 확인 · 8초 ›".
-// 펼치면 단계 목록 — 단계 이름은 한 일(주장에서 뽑은 짧은 말), 아래 작게 에이전트 번호·이름·AI. 새 결과는 120ms 간격으로 켜진다.
+// 펼치면 단계 목록 — 단계 이름은 한 일(주장에서 뽑은 짧은 말), 아래 작게 "OO 담당 · AI 도움"(번호·게이트 같은 말은 쓰지 않는다). 새 결과는 120ms 간격으로 켜진다.
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 import { useHarness } from '../hooks';
@@ -8,7 +8,7 @@ import { color as C, radius, space } from '../theme';
 import { Icon } from './Icon';
 import { Txt } from './Txt';
 
-type Step = { id: string; no: number | null; name: string; did: string; ok: boolean; llm: boolean; note?: string };
+type Step = { id: string; name: string; did: string; ok: boolean; llm: boolean; note?: string };
 
 const str = (v: unknown) => (typeof v === 'string' ? v : undefined);
 
@@ -71,7 +71,6 @@ function buildSteps(run: RunResult, agents: Map<string, HarnessAgent>): Step[] {
     const name = a?.name ?? id;
     return {
       id,
-      no: a?.no ?? null,
       name,
       did: didOf(id, run.public_claims.filter((c) => c.agent_id === id), name),
       ok,
@@ -97,8 +96,7 @@ export function RunTimeline({
   ms?: number;
 }) {
   const harness = useHarness();
-  // 번호(no)가 없으면 하네스 목록 순서로 대신한다
-  const agents = new Map((harness.data?.agents ?? []).map((a, i) => [a.id, { ...a, no: typeof a.no === 'number' ? a.no : i }]));
+  const agents = new Map((harness.data?.agents ?? []).map((a) => [a.id, a]));
   const [open, setOpen] = useState(defaultOpen);
   const steps: Step[] = run ? buildSteps(run, agents) : [];
   const flow = harness.data?.flows[pendingFlow ?? ''] ?? [];
@@ -132,7 +130,7 @@ export function RunTimeline({
   if (!run) {
     const id = flow.length ? flow[Math.min(cursor, flow.length - 1)] : undefined;
     return (
-      <View style={[box, { flexDirection: 'row', alignItems: 'center', minHeight: 40 }]} accessibilityRole="progressbar">
+      <View style={[box, { flexDirection: 'row', alignItems: 'center', minHeight: 44 }]} accessibilityRole="progressbar">
         <ActivityIndicator size="small" color={C.brand} />
         <Txt v="captionMedium" color={fg} style={{ fontSize: 14, flex: 1 }} numberOfLines={1}>
           {(id && DOING[id]) || '하르방 팀이 확인하는 중…'}
@@ -198,7 +196,7 @@ function StepRow({ step, on, last, dark }: { step: Step; on: boolean; last: bool
           {step.ok ? step.did : step.note || '확인이 필요해요'}
         </Txt>
         <Txt v="caption" color={sub} style={{ fontSize: 12, lineHeight: 16 }} numberOfLines={1}>
-          {`${step.no !== null ? `#${step.no} ` : ''}${step.name}${step.llm ? ' · AI' : ''}`}
+          {`${step.name} 담당${step.llm ? ' · AI 도움' : ''}`}
         </Txt>
       </View>
     </View>
@@ -207,11 +205,11 @@ function StepRow({ step, on, last, dark }: { step: Step; on: boolean; last: bool
 
 function GateRow({ run, dark }: { run: RunResult; dark?: boolean }) {
   const sub = dark ? C.basaltSub : C.sub;
-  const llmText = run.summary_source === 'llm' ? `AI가 말을 다듬음 · ${run.llm.model.split(':')[0]}` : '규칙 템플릿으로 요약';
+  const llmText = run.summary_source === 'llm' ? 'AI가 문장을 다듬음' : '규칙으로 정리';
   return (
     <View style={{ marginTop: 4, paddingTop: 6, borderTopWidth: 1, borderTopColor: dark ? C.basalt : C.line }}>
       <Txt v="caption" color={sub} style={{ fontSize: 12 }}>
-        {`게이트 통과 ${run.public_claims.length}${run.blocked_count ? ` · 뺀 주장 ${run.blocked_count}` : ''} · ${llmText}`}
+        {`근거 확인 ${run.public_claims.length}개 통과${run.blocked_count ? ` · 근거 없는 말 ${run.blocked_count}개 뺌` : ''} · ${llmText}`}
       </Txt>
     </View>
   );

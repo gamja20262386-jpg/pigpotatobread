@@ -1,5 +1,5 @@
 // 카테고리 목록(v0.2 C): 뒤로 + 제목 → 가로 카테고리 탭(활성 밑줄, 자동 스크롤) → 정렬·필터 칩 → 목록형 가게 카드
-import { router, useLocalSearchParams } from 'expo-router';
+import { Redirect, router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Pressable, ScrollView, View, type ScrollViewInstance } from 'react-native';
 import { api } from '../../src/api';
@@ -35,7 +35,7 @@ export default function CategoryScreen() {
   const categories = useResource('categories', () => api.categories());
   const tabs = (categories.data?.categories ?? []).filter((c) => c.id !== 'market');
   const current = tabs.find((c) => c.id === category);
-  const stores = useResource(`cat:${category}:${sort}:${openOnly}:${demoTime}:${destId}`, () =>
+  const stores = useResource(category === 'market' ? null : `cat:${category}:${sort}:${openOnly}:${demoTime}:${destId}`, () =>
     api.stores({ kind: 'restaurant', category, sort, open_only: openOnly, destination_id: destId }),
   );
   const list = (stores.data?.stores ?? []).filter((s) => !pickupOnly || s.pickup);
@@ -50,6 +50,8 @@ export default function CategoryScreen() {
   }, [category, laidOut]);
 
   const filtered = openOnly || pickupOnly;
+  // 동문시장은 카테고리 목록이 아니라 시장 탭으로
+  if (category === 'market') return <Redirect href="/market" />;
 
   return (
     <Screen

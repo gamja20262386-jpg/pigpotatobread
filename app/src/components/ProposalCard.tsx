@@ -1,5 +1,7 @@
 // 장바구니 제안 카드(plan_order): 가게별 묶음(품목마다 이유 한 줄)·봉투·배달비·도착 예상·경고 → 이대로 담기 / 고쳐서 담기
 import { useState } from 'react';
+import { ro } from '../format';
+import { useDestination } from '../hooks';
 import { View } from 'react-native';
 import type { CartLine } from '../store/cart';
 import type { Claim, Proposal, Quote, QuoteLine } from '../types';
@@ -8,6 +10,7 @@ import { color as C, radius, space, won } from '../theme';
 import { BagChips, Warnings } from './QuoteParts';
 import { Button } from './Button';
 import { Chip } from './Chip';
+import { DestinationSheet } from './DestinationSheet';
 import { MoneyRow } from './MoneyRow';
 import { Stepper } from './Stepper';
 import { Txt } from './Txt';
@@ -54,6 +57,11 @@ export function ProposalCard({
   const [qty, setQty] = useState<Record<string, number>>(() => Object.fromEntries(q.lines.map((l) => [l.product_id, l.qty])));
   const editedSubtotal = q.lines.reduce((s, l) => s + l.price * (qty[l.product_id] ?? l.qty), 0);
   const changed = q.lines.some((l) => (qty[l.product_id] ?? l.qty) !== l.qty);
+  // 배달 범위 밖 제안: 이대로 담기 대신 배송지 바꾸기. 고른 뒤에만 "그 배송지로 담기"(장바구니가 다시 계산)
+  const { current } = useDestination();
+  const [destOpen, setDestOpen] = useState(false);
+  const [picked, setPicked] = useState<string | null>(null);
+  const pickedName = picked && current?.id === picked && picked !== q.destination.id ? current.name : null;
 
   return (
     <View style={{ borderRadius: radius.card, borderWidth: 1, borderColor: C.brand, backgroundColor: C.card, overflow: 'hidden' }}>
@@ -123,6 +131,11 @@ export function ProposalCard({
 
         {accepted ? (
           <Button label="담았어요 · 장바구니 보기" kind="dark" onPress={onOpenCart} />
+        ) : !q.in_zone ? (
+          <View style={{ flexDirection: 'row', gap: space.s }}>
+            {pickedName ? <Button label={`${ro(pickedName)} 담기`} onPress={() => onAccept(quoteToLines(q))} style={{ flex: 2, paddingHorizontal: 8 }} /> : null}
+            <Button label={pickedName ? '바꾸기' : '배송지 바꾸기'} kind={pickedName ? 'outline' : 'primary'} onPress={() => setDestOpen(true)} style={{ flex: 1, paddingHorizontal: 8 }} />
+          </View>
         ) : editing ? (
           <View style={{ flexDirection: 'row', gap: space.s }}>
             <Button label="취소" kind="outline" onPress={() => setEditing(false)} style={{ flex: 1, paddingHorizontal: 8 }} />
@@ -138,6 +151,7 @@ export function ProposalCard({
           담기 전에는 아무것도 주문되지 않아요
         </Txt>
       </View>
+      {!q.in_zone ? <DestinationSheet visible={destOpen} onClose={() => setDestOpen(false)} onPicked={setPicked} /> : null}
     </View>
   );
 }

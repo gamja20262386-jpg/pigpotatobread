@@ -1,22 +1,28 @@
 // 한 줄 입력 + 보내기 + 제안 칩 가로 스크롤
 import { useState } from 'react';
 import { Pressable, ScrollView, TextInput, View } from 'react-native';
-import { color as C, font, radius, space } from '../theme';
+import { color as C, font, noOutline, radius, space } from '../theme';
 import { Chip } from './Chip';
 import { Icon } from './Icon';
+import { Txt } from './Txt';
 
 export function AgentInput({
   onSend,
   busy,
   suggestions,
   placeholder = '한 문장으로 말해 보세요',
+  examplesOpen,
+  onToggleExamples,
 }: {
   onSend: (text: string) => void;
   busy?: boolean;
   suggestions?: { label: string; message: string }[];
   placeholder?: string;
+  examplesOpen?: boolean; // 주면 입력창 왼쪽에 작은 "예시" 토글
+  onToggleExamples?: () => void;
 }) {
   const [text, setText] = useState('');
+  const [focus, setFocus] = useState(false);
   const send = () => {
     const t = text.trim();
     if (!t || busy) return;
@@ -26,6 +32,19 @@ export function AgentInput({
   return (
     <View style={{ gap: space.s }}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.s }}>
+        {onToggleExamples ? (
+          <Pressable
+            onPress={onToggleExamples}
+            accessibilityRole="button"
+            accessibilityState={{ expanded: !!examplesOpen }}
+            accessibilityLabel="예시 문장 보기"
+            style={{ height: 48, paddingHorizontal: 10, borderRadius: radius.card, borderWidth: 1, borderColor: examplesOpen ? C.basalt : C.line, backgroundColor: examplesOpen ? C.basalt : C.card, alignItems: 'center', justifyContent: 'center' }}
+          >
+            <Txt v="captionMedium" color={examplesOpen ? C.white : C.sub}>
+              예시
+            </Txt>
+          </Pressable>
+        ) : null}
         <TextInput
           value={text}
           onChangeText={setText}
@@ -35,18 +54,21 @@ export function AgentInput({
           returnKeyType="send"
           maxLength={300}
           accessibilityLabel="하르방에게 말하기"
-          style={{
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
+          style={[{
             flex: 1,
             height: 48,
             borderRadius: radius.card,
             backgroundColor: C.bg,
             borderWidth: 1,
-            borderColor: C.line,
+            borderColor: focus ? C.brand : C.line,
             paddingHorizontal: space.l,
             fontFamily: font.regular,
             fontSize: 15,
             color: C.ink,
-          }}
+            minWidth: 0,
+          }, noOutline]}
         />
         <Pressable
           onPress={send}

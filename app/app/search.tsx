@@ -12,11 +12,11 @@ import { Empty, ErrorView, Loading } from '../src/components/States';
 import { StoreRow } from '../src/components/StoreCard';
 import { Txt } from '../src/components/Txt';
 import { useDestination } from '../src/hooks';
-import { useAgent } from '../src/store/agent';
+import { looksLikeOrder, useAgent } from '../src/store/agent';
 import { useCart } from '../src/store/cart';
 import { useSession } from '../src/store/session';
 import { useResource } from '../src/useResource';
-import { color as C, font, radius, space } from '../src/theme';
+import { color as C, font, noOutline, radius, space } from '../src/theme';
 
 const POPULAR = ['회', '흑돼지', '고기국수', '오메기떡', '갈치', '감귤', '치킨', '막걸리'];
 const norm = (s: string) => s.toLowerCase().replace(/\s+/g, '');
@@ -48,6 +48,9 @@ export default function SearchScreen() {
         .filter((s) => menuStores.has(s.id) || norm(`${s.name} ${s.label} ${s.story} ${catName(s.category)}`).includes(needle))
         .sort((a, b) => Number(b.is_open) - Number(a.is_open))
     : [];
+  // 결과가 있거나 먹거리·주문처럼 들리는 말일 때만 하르방에게 넘길 수 있다(ㅁㄴㅇㄹ 같은 말은 X)
+  const askable = !!q && (stores.length + menus.length > 0 || POPULAR.some((w) => q.includes(w)) || looksLikeOrder(q));
+  const qShort = q.length > 7 ? `${q.slice(0, 7)}…` : q;
   const categoryOf = (storeId: string) => data.data?.stores.find((s) => s.id === storeId)?.category;
 
   const run = (word: string) => {
@@ -77,7 +80,7 @@ export default function SearchScreen() {
               placeholderTextColor={C.sub}
               returnKeyType="search"
               accessibilityLabel="검색어"
-              style={{ flex: 1, minWidth: 0, height: 42, fontFamily: font.regular, fontSize: 16, color: C.ink }}
+              style={[{ flex: 1, minWidth: 0, height: 42, fontFamily: font.regular, fontSize: 16, color: C.ink }, noOutline]}
             />
             {text ? (
               <Pressable onPress={() => setText('')} accessibilityRole="button" accessibilityLabel="검색어 지우기" hitSlop={8}>
@@ -88,7 +91,7 @@ export default function SearchScreen() {
         </View>
       }
       footer={
-        q ? <Button label={`하르방에게 '${q}'로 장바구니 짜 달라고 하기`} kind="dark" onPress={askHarubang} disabled={busy} /> : undefined
+        askable ? <Button label={`하르방에게 '${qShort}' 맡기기`} kind="dark" onPress={askHarubang} disabled={busy} /> : undefined
       }
     >
       {!q ? (
@@ -151,14 +154,14 @@ export default function SearchScreen() {
             stores.length ? (
               stores.map((s, i) => <StoreRow key={s.id} store={s} last={i === stores.length - 1} />)
             ) : (
-              <Empty title={`'${q}' 가게가 없어요`} body="다른 말로 찾거나 하르방에게 맡겨 보세요" />
+              <Empty title={`'${qShort}' 가게가 없어요`} body="다른 말로 찾아보세요" />
             )
           ) : menus.length ? (
             menus.map((p, i) => (
               <MenuRow key={p.id} product={p} category={categoryOf(p.store_id)} showStore inCart={lines.find((l) => l.product_id === p.id)?.qty ?? 0} last={i === menus.length - 1} />
             ))
           ) : (
-            <Empty title={`'${q}' 메뉴가 없어요`} body="다른 말로 찾거나 하르방에게 맡겨 보세요" />
+            <Empty title={`'${qShort}' 메뉴가 없어요`} body="다른 말로 찾아보세요" />
           )}
         </View>
       )}

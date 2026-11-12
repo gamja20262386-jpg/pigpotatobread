@@ -1,7 +1,7 @@
 // 동문시장(v0.2 F·O): 편집형 머리 + 상태 칩 → 묶음 배송 아이콘 띠(ⓘ 규칙 시트) → 시장 인기 메뉴 레일 → 라벨 필터 → 목록형 가게 카드
-import { router } from 'expo-router';
-import { useState } from 'react';
-import { Pressable, ScrollView, View } from 'react-native';
+import { router, useLocalSearchParams } from 'expo-router';
+import { useEffect, useRef, useState } from 'react';
+import { Pressable, ScrollView, View, type ScrollViewInstance } from 'react-native';
 import { api } from '../../src/api';
 import { Button } from '../../src/components/Button';
 import { Chip } from '../../src/components/Chip';
@@ -25,7 +25,22 @@ export default function MarketScreen() {
   const { id: destId, market } = useDestination();
   const stores = useResource(`market-stores:${demoTime}:${destId}`, () => api.stores({ kind: 'market', destination_id: destId }));
   const products = useResource(`market-products:${demoTime}`, () => api.products());
+  const hasProducts = !!products.data || !!products.error;
   const [label, setLabel] = useState<string | null>(null);
+  // 홈 "동문시장 장보기" 칸에서 라벨을 골라 오면 그 라벨로 거른다
+  // 걸러진 목록이 화면 아래에 있으니 그 자리로 내려 준다
+  const params = useLocalSearchParams<{ label?: string; at?: string }>();
+  const scroll = useRef<ScrollViewInstance>(null);
+  const listY = useRef<number | null>(null);
+  const [listReady, setListReady] = useState(false);
+  useEffect(() => {
+    if (params.label) setLabel(String(params.label));
+  }, [params.label, params.at]);
+  useEffect(() => {
+    if (!params.label || !listReady || !hasProducts) return;
+    const t = setTimeout(() => scroll.current?.scrollTo({ y: Math.max(0, (listY.current ?? 0) - space.s), animated: true }), 300);
+    return () => clearTimeout(t);
+  }, [params.label, params.at, listReady, hasProducts]);
   const send = useAgent((s) => s.send);
   const busy = useAgent((s) => s.busy);
 
@@ -39,6 +54,7 @@ export default function MarketScreen() {
   return (
     <Screen
       tab
+      scrollRef={scroll}
       onRefresh={() => {
         void market.reload();
         void stores.reload();
@@ -82,7 +98,7 @@ export default function MarketScreen() {
           {popular.length ? (
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginHorizontal: -space.screen }} contentContainerStyle={{ paddingHorizontal: space.screen, gap: space.m }}>
               {popular.map((p) => (
-                <PopularCard key={p.id} product={p} category={all.find((s) => s.id === p.store_id)?.category} />
+                <PopularCard key={p.id} product={p} category={all.find((s) => s.id === p.store_id)?.category} closed={all.find((s) => s.id === p.store_id)?.is_open === false} />
               ))}
             </ScrollView>
           ) : products.data ? (
@@ -92,7 +108,13 @@ export default function MarketScreen() {
       ) : null}
 
       {stores.data ? (
-        <View style={{ gap: space.s }}>
+        <View
+          style={{ gap: space.s }}
+          onLayout={(e) => {
+            listY.current = e.nativeEvent.layout.y;
+            setListReady(true);
+          }}
+        >
           <SectionTitle title="시장 가게" />
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginHorizontal: -space.screen, marginTop: space.s }} contentContainerStyle={{ paddingHorizontal: space.screen, gap: 6 }}>
             <Chip label="전체" pill active={!label} onPress={() => setLabel(null)} />
@@ -115,13 +137,13 @@ export default function MarketScreen() {
   );
 }
 
-function PopularCard({ product: p, category }: { product: Product; category?: string }) {
+function PopularCard({ product: p, category, closed }: { product: Product; category?: string; closed?: boolean }) {
   const add = useCart((s) => s.add);
   const qty = useCart((s) => s.lines.find((l) => l.product_id === p.id)?.qty ?? 0);
   const out = p.sold_out || p.stock <= 0;
   const full = qty >= p.stock;
   return (
-    <View style={{ width: 140, gap: space.s, opacity: out ? 0.5 : 1 }}>
+    <View style={{ width: 140, gap: space.s, opacity: out || closed ? 0.5 : 1 }}>
       <Pressable onPress={() => router.push(`/product/${p.id}`)} accessibilityRole="button" accessibilityLabel={`${p.name} 보기`} style={{ gap: space.s }}>
         <Thumb image={p.image} emoji={p.emoji} category={category} emojiSize={44} style={{ width: 140, height: 105 }} />
         <View style={{ gap: 1 }}>
@@ -139,8 +161,8 @@ function PopularCard({ product: p, category }: { product: Product; category?: st
       <Button
         small
         kind="outline"
-        label={out ? '품절' : qty ? `${qty}개 담음 · 더 담기` : '담기'}
-        disabled={out || full}
+        label={out ? '품절' : closed ? '준비 중' : qty ? `${qty}개 담음 · 더 담기` : '담기'}
+        disabled={out || full || closed}
         onPress={() => add({ product_id: p.id, name: p.name, price: p.price, store_id: p.store_id, store_name: p.store_name, emoji: p.emoji, temp: p.temp })}
         style={{ height: 36 }}
       />

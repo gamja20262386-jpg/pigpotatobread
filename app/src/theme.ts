@@ -60,4 +60,7 @@ export const floatShadow = Platform.select({
   default: { shadowColor: '#23211E', shadowOpacity: 0.14, shadowRadius: 18, shadowOffset: { width: 0, height: 8 }, elevation: 8 },
 }) as object;
 
+// 웹 입력칸의 검은 기본 포커스 테두리를 끈다(포커스 표시는 각 칸의 테두리 색으로)
+export const noOutline = (Platform.OS === 'web' ? { outlineStyle: 'none', outlineWidth: 0 } : {}) as object;
+
 export const won = (n: number) => `${Math.round(n).toLocaleString('ko-KR')}원`;

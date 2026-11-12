@@ -126,7 +126,10 @@ def test_store_list_sort_filter_and_delivery_info(client):
     assert all(s["delivery_tip"] == 3000 and s["distance_km"] == 13.7 for s in lst)     # 시장 가게는 집하장 출발
     open_etas = [s["eta_min"] for s in lst if s["is_open"]]
     assert open_etas == sorted(open_etas)
-    rating = [s["rating"] for s in client.get("/v1/catalog/stores?sort=rating", headers=h).json()["stores"]]
+    by_rating = client.get("/v1/catalog/stores?sort=rating", headers=h).json()["stores"]
+    opens = [s["is_open"] for s in by_rating]
+    assert opens == sorted(opens, reverse=True)                      # 어느 정렬이든 영업 중 먼저
+    rating = [s["rating"] for s in by_rating if s["is_open"]]
     assert rating == sorted(rating, reverse=True)
     closed = client.get("/v1/catalog/stores?open_only=true", headers={"X-Demo-Time": "07:30"}).json()["stores"]
     assert closed and all(s["is_open"] for s in closed)

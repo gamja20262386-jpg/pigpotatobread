@@ -1,7 +1,7 @@
-// 에이전트 팀(v0.2 K·P): 목표 한 줄 → "어떻게 일하나요 ›" → 팀 지도(지휘 오브 → 4팀, svg 선) →
-// 팀별 접힌 목록(펼치면 에이전트: 번호·이름·역할 한 줄·AI/규칙, 누르면 카드 전체 시트) → 흐름 세그먼트 + 가로 스텝퍼(끝에 '사람 승인')
-import { useRef, useState } from 'react';
-import { Pressable, ScrollView, View, type ScrollViewInstance } from 'react-native';
+// 에이전트 팀(v0.2 K·P): 목표 한 줄 → "어떻게 일하나요 ›" → 팀 지도(지휘 오브 → 4팀, svg 선, 노드 = 팀 고르기) →
+// 고른 팀의 에이전트(번호·이름·역할 한 줄·AI/규칙, 누르면 카드 전체 시트) → 흐름 세그먼트 + 가로 스텝퍼(노드 누르면 카드, 끝에 '사람 승인')
+import { useState } from 'react';
+import { Pressable, ScrollView, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { AgentOrb } from '../src/components/AgentOrb';
 import { Chip } from '../src/components/Chip';
@@ -37,9 +37,13 @@ const TEAM_LOOK: Record<string, { icon: IconName; fg: string; bg: string; short:
 };
 const lookOf = (id: string) => TEAM_LOOK[id] ?? { icon: 'team' as IconName, fg: C.ink, bg: C.bg, short: id };
 
+// 카드 글의 파일 이름("flow(harness.yaml)" 같은 것)은 사람에게 보이지 않는다
+const plain = (t: string) => t.replace(/flow\s*\([^)]*\.ya?ml[^)]*\)/gi, '흐름').replace(/\s*\([^)]*\.ya?ml[^)]*\)/gi, '').replace(/harness\.ya?ml\s*/gi, '').replace(/data\/market\.json/g, '시장 데이터');
+
 // 카드 마크다운 "## 역할" 첫 문장, 30자 넘으면 말줄임
 function roleLine(md: string | undefined) {
   if (!md) return '';
+  md = plain(md);
   const m = md.split(/\n## 역할\s*\n/)[1] ?? md.replace(/^#.*\n/, '');
   const para = m.trim().split(/\n\s*\n|\n## /)[0].replace(/\n/g, ' ').trim();
   const first = para.split(/(?:다|요)\.\s|\.\s/)[0].replace(/[.]$/, '');
@@ -49,10 +53,7 @@ function roleLine(md: string | undefined) {
 export default function TeamScreen() {
   const h = useHarness();
   const data = h.data;
-  const scroll = useRef<ScrollViewInstance>(null);
-  const teamsY = useRef(0);
-  const teamY = useRef<Record<string, number>>({});
-  const [openTeams, setOpenTeams] = useState<string[]>([]);
+  const [picked, setPicked] = useState<string | null>(null);
   const [how, setHow] = useState(false);
   const [flow, setFlow] = useState('plan_order');
   const [sheet, setSheet] = useState<HarnessAgent | null>(null);
@@ -61,16 +62,16 @@ export default function TeamScreen() {
   // 번호(no)가 없으면 하네스 목록 순서로 대신한다
   const byId = new Map((data?.agents ?? []).map((a, i) => [a.id, { ...a, no: typeof a.no === 'number' ? a.no : i }]));
   const teams = data?.teams ?? [];
-  const toggleTeam = (id: string) => setOpenTeams((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
-  const goTeam = (id: string) => {
-    setOpenTeams((s) => (s.includes(id) ? s : [...s, id]));
-    const y = teamY.current[id];
-    if (y !== undefined) scroll.current?.scrollTo({ y: Math.max(0, teamsY.current + y - space.s), animated: true });
-  };
+  // 팀 지도 노드가 곧 팀 고르기: 고른 팀의 에이전트만 아래에(같은 목록을 두 번 늘어놓지 않는다)
+  const team = teams.find((t) => t.id === picked) ?? teams[0];
+  const members = (team?.agents ?? [])
+    .map((id) => byId.get(id))
+    .filter((a): a is HarnessAgent & { no: number } => !!a)
+    .sort((a, b) => a.no - b.no);
   const flowIds = data?.flows[flow] ?? [];
 
   return (
-    <Screen header={<StackHeader title="에이전트 팀" />} onRefresh={h.reload} scrollRef={scroll}>
+    <Screen header={<StackHeader title="에이전트 팀" />} onRefresh={h.reload}>
       {h.loading && !data ? <Loading label="하르방 팀을 불러오는 중이에요" /> : null}
       {h.error && !data ? <ErrorView message={h.error} onRetry={h.reload} /> : null}
       {data ? (
@@ -123,12 +124,13 @@ export default function TeamScreen() {
             <View style={{ flexDirection: 'row', marginTop: 28 }}>
               {teams.map((t) => {
                 const look = lookOf(t.id);
+                const on = t.id === team?.id;
                 return (
-                  <Pressable key={t.id} onPress={() => goTeam(t.id)} accessibilityRole="button" accessibilityLabel={`${t.name} 보기`} style={{ flex: 1, alignItems: 'center', gap: 4 }}>
-                    <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: look.bg, borderWidth: 2, borderColor: C.bg, alignItems: 'center', justifyContent: 'center' }}>
+                  <Pressable key={t.id} onPress={() => setPicked(t.id)} accessibilityRole="tab" accessibilityState={{ selected: on }} accessibilityLabel={`${t.name} 보기`} style={{ flex: 1, alignItems: 'center', gap: 4 }}>
+                    <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: look.bg, borderWidth: 2, borderColor: on ? look.fg : C.bg, alignItems: 'center', justifyContent: 'center' }}>
                       <Icon name={look.icon} size={20} color={look.fg} />
                     </View>
-                    <Txt v="captionMedium" numberOfLines={1} style={{ fontSize: 12, lineHeight: 16 }}>
+                    <Txt v="captionMedium" color={on ? C.ink : C.sub} numberOfLines={1} style={{ fontSize: 12, lineHeight: 16, fontFamily: on ? font.bold : font.medium }}>
                       {look.short}
                     </Txt>
                     <Txt v="caption" color={C.sub} style={{ fontSize: 11, lineHeight: 14 }}>
@@ -140,70 +142,44 @@ export default function TeamScreen() {
             </View>
           </View>
 
-          {/* 팀별 목록(펼쳤을 때만 이름) */}
-          <View
-            onLayout={(e) => {
-              teamsY.current = e.nativeEvent.layout.y;
-            }}
-            style={{ gap: space.s }}
-          >
-            {teams.map((t) => {
-              const look = lookOf(t.id);
-              const open = openTeams.includes(t.id);
-              const members = t.agents
-                .map((id) => byId.get(id))
-                .filter((a): a is HarnessAgent & { no: number } => !!a)
-                .sort((a, b) => a.no - b.no);
-              return (
-                <View
-                  key={t.id}
-                  onLayout={(e) => {
-                    teamY.current[t.id] = e.nativeEvent.layout.y;
-                  }}
-                  style={{ backgroundColor: C.card, borderRadius: radius.card, borderWidth: 1, borderColor: C.line, overflow: 'hidden' }}
-                >
-                  <Pressable onPress={() => toggleTeam(t.id)} accessibilityRole="button" accessibilityState={{ expanded: open }} style={{ flexDirection: 'row', alignItems: 'center', gap: space.m, minHeight: 52, paddingHorizontal: space.l }}>
-                    <View style={{ width: 28, height: 28, borderRadius: 14, backgroundColor: look.bg, alignItems: 'center', justifyContent: 'center' }}>
-                      <Icon name={look.icon} size={16} color={look.fg} />
-                    </View>
-                    <Txt v="bodyMedium" style={{ flex: 1, fontSize: 15, fontFamily: font.bold }} numberOfLines={1}>
-                      {t.name}
-                    </Txt>
-                    <Txt v="caption" color={C.sub}>{`${members.length}명`}</Txt>
-                    <View style={{ transform: [{ rotate: open ? '90deg' : '0deg' }] }}>
-                      <Icon name="right" size={16} color={C.sub} />
-                    </View>
-                  </Pressable>
-                  {open
-                    ? members.map((a) => (
-                        <Pressable
-                          key={a.id}
-                          onPress={() => setSheet(a)}
-                          accessibilityRole="button"
-                          accessibilityLabel={`${a.name} 카드 보기`}
-                          style={({ pressed }) => ({ flexDirection: 'row', alignItems: 'center', gap: space.m, paddingHorizontal: space.l, paddingVertical: space.m, borderTopWidth: 1, borderTopColor: C.line, backgroundColor: pressed ? C.bg : C.card })}
-                        >
-                          <View style={{ width: 28, height: 28, borderRadius: 14, backgroundColor: C.brand, alignItems: 'center', justifyContent: 'center' }}>
-                            <Txt v="captionMedium" color={C.white} style={{ fontSize: 13 }}>
-                              {a.no}
-                            </Txt>
-                          </View>
-                          <View style={{ flex: 1, minWidth: 0 }}>
-                            <Txt v="bodyMedium" style={{ fontSize: 15, lineHeight: 21 }} numberOfLines={1}>
-                              {a.name}
-                            </Txt>
-                            <Txt v="caption" color={C.sub} numberOfLines={1}>
-                              {roleLine(data.cards?.[a.id])}
-                            </Txt>
-                          </View>
-                          <Chip small label={a.llm ? 'AI' : '규칙'} tone={a.llm ? 'dark' : 'neutral'} />
-                        </Pressable>
-                      ))
-                    : null}
+          {/* 고른 팀의 에이전트 */}
+          {team ? (
+            <View style={{ backgroundColor: C.card, borderRadius: radius.card, borderWidth: 1, borderColor: C.line, overflow: 'hidden' }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.m, minHeight: 48, paddingHorizontal: space.l }}>
+                <View style={{ width: 28, height: 28, borderRadius: 14, backgroundColor: lookOf(team.id).bg, alignItems: 'center', justifyContent: 'center' }}>
+                  <Icon name={lookOf(team.id).icon} size={16} color={lookOf(team.id).fg} />
                 </View>
-              );
-            })}
-          </View>
+                <Txt v="bodyMedium" style={{ flex: 1, fontSize: 15, fontFamily: font.bold }} numberOfLines={1}>
+                  {team.name}
+                </Txt>
+              </View>
+              {members.map((a) => (
+                <Pressable
+                  key={a.id}
+                  onPress={() => setSheet(a)}
+                  accessibilityRole="button"
+                  accessibilityLabel={`${a.name} 카드 보기`}
+                  style={({ pressed }) => ({ flexDirection: 'row', alignItems: 'center', gap: space.m, paddingHorizontal: space.l, paddingVertical: space.m, borderTopWidth: 1, borderTopColor: C.line, backgroundColor: pressed ? C.bg : C.card })}
+                >
+                  <View style={{ width: 28, height: 28, borderRadius: 14, backgroundColor: C.brand, alignItems: 'center', justifyContent: 'center' }}>
+                    <Txt v="captionMedium" color={C.white} style={{ fontSize: 13 }}>
+                      {a.no}
+                    </Txt>
+                  </View>
+                  <View style={{ flex: 1, minWidth: 0 }}>
+                    <Txt v="bodyMedium" style={{ fontSize: 15, lineHeight: 21 }} numberOfLines={1}>
+                      {a.name}
+                    </Txt>
+                    <Txt v="caption" color={C.sub} numberOfLines={1}>
+                      {roleLine(data.cards?.[a.id])}
+                    </Txt>
+                  </View>
+                  <Chip small label={a.llm ? 'AI' : '규칙'} tone={a.llm ? 'dark' : 'neutral'} />
+                  <Icon name="right" size={16} color={C.sub} />
+                </Pressable>
+              ))}
+            </View>
+          ) : null}
 
           {/* 흐름: 세그먼트 + 가로 스텝퍼 */}
           <View style={{ gap: space.m }}>
@@ -218,7 +194,14 @@ export default function TeamScreen() {
                 const human = id === '__human';
                 const a = byId.get(id);
                 return (
-                  <View key={id} style={{ flex: 1, minWidth: 0, alignItems: 'center', gap: 6 }}>
+                  <Pressable
+                    key={id}
+                    onPress={a ? () => setSheet(a) : undefined}
+                    disabled={!a}
+                    accessibilityRole="button"
+                    accessibilityLabel={a ? `${a.name} 카드 보기` : '사람 승인'}
+                    style={({ pressed }) => ({ flex: 1, minWidth: 0, alignItems: 'center', gap: 6, opacity: pressed ? 0.7 : 1 })}
+                  >
                     <View style={{ width: '100%', height: 32, alignItems: 'center', justifyContent: 'center' }}>
                       {i > 0 ? <View style={{ position: 'absolute', left: 0, right: '50%', height: 2, backgroundColor: C.line }} /> : null}
                       {i < all.length - 1 ? <View style={{ position: 'absolute', left: '50%', right: 0, height: 2, backgroundColor: C.line }} /> : null}
@@ -251,7 +234,7 @@ export default function TeamScreen() {
                         {APPROVAL[flow] ?? '확인'}
                       </Txt>
                     ) : null}
-                  </View>
+                  </Pressable>
                 );
               })}
             </View>
@@ -271,7 +254,7 @@ function Markdown({ md }: { md: string }) {
   if (!md.trim()) return <Txt v="caption" color={C.sub}>카드 내용이 없어요</Txt>;
   return (
     <View style={{ gap: 4 }}>
-      {md
+      {plain(md)
         .split('\n')
         .filter((l) => l.trim() && !/^\|?\s*-{3,}/.test(l.trim()))
         .map((line, i) => {

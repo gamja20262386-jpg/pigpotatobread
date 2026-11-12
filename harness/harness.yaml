@@ -71,6 +71,7 @@ assumptions:
   min_per_km: 3                         # 이동 시간(분/km, 시내 오토바이 가정)
   delivery_radius_km: 25                # 이보다 멀면 배달 범위 밖
   cold_max_transit_min: 40              # 회·해산물 등 냉장 품목 권장 최대 이동 시간
+  hot_max_transit_min: 60               # 따뜻한 음식이 식기 전 권장 최대 시간(보온백 가정)
   closing_soon_min: 60                  # 마감 임박 안내 기준
   default_people: 2
   budget_slack: 1.0                     # 예산 상한 비율(1.0 = 예산 그대로)

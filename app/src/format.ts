@@ -11,3 +11,10 @@ export const eyo = (word: string) => {
   const batchim = code >= 0 && code <= 11171 && code % 28 !== 0;
   return `${word}${batchim ? '이에요' : '예요'}`;
 };
+
+// 받침에 맞춰 "~로/~으로"(ㄹ 받침은 "로")
+export const ro = (word: string) => {
+  const code = word.charCodeAt(word.length - 1) - 0xac00;
+  const jong = code >= 0 && code <= 11171 ? code % 28 : 0;
+  return `${word}${jong === 0 || jong === 8 ? '로' : '으로'}`;
+};

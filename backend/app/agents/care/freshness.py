@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from app.agents._common import claim, ev
 from app.contracts import AgentResult
-from app.tools.calc import freshness_warning
+from app.tools.calc import freshness_warning, hot_warning
 from app.tools.data import assumptions
 
 ID = "freshness"
@@ -31,5 +31,11 @@ def run(ctx: dict, llm=None) -> AgentResult:
                 claims.append(claim(ID, f"도착 예상 {eta}분으로 냉장 품목 권장 이동 시간 {assumptions()['cold_max_transit_min']}분 안이에요",
                                     "estimate", ev("calc", "eta_min ≤ cold_max_transit_min"),
                                     ev("assumption", "cold_max_transit_min", "냉장 품목 권장 최대 이동 시간(팀 가정)")))
+    if any(b["temp"] == "hot" for b in bags) and isinstance(eta, int):
+        hot = hot_warning(eta, True)
+        if hot:
+            claims.append(claim(ID, hot, "estimate", ev("calc", "eta_min > hot_max_transit_min"),
+                                ev("assumption", "hot_max_transit_min", "따뜻한 음식 권장 최대 시간(팀 가정)")))
+            warning = warning or hot
     return AgentResult(agent_id=ID, claims=claims,
                        data={"cold_items": cold_items, "warning": bool(warning), "packaging": packaging})

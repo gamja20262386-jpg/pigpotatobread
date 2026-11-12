@@ -17,7 +17,7 @@ import { cartCount, useCart } from '../../src/store/cart';
 import { useSession } from '../../src/store/session';
 import type { MenuGroup, Product } from '../../src/types';
 import { useResource } from '../../src/useResource';
-import { color as C, floatShadow, font, radius, space, won } from '../../src/theme';
+import { color as C, floatShadow, font, noOutline, radius, space, won } from '../../src/theme';
 
 const GROUPS: MenuGroup[] = ['대표 메뉴', '메뉴', '사이드·음료'];
 
@@ -32,6 +32,7 @@ export default function StoreScreen() {
   const lines = useCart((s) => s.lines);
   const [mode, setMode] = useState<'delivery' | 'pickup'>('delivery');
   const [q, setQ] = useState('');
+  const [searchFocus, setSearchFocus] = useState(false);
   const scroll = useRef<ScrollViewInstance>(null);
   const menuY = useRef(0);
   const groupY = useRef<Record<string, number>>({});
@@ -55,11 +56,11 @@ export default function StoreScreen() {
   const tipRow = !store
     ? ''
     : mode === 'pickup'
-      ? '0원 (포장)'
+      ? '0원'
       : store.kind === 'market'
         ? fee
-          ? `동문시장 묶음 배송 ${won(fee.base)}부터, 가게 1곳 늘 때 +${won(fee.per_extra_stall)}, 최대 ${won(fee.max)}`
-          : `동문시장 묶음 배송 ${won(store.delivery_tip ?? 3000)}부터`
+          ? `묶음 ${won(fee.base)}~${won(fee.max)}`
+          : `묶음 ${won(store.delivery_tip ?? 3000)}~`
         : won(store.delivery_tip ?? store.delivery_fee);
 
   return (
@@ -145,14 +146,10 @@ export default function StoreScreen() {
             </View>
             <View style={{ padding: space.l, gap: space.s }}>
               <InfoRow label="최소주문" value={minOrderText(store).replace('최소주문 ', '')} />
-              <InfoRow label={mode === 'pickup' ? '준비시간' : '배달시간'} value={mode === 'pickup' ? `${store.prep_min}분` : etaText(store)} />
+              {/* 배달/포장을 바꿔도 행 수·높이는 그대로, 값만 바꾼다 */}
+              <InfoRow label={mode === 'pickup' ? '준비' : '배달시간'} value={mode === 'pickup' ? `${store.prep_min}분` : etaText(store)} />
               <InfoRow label="배달팁" value={tipRow} />
               <InfoRow label="영업시간" value={`${store.open}–${store.close}`} />
-              {mode === 'pickup' ? (
-                <Txt v="caption" color={C.sub}>
-                  포장 주문은 준비 중 · 지금은 배달로 주문돼요
-                </Txt>
-              ) : null}
             </View>
           </View>
 
@@ -163,7 +160,7 @@ export default function StoreScreen() {
             }}
             style={{ gap: space.s }}
           >
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.s, height: 44, borderRadius: radius.card, borderWidth: 1, borderColor: C.line, backgroundColor: C.card, paddingHorizontal: space.m }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.s, height: 44, borderRadius: radius.card, borderWidth: 1, borderColor: searchFocus ? C.brand : C.line, backgroundColor: C.card, paddingHorizontal: space.m }}>
               <Icon name="search" size={18} color={C.sub} />
               <TextInput
                 value={q}
@@ -171,7 +168,9 @@ export default function StoreScreen() {
                 placeholder="이 가게 메뉴 찾기"
                 placeholderTextColor={C.sub}
                 accessibilityLabel="가게 안 메뉴 검색"
-                style={{ flex: 1, minWidth: 0, height: 42, fontFamily: font.regular, fontSize: 15, color: C.ink }}
+                onFocus={() => setSearchFocus(true)}
+                onBlur={() => setSearchFocus(false)}
+                style={[{ flex: 1, minWidth: 0, height: 42, fontFamily: font.regular, fontSize: 15, color: C.ink }, noOutline]}
               />
               {q ? (
                 <Pressable onPress={() => setQ('')} accessibilityRole="button" accessibilityLabel="검색어 지우기" hitSlop={8}>
@@ -182,7 +181,7 @@ export default function StoreScreen() {
             {groups.length > 1 ? (
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
                 {groups.map((g) => (
-                  <Chip key={g.name} label={`${g.name} ${g.items.length}`} pill tone="outline" onPress={() => jump(g.name)} />
+                  <Chip key={g.name} label={g.name} pill tone="outline" onPress={() => jump(g.name)} />
                 ))}
               </View>
             ) : null}
@@ -242,7 +241,7 @@ function InfoRow({ label, value }: { label: string; value: string }) {
       <Txt v="caption" color={C.sub} style={{ width: 64, fontSize: 14, lineHeight: 20 }}>
         {label}
       </Txt>
-      <Txt v="caption" style={{ flex: 1, fontSize: 14, lineHeight: 20 }}>
+      <Txt v="caption" style={{ flex: 1, fontSize: 14, lineHeight: 20 }} numberOfLines={1}>
         {value}
       </Txt>
     </View>

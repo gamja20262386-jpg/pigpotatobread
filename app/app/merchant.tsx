@@ -17,7 +17,7 @@ import { fmtTime } from '../src/format';
 import { useSession } from '../src/store/session';
 import type { Product, RunResult, StockChange } from '../src/types';
 import { useResource } from '../src/useResource';
-import { color as C, font, radius, space, won } from '../src/theme';
+import { color as C, font, noOutline, radius, space, won } from '../src/theme';
 
 const INTAKE_EXAMPLES = [
   { label: '고등어회 3개 더, 2만 6천원', message: '고등어회 3개 더 들어왔어, 2만 6천원으로' },
@@ -68,7 +68,7 @@ export default function MerchantScreen() {
 
           <View style={{ gap: space.s }}>
             <Txt v="title">상품</Txt>
-            {data.products.length ? data.products.map((p) => <MerchantProduct key={p.id} product={p} onSaved={res.reload} />) : <Empty title="등록된 상품이 없어요" />}
+            {data.products.length ? data.products.map((p) => <MerchantProduct key={`${p.id}:${p.price}:${p.stock}`} product={p} onSaved={res.reload} />) : <Empty title="등록된 상품이 없어요" />}
           </View>
 
           <View style={{ gap: space.s }}>
@@ -104,12 +104,12 @@ function IntakeCard({ onApplied }: { onApplied: () => void }) {
   const [error, setError] = useState('');
   const [result, setResult] = useState<{ message: string; run: RunResult; changes: StockChange[] } | null>(null);
   const [applying, setApplying] = useState(false);
-  const [applied, setApplied] = useState(false);
+  const [applied, setApplied] = useState('');
 
   const ask = async (message: string) => {
     setBusy(true);
     setError('');
-    setApplied(false);
+    setApplied('');
     setResult(null);
     try {
       const r = await api.intake(message);
@@ -127,7 +127,9 @@ function IntakeCard({ onApplied }: { onApplied: () => void }) {
     try {
       // 그사이 주문으로 재고가 바뀌었으면 서버가 409로 거절한다(덮어쓰지 않음)
       for (const c of result.changes) await api.patchProduct(c.product_id, { ...c.after, expected_stock: c.before.stock });
-      setApplied(true);
+      // 반영이 끝나면 제안 표(“아직 저장하지 않았어요” 주장 포함)를 치우고 한 줄만 남긴다
+      setApplied(result.changes.map((c) => c.name).join(', '));
+      setResult(null);
       onApplied();
     } catch (e) {
       setError(errorText(e));
@@ -140,7 +142,7 @@ function IntakeCard({ onApplied }: { onApplied: () => void }) {
     <View style={{ backgroundColor: C.card, borderRadius: radius.sheet, borderWidth: 1, borderColor: C.line, padding: space.xl, gap: space.l }}>
       <View style={{ gap: 2 }}>
         <Txt v="label" color={C.brandDark}>
-          8 · 상인 말 입력
+          상인 말 입력
         </Txt>
         <Txt v="serifTitle">말로 고치기</Txt>
         <Txt v="caption" color={C.sub}>
@@ -154,6 +156,7 @@ function IntakeCard({ onApplied }: { onApplied: () => void }) {
           {error}
         </Txt>
       ) : null}
+      {applied ? <Chip label={`반영했어요 · ${applied}`} tone="leaf" /> : null}
       {result ? (
         <View style={{ gap: space.m }}>
           <Txt v="caption" color={C.sub}>{`“${result.message}”`}</Txt>
@@ -188,14 +191,10 @@ function IntakeCard({ onApplied }: { onApplied: () => void }) {
             </Txt>
           )}
           {result.changes.length ? (
-            applied ? (
-              <Chip label="반영했어요" tone="leaf" />
-            ) : (
-              <View style={{ flexDirection: 'row', gap: space.s }}>
-                <Button label="반영하기" onPress={() => void apply()} busy={applying} style={{ flex: 2 }} />
-                <Button label="취소" kind="outline" onPress={() => setResult(null)} disabled={applying} style={{ flex: 1 }} />
-              </View>
-            )
+            <View style={{ flexDirection: 'row', gap: space.s }}>
+              <Button label="반영하기" onPress={() => void apply()} busy={applying} style={{ flex: 2 }} />
+              <Button label="취소" kind="outline" onPress={() => setResult(null)} disabled={applying} style={{ flex: 1 }} />
+            </View>
           ) : null}
         </View>
       ) : null}
@@ -218,11 +217,18 @@ function Diff({ label, before, after }: { label: string; before: string; after: 
   );
 }
 
+// 가격 칸은 세 자리마다 쉼표(28,000)로 보이고, 보낼 때는 숫자만
+const priceText = (v: string | number) => {
+  const d = String(v).replace(/[^0-9]/g, '');
+  return d ? Number(d).toLocaleString('ko-KR') : '';
+};
+
 function MerchantProduct({ product: p, onSaved }: { product: Product; onSaved: () => void }) {
-  const [price, setPrice] = useState(String(p.price));
+  const [price, setPrice] = useState(priceText(p.price));
   const [stock, setStock] = useState(p.stock);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [focus, setFocus] = useState(false);
   const sent = useRef(p.price);
   const save = async (patch: { price?: number; stock?: number }) => {
     setSaving(true);
@@ -230,13 +236,13 @@ function MerchantProduct({ product: p, onSaved }: { product: Product; onSaved: (
     try {
       const r = await api.patchProduct(p.id, patch);
       setStock(r.product.stock);
-      setPrice(String(r.product.price));
+      setPrice(priceText(r.product.price));
       sent.current = r.product.price;
       onSaved();
     } catch (e) {
       setError(errorText(e));
       setStock(p.stock);
-      setPrice(String(p.price));
+      setPrice(priceText(p.price));
       sent.current = p.price;
     } finally {
       setSaving(false);
@@ -247,7 +253,7 @@ function MerchantProduct({ product: p, onSaved }: { product: Product; onSaved: (
     if (n > 0 && n !== sent.current) {
       sent.current = n;
       void save({ price: n });
-    } else if (!(n > 0)) setPrice(String(sent.current));
+    } else if (!(n > 0)) setPrice(priceText(sent.current));
   };
   const out = stock <= 0;
   return (
@@ -262,15 +268,19 @@ function MerchantProduct({ product: p, onSaved }: { product: Product; onSaved: (
         </Pressable>
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.m }}>
-        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: C.line, borderRadius: radius.chip, paddingHorizontal: space.s, height: 40 }}>
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: focus ? C.brand : C.line, borderRadius: radius.chip, paddingHorizontal: space.s, height: 40 }}>
           <TextInput
             value={price}
-            onChangeText={setPrice}
+            onChangeText={(t) => setPrice(priceText(t))}
             onSubmitEditing={commitPrice}
-            onBlur={commitPrice}
+            onFocus={() => setFocus(true)}
+            onBlur={() => {
+              setFocus(false);
+              commitPrice();
+            }}
             keyboardType="number-pad"
             accessibilityLabel={`${p.name} 가격`}
-            style={{ flex: 1, fontFamily: font.medium, fontSize: 15, color: C.ink, minWidth: 0 }}
+            style={[{ flex: 1, fontFamily: font.medium, fontSize: 15, color: C.ink, minWidth: 0 }, noOutline]}
           />
           <Txt v="caption" color={C.sub}>
             원

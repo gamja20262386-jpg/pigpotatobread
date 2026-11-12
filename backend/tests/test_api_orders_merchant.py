@@ -140,3 +140,20 @@ def test_merchant_patch_rejects_stale_expected_stock(client):
     assert r.status_code == 409 and "그사이 재고" in r.json()["detail"]
     r = client.patch("/v1/merchant/products/p-29", json={"stock": p["stock"] + 3, "expected_stock": p["stock"]}, headers=h)
     assert r.status_code == 200 and r.json()["product"]["stock"] == p["stock"] + 3
+
+
+def test_order_rejected_when_store_closed_and_stamped_with_demo_time(client):
+    h = login(client, "customer")
+    body = {"items": [{"product_id": "p-35", "qty": 1}], "destination_id": "tapdong"}        # 오메기 방앗간 08:00~19:00
+    r = client.post("/v1/orders", json=body, headers={**h, "X-Demo-Time": "22:00"})
+    assert r.status_code == 409 and "영업 시간" in r.json()["detail"]
+    o = client.post("/v1/orders", json=body, headers={**h, "X-Demo-Time": "18:30"}).json()["order"]
+    assert o["created_at"].startswith(o["created_at"][:11]) and "T09:30" in o["created_at"]     # 18:30 KST = 09:30 UTC
+    nxt = client.post(f"/v1/orders/{o['id']}/advance", headers={**h, "X-Demo-Time": "18:30"}).json()["order"]
+    assert nxt["history"][-1]["at"] > nxt["history"][0]["at"]       # 시각이 고정이어도 다음 단계는 뒤 시각
+
+
+def test_hot_food_long_eta_warns(client):
+    q = client.post("/v1/cart/quote", json={"items": [{"product_id": "p-3", "qty": 1}], "destination_id": "aewol"},
+                    headers={"X-Demo-Time": "18:30"}).json()["quote"]
+    assert q["eta_min"] > 60 and any("따뜻한 음식" in w for w in q["warnings"])

@@ -1,4 +1,4 @@
-// 근거(v0.2 P): 주장 목록, 기본 3개 + "근거 N개 더 보기". 주장마다 수준 배지(확실/추정/확인 필요) + 근거 칩 1개 + "+N" → 누르면 작은 시트.
+// 근거(v0.2 P): 주장 목록, 기본 3개 + "근거 N개 모두 보기"(바텀시트, 제자리에서 길게 펼치지 않는다). 주장마다 수준 배지(확실/추정/확인 필요) + 근거 칩 1개 + "+N" → 누르면 작은 시트.
 // "단, …" 대체 주장은 warnSoft 띠.
 import { useState } from 'react';
 import { Pressable, View } from 'react-native';
@@ -17,13 +17,12 @@ const LEVEL: Record<Claim['level'], { label: string; fg: string; bg: string }> =
 export const isSubstitution = (text: string) => /^\s*단[,，]|\s단[,，]\s/.test(text);
 
 export function ClaimList({ claims, initial = 3 }: { claims: Claim[]; initial?: number }) {
-  const [open, setOpen] = useState(false);
+  const [all, setAll] = useState(false);
   const visible = claims.filter((c) => !c.blocked);
   // "단, …" 대체 주장은 접혀 있어도 먼저 보이게 앞으로
   const ordered = [...visible.filter((c) => isSubstitution(c.text)), ...visible.filter((c) => !isSubstitution(c.text))];
   if (!ordered.length) return null;
-  const shown = open ? ordered : ordered.slice(0, initial);
-  const rest = ordered.length - shown.length;
+  const shown = ordered.slice(0, initial);
   return (
     <View style={{ gap: space.s }}>
       <Txt v="label" color={C.sub}>
@@ -33,12 +32,17 @@ export function ClaimList({ claims, initial = 3 }: { claims: Claim[]; initial?: 
         <ClaimRow key={`${c.agent_id}-${i}`} claim={c} />
       ))}
       {ordered.length > initial ? (
-        <Pressable onPress={() => setOpen(!open)} accessibilityRole="button" hitSlop={8} style={{ alignSelf: 'flex-start', paddingVertical: 6 }}>
+        <Pressable onPress={() => setAll(true)} accessibilityRole="button" hitSlop={8} style={{ alignSelf: 'flex-start', paddingVertical: 6 }}>
           <Txt v="captionMedium" color={C.brandDark}>
-            {open ? '근거 접기' : `근거 ${rest}개 더 보기`}
+            {`근거 ${ordered.length}개 모두 보기`}
           </Txt>
         </Pressable>
       ) : null}
+      <Sheet visible={all} onClose={() => setAll(false)} title={`근거 ${ordered.length}개`}>
+        {ordered.map((c, i) => (
+          <ClaimRow key={`all-${c.agent_id}-${i}`} claim={c} />
+        ))}
+      </Sheet>
     </View>
   );
 }

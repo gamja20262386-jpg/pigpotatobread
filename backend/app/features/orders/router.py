@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
@@ -15,6 +15,7 @@ from app.db.session import get_session
 from app.features.cart.router import CartItem, build_quote
 from app.features.catalog.service import snapshot
 from app.features.orders.service import history_entry, next_status, order_view
+from app.tools import clock
 from app.tools.calc import base_name, josa
 
 router = APIRouter(prefix="/v1")
@@ -45,6 +46,9 @@ def create_order(body: OrderIn, user: User = Depends(customer_user), now: dateti
             raise HTTPException(409, f"{base_name(ln['name'])} 재고가 부족해요(남은 수량 {stock}개)")
     if not q["in_zone"]:
         raise HTTPException(409, f"{josa(q['destination']['name'], '은')} 배달 범위 밖이에요")
+    closed = [g["store_name"] for g in q["groups"] if not clock.is_open(catalog["stores"][g["store_id"]], now)]
+    if closed:
+        raise HTTPException(409, f"{josa(closed[0], '은')} 지금 영업 시간이 아니에요" + (f" (외 {len(closed) - 1}곳)" if len(closed) > 1 else ""))
     for ln in q["lines"]:          # 조건부 차감: 그사이 다른 주문이 재고를 가져갔으면 409
         res = session.execute(update(Product).where(Product.id == ln["product_id"], Product.stock >= ln["qty"])
                               .values(stock=Product.stock - ln["qty"]))
@@ -52,7 +56,7 @@ def create_order(body: OrderIn, user: User = Depends(customer_user), now: dateti
             session.rollback()
             raise HTTPException(409, f"{base_name(ln['name'])} 재고가 방금 바뀌었어요. 다시 확인해 주세요")
     o = Order(id=uuid.uuid4().hex[:12], user_id=user.id, status="received", destination=q["destination"], items=items,
-              quote=q, agent_run_id=body.agent_run_id, history=[history_entry("received")])
+              quote=q, agent_run_id=body.agent_run_id, history=[history_entry("received", now)], created_at=now)   # 시연 시각 기준
     session.add(o)
     session.commit()
     return {"order": order_view(o)}
@@ -70,12 +74,15 @@ def get_order(order_id: str, user: User = Depends(current_user), session: Sessio
 
 
 @router.post("/orders/{order_id}/advance")
-def advance(order_id: str, user: User = Depends(current_user), session: Session = Depends(get_session)):
+def advance(order_id: str, user: User = Depends(current_user), now: datetime = Depends(demo_now),
+            session: Session = Depends(get_session)):
     o = _own(session, order_id, user)
     nxt = next_status(o.status, o.quote)
     if nxt is None:
         raise HTTPException(409, "이미 도착한 주문이에요")
     o.status = nxt
-    o.history = [*(o.history or []), history_entry(nxt)]
+    # 시연에서는 시각이 고정(X-Demo-Time)이라 단계 시각이 같아지지 않게 앞 단계보다 최소 5분 뒤로 기록
+    last = datetime.fromisoformat(o.history[-1]["at"]) if o.history else now
+    o.history = [*(o.history or []), history_entry(nxt, max(now, last + timedelta(minutes=5)))]
     session.commit()
     return {"order": order_view(o)}

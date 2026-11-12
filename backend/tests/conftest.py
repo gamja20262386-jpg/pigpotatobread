@@ -36,7 +36,8 @@ def client():
             yield s
 
     app.dependency_overrides[get_session] = override
-    yield TestClient(app)
+    # 기본 시각 12:00(가게 대부분 영업 중) — 테스트 결과가 실행하는 실제 시각에 따라 바뀌지 않게. 개별 요청의 X-Demo-Time이 우선.
+    yield TestClient(app, headers={"X-Demo-Time": "12:00"})
     app.dependency_overrides.clear()
     engine.dispose()
 

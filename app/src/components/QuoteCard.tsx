@@ -10,6 +10,7 @@ import { RunTimeline } from './RunTimeline';
 import { Txt } from './Txt';
 
 export function QuoteCard({ quote, run, loading, error, onRetry }: { quote?: Quote; run?: RunResult; loading: boolean; error?: string; onRetry: () => void }) {
+  const marketN = quote?.groups.filter((g) => g.kind === 'market').length ?? 0;
   return (
     <View style={{ borderRadius: radius.card, backgroundColor: C.card, borderWidth: 1, borderColor: C.line, padding: space.l, gap: space.m }}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
@@ -34,8 +35,16 @@ export function QuoteCard({ quote, run, loading, error, onRetry }: { quote?: Quo
           </View>
           <BagChips bags={quote.bags} />
           <View style={{ gap: 4 }}>
-            <MoneyRow label="시장 묶음 배송비" value={quote.fees.market} note={quote.groups.some((g) => g.kind === 'market') ? `시장 가게 ${quote.groups.filter((g) => g.kind === 'market').length}곳 한 번에` : undefined} />
-            <MoneyRow label="맛집 배달비" value={quote.fees.restaurants} />
+            {/* 시장 상품이 있을 때만 묶음 배송비 행, 설명은 그 아래 따로 한 줄 */}
+            {marketN ? (
+              <View>
+                <MoneyRow label="시장 묶음 배송비" value={quote.fees.market} />
+                <Txt v="caption" color={C.sub} style={{ fontSize: 12, lineHeight: 16 }}>
+                  {`시장 가게 ${marketN}곳 한 번에`}
+                </Txt>
+              </View>
+            ) : null}
+            {marketN < quote.groups.length ? <MoneyRow label="맛집 배달비" value={quote.fees.restaurants} /> : null}
           </View>
           <Warnings warnings={quote.warnings} inZone={quote.in_zone} />
         </View>

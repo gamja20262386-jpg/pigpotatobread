@@ -27,6 +27,7 @@ function badges(s: Store) {
   if (!s.is_open) out.push({ label: '준비 중', tone: 'outline' });
   else if (s.closes_in_min !== null && s.closes_in_min <= 60) out.push({ label: `${s.closes_in_min}분 뒤 마감`, tone: 'warn' });
   if (s.in_zone === false) out.push({ label: '배달 불가 지역', tone: 'danger' });
+  else if (s.eta_min !== undefined && s.eta_min > 60) out.push({ label: '멀어요', tone: 'warn' });
   if (s.kind === 'market') out.push({ label: '시장 묶음', tone: 'sea' });
   if (s.pickup) out.push({ label: '포장 가능', tone: 'leaf' });
   return out;

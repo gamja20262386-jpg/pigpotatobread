@@ -173,6 +173,13 @@ def freshness_warning(eta: int, has_cold: bool) -> str | None:
     return None
 
 
+def hot_warning(eta: int, has_hot: bool) -> str | None:
+    limit = assumptions()["hot_max_transit_min"]
+    if has_hot and eta > limit:
+        return f"따뜻한 음식은 도착 예상 {eta}분이면 식을 수 있어요(권장 {limit}분). 가까운 가게나 포장을 골라 보세요"
+    return None
+
+
 def quote(items: list[dict], catalog: dict, dest_id: str | None, now: datetime | None = None) -> dict:
     """Quote(ARCHITECTURE §2). 서버가 언제나 이 함수로 다시 계산한다."""
     now = now or clock.now_kst()
@@ -199,6 +206,9 @@ def quote(items: list[dict], catalog: dict, dest_id: str | None, now: datetime |
     fw = freshness_warning(eta, any(ln["temp"] == "cold" for ln in lines))
     if fw:
         warnings.append(fw)
+    hw = hot_warning(eta, any(ln["temp"] == "hot" for ln in lines))
+    if hw:
+        warnings.append(hw)
     return {"lines": lines, "groups": groups, "bags": make_bags(lines), "fees": f, "subtotal": subtotal,
             "total": subtotal + f["total"], "eta_min": eta, "distance_km": dist, "in_zone": zone,
             "destination": {"id": dest["id"], "name": dest["name"]}, "warnings": warnings}

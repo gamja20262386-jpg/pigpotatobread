@@ -15,16 +15,18 @@ def test_substitution_is_appended_when_llm_omits_it():
     assert "단, 은갈치구이는 품절이라 고등어구이로 바꿨어요" in r.summary
 
 
-def test_freshness_warning_is_kept_in_summary():
-    r = run_flow("plan_order", ctx_at("18:00", message=PLAN_MSG), llm=_llm("회와 흑돼지를 골랐어요."))
-    warning = next(c.text for c in r.public_claims if c.agent_id == "freshness" and c.level == "estimate")
-    assert warning in r.summary
+def test_card_warnings_are_not_repeated_in_summary():
+    """신선 경고는 제안 카드 경고 상자에 나오므로 요약에는 없다(LLM이 같은 말을 해도 뺀다)."""
+    warning = "냉장 품목 도착 예상 72분이 권장 이동 시간 40분을 넘어요."
+    r = run_flow("plan_order", ctx_at("18:00", message=PLAN_MSG), llm=_llm(f"회와 흑돼지를 골랐어요. {warning}"))
+    assert any(c.agent_id == "freshness" and "넘어요" in c.text for c in r.public_claims)     # 주장(카드)에는 있음
+    assert r.summary == "회와 흑돼지를 골랐어요."
 
 
-def test_out_of_zone_is_kept_in_summary():
-    r = run_flow("plan_order", ctx_at("18:00", message="서귀포 숙소로 오메기떡 보내줘"), llm=_llm("오메기떡을 골랐어요."))
-    zone = next(c.text for c in r.public_claims if c.agent_id == "delivery" and c.level == "question")
-    assert zone in r.summary
+def test_summary_drops_cut_tail_and_keeps_two_sentences():
+    r = run_flow("plan_order", ctx_at("18:00", message="오메기떡 탑동으로"),
+                 llm=_llm("오메기떡을 골랐어요. 탑동까지 가까워요. 상온 봉투로 보내요. 그리고 도착은"))
+    assert r.summary == "오메기떡을 골랐어요. 탑동까지 가까워요."
 
 
 def test_saying_ordered_is_rejected_then_template():

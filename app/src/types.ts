@@ -99,7 +99,7 @@ export type QuoteLine = {
 };
 export type Quote = {
   lines: QuoteLine[];
-  groups: { store_id: string; store_name: string; kind: 'restaurant' | 'market'; subtotal: number; prep_min: number }[];
+  groups: { store_id: string; store_name: string; kind: 'restaurant' | 'market'; subtotal: number; prep_min: number; is_open?: boolean }[];
   bags: { temp: Temp; label: string; items: string[] }[];
   fees: { market: number; restaurants: number; total: number };
   subtotal: number;
