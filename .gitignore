@@ -16,3 +16,5 @@ backend/.pytest_cache/
 __pycache__/
 *.db
 *.sqlite3
+backend/.jwt_secret
+app/.claude/

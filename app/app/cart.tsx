@@ -1,0 +1,193 @@
+// 장바구니(모달): 배송지, 가게별 묶음, 수량, 하르방 점검(/cart/quote, 바뀌면 0.4초 뒤 다시), 주문하기
+import { router } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { Pressable, View } from 'react-native';
+import { api, errorText } from '../src/api';
+import { Button } from '../src/components/Button';
+import { Chip } from '../src/components/Chip';
+import { DemoLogin } from '../src/components/DemoLogin';
+import { DestinationSheet } from '../src/components/DestinationSheet';
+import { Icon } from '../src/components/Icon';
+import { QuoteCard } from '../src/components/QuoteCard';
+import { Screen, StackHeader } from '../src/components/Screen';
+import { Sheet } from '../src/components/Sheet';
+import { Empty } from '../src/components/States';
+import { Stepper } from '../src/components/Stepper';
+import { TempBadge } from '../src/components/TempBadge';
+import { Txt } from '../src/components/Txt';
+import { useDestination } from '../src/hooks';
+import { cartItems, useCart, type CartLine } from '../src/store/cart';
+import { useSession } from '../src/store/session';
+import { useResource } from '../src/useResource';
+import { color as C, radius, space, won } from '../src/theme';
+
+function useDebounced<T>(value: T, ms: number) {
+  const [v, setV] = useState(value);
+  useEffect(() => {
+    const t = setTimeout(() => setV(value), ms);
+    return () => clearTimeout(t);
+  }, [value, ms]);
+  return v;
+}
+
+export default function CartScreen() {
+  const lines = useCart((s) => s.lines);
+  const runId = useCart((s) => s.runId);
+  const setQty = useCart((s) => s.setQty);
+  const clear = useCart((s) => s.clear);
+  const token = useSession((s) => s.token);
+  const demoTime = useSession((s) => s.demoTime);
+  const { id: destId, current } = useDestination();
+  const [destOpen, setDestOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [ordering, setOrdering] = useState(false);
+  const [orderError, setOrderError] = useState('');
+
+  const items = cartItems(lines);
+  const key = useDebounced(items.length ? `${JSON.stringify(items)}|${destId}|${demoTime}` : null, 400);
+  const quote = useResource(key, () => api.quote(items, destId));
+  const q = quote.data?.quote;
+  const stale = key !== (items.length ? `${JSON.stringify(items)}|${destId}|${demoTime}` : null);
+
+  // 가게별 묶음
+  const groups: { store_id: string; store_name: string; lines: CartLine[] }[] = [];
+  for (const l of lines) {
+    const g = groups.find((x) => x.store_id === l.store_id);
+    if (g) g.lines.push(l);
+    else groups.push({ store_id: l.store_id, store_name: l.store_name, lines: [l] });
+  }
+  const kindOf = (storeId: string) => q?.groups.find((g) => g.store_id === storeId)?.kind;
+  const soldOut = q?.lines.filter((l) => l.sold_out) ?? [];
+  const localSubtotal = lines.reduce((s, l) => s + l.price * l.qty, 0);
+  const canOrder = !!q && !stale && !quote.loading && q.in_zone && soldOut.length === 0 && !!destId;
+
+  const placeOrder = async () => {
+    if (!token) {
+      setLoginOpen(true);
+      return;
+    }
+    if (!destId) return;
+    setOrdering(true);
+    setOrderError('');
+    try {
+      const r = await api.createOrder(items, destId, runId);
+      clear();
+      router.replace(`/order/${r.order.id}`);
+    } catch (e) {
+      setOrderError(errorText(e));
+      void quote.reload();
+    } finally {
+      setOrdering(false);
+    }
+  };
+
+  return (
+    <Screen
+      header={<StackHeader title="장바구니" right={lines.length ? <Pressable onPress={clear} accessibilityRole="button" hitSlop={8}><Txt v="caption" color={C.sub}>비우기</Txt></Pressable> : undefined} />}
+      footer={
+        lines.length ? (
+          <View style={{ gap: 6 }}>
+            {orderError ? (
+              <Txt v="caption" color={C.danger}>
+                {orderError}
+              </Txt>
+            ) : null}
+            <Button
+              label={`주문하기 · ${won(q && !stale ? q.total : localSubtotal)}`}
+              onPress={() => void placeOrder()}
+              busy={ordering}
+              disabled={!canOrder}
+            />
+            {!token ? (
+              <Txt v="caption" color={C.sub} style={{ textAlign: 'center' }}>
+                주문하려면 시연 로그인이 필요해요
+              </Txt>
+            ) : null}
+          </View>
+        ) : undefined
+      }
+    >
+      {lines.length === 0 ? (
+        <Empty
+          title="장바구니가 비었어요"
+          body="하르방에게 한 문장으로 말하면 시장 가게를 묶어 담아 드려요"
+          action={{ label: '하르방에게 말하기', onPress: () => router.navigate('/agent') }}
+        />
+      ) : (
+        <>
+          <Pressable
+            onPress={() => setDestOpen(true)}
+            accessibilityRole="button"
+            style={{ flexDirection: 'row', alignItems: 'center', gap: space.m, backgroundColor: C.card, borderRadius: radius.card, borderWidth: 1, borderColor: C.line, padding: space.l }}
+          >
+            <Icon name="pin" color={C.sea} />
+            <View style={{ flex: 1 }}>
+              <Txt v="caption" color={C.sub}>
+                배송지
+              </Txt>
+              <Txt v="bodyMedium">{current?.name ?? '배송지를 골라 주세요'}</Txt>
+            </View>
+            <Txt v="captionMedium" color={C.brandDark}>
+              바꾸기
+            </Txt>
+          </Pressable>
+
+          {groups.map((g) => {
+            const kind = kindOf(g.store_id);
+            return (
+              <View key={g.store_id} style={{ backgroundColor: C.card, borderRadius: radius.card, borderWidth: 1, borderColor: C.line, padding: space.l, gap: space.m }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                  <Txt v="serifTitle" style={{ fontSize: 17, lineHeight: 24, flexShrink: 1 }}>
+                    {g.store_name}
+                  </Txt>
+                  {kind ? <Chip small label={kind === 'market' ? '공동 집하' : '맛집 배달'} tone={kind === 'market' ? 'sea' : 'brand'} /> : null}
+                </View>
+                {g.lines.map((l) => {
+                  const ql = q?.lines.find((x) => x.product_id === l.product_id);
+                  return (
+                    <View key={l.product_id} style={{ flexDirection: 'row', alignItems: 'center', gap: space.m }}>
+                      <View style={{ flex: 1, gap: 2 }}>
+                        <Txt v="bodyMedium" style={{ fontSize: 15 }} numberOfLines={2}>
+                          {l.emoji ? `${l.emoji} ` : ''}
+                          {l.name}
+                        </Txt>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                          <Txt v="caption" color={C.brand}>
+                            {won(l.price * l.qty)}
+                          </Txt>
+                          {l.temp ? <TempBadge temp={l.temp} /> : null}
+                          {ql?.sold_out ? <Chip small label="품절" tone="danger" /> : null}
+                        </View>
+                      </View>
+                      <Stepper value={l.qty} onChange={(n) => setQty(l.product_id, n)} />
+                    </View>
+                  );
+                })}
+              </View>
+            );
+          })}
+
+          <QuoteCard quote={q} run={quote.data?.run} loading={quote.loading || stale} error={quote.error} onRetry={quote.reload} />
+          {soldOut.length ? (
+            <Txt v="caption" color={C.danger}>
+              {`품절된 상품(${soldOut.map((l) => l.name).join(', ')})을 빼면 주문할 수 있어요.`}
+            </Txt>
+          ) : null}
+        </>
+      )}
+
+      <DestinationSheet visible={destOpen} onClose={() => setDestOpen(false)} />
+      <Sheet visible={loginOpen} onClose={() => setLoginOpen(false)} title="시연 로그인">
+        <Txt v="caption" color={C.sub} style={{ fontSize: 14 }}>
+          주문은 로그인한 고객만 할 수 있어요. 시연 계정으로 바로 들어가요.
+        </Txt>
+        <DemoLogin
+          only="customer"
+          onDone={() => {
+            setLoginOpen(false);
+          }}
+        />
+      </Sheet>
+    </Screen>
+  );
+}

@@ -33,15 +33,15 @@ teams:
     agents: [stock_intake]
 
 agents:
-  - {id: orchestrator, team: command,  no: 0, name: 지휘 AI,      card: agents/orchestrator.md,        llm: true}
-  - {id: intake,       team: order,    no: 1, name: 말 이해,      card: agents/order/intake.md,        llm: true}
-  - {id: curator,      team: order,    no: 2, name: 메뉴 고르기,  card: agents/order/curator.md,       llm: false}
-  - {id: bundler,      team: order,    no: 3, name: 묶음 배송,    card: agents/order/bundler.md,       llm: false}
-  - {id: delivery,     team: order,    no: 4, name: 배달비·도착,  card: agents/order/delivery.md,      llm: false}
-  - {id: freshness,    team: care,     no: 5, name: 신선 지킴,    card: agents/care/freshness.md,      llm: false}
-  - {id: care,         team: care,     no: 6, name: 먼저 챙기기,  card: agents/care/care.md,           llm: false}
-  - {id: concierge,    team: command,  no: 7, name: 대화 도우미,  card: agents/concierge.md,           llm: true}
-  - {id: stock_intake, team: merchant, no: 8, name: 상인 말 입력, card: agents/merchant/stock_intake.md, llm: true}
+  - {id: orchestrator, team: command,  "no": 0, name: 지휘 AI,      card: agents/orchestrator.md,        llm: true}
+  - {id: intake,       team: order,    "no": 1, name: 말 이해,      card: agents/order/intake.md,        llm: true}
+  - {id: curator,      team: order,    "no": 2, name: 메뉴 고르기,  card: agents/order/curator.md,       llm: false}
+  - {id: bundler,      team: order,    "no": 3, name: 묶음 배송,    card: agents/order/bundler.md,       llm: false}
+  - {id: delivery,     team: order,    "no": 4, name: 배달비·도착,  card: agents/order/delivery.md,      llm: false}
+  - {id: freshness,    team: care,     "no": 5, name: 신선 지킴,    card: agents/care/freshness.md,      llm: false}
+  - {id: care,         team: care,     "no": 6, name: 먼저 챙기기,  card: agents/care/care.md,           llm: false}
+  - {id: concierge,    team: command,  "no": 7, name: 대화 도우미,  card: agents/concierge.md,           llm: true}
+  - {id: stock_intake, team: merchant, "no": 8, name: 상인 말 입력, card: agents/merchant/stock_intake.md, llm: true}
 
 # 앱 이벤트 → 실행할 에이전트 순서. 순서는 이 파일이 정하고 LLM은 바꾸지 않는다.
 flows:
