@@ -81,7 +81,10 @@ def run(ctx: dict, llm=None) -> AgentResult:
             unmet.append(want)
             continue
         top = ranked[0]
-        chosen = next((p for p in ranked if available(p)), None)
+        # 1순위가 품절·영업 종료면 같은 가게 대체를 먼저(가게 안 대체), 없으면 다른 가게 다음 후보
+        chosen = (top if available(top) else None) \
+            or next((p for p in ranked if p["store_id"] == top["store_id"] and available(p)), None) \
+            or next((p for p in ranked if available(p)), None)
         if chosen is None:
             unmet.append(want)
             in_stock = [p for p in ranked if p["stock"] >= 1]

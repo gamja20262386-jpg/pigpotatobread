@@ -51,6 +51,10 @@ flows:
   care_nudges:    [care]                                            # 홈 '먼저 챙겼어요' 카드
   stock_intake:   [stock_intake]                                    # 상인 말 → 재고·가격 수정 제안(확인 후 반영)
 
+# LLM을 쓰는 흐름. 여기에 없는 흐름(cart_check·care_nudges)은 규칙·템플릿으로만 돌아 바로 답한다.
+# 장바구니 점검·홈 카드는 수량·배송지가 바뀔 때마다 불리므로, 로컬 LLM 대기(최대 30초)를 걸지 않는다.
+llm_flows: [plan_order, assistant_chat, stock_intake]
+
 gates:
   - id: evidence    # 주장마다 근거 1개 이상, 숫자 있는 주장은 dataset/calc/input/assumption 근거
   - id: wording     # policies/forbidden-phrases.json 금지 표현

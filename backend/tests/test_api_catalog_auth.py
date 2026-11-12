@@ -2,6 +2,12 @@
 from conftest import at, login
 
 
+def seed(name: str) -> list:
+    """data/*.json 시드 원본(개수를 테스트에 박지 않기 위해)."""
+    import json, pathlib
+    return json.loads((pathlib.Path(__file__).resolve().parents[2] / "data" / f"{name}.json").read_text(encoding="utf-8"))
+
+
 def test_health_reports_llm_off(client):
     r = client.get("/v1/health")
     assert r.status_code == 200
@@ -17,13 +23,13 @@ def test_categories_and_market(client):
 
 def test_stores_open_state_follows_demo_time(client):
     stores = client.get("/v1/catalog/stores", params={"kind": "market"}, headers=at("20:30")).json()["stores"]
-    assert len(stores) == 12 and all(s["kind"] == "market" for s in stores)
+    assert len(stores) == len([s for s in seed("stores") if s["kind"] == "market"]) and all(s["kind"] == "market" for s in stores)
     hoe = next(s for s in stores if s["id"] == "dongmun-hoe")
     assert hoe["is_open"] is True and hoe["closes_in_min"] == 30
     omegi = next(s for s in stores if s["id"] == "omegi")
     assert omegi["is_open"] is False and omegi["closes_in_min"] is None
     pork = client.get("/v1/catalog/stores", params={"category": "pork"}).json()["stores"]
-    assert {s["id"] for s in pork} == {"store-2", "store-13", "store-14"} and all(s["category"] == "pork" for s in pork)
+    assert {s["id"] for s in pork} == {s["id"] for s in seed("stores") if s["category"] == "pork"} >= {"store-2"}
 
 
 def test_bad_demo_time_is_korean_400(client):
@@ -46,7 +52,7 @@ def test_product_search(client):
     ids = {p["id"] for p in client.get("/v1/catalog/products", params={"q": "동문 바당횟집"}).json()["products"]}
     assert ids == {"p-28", "p-29", "p-30"}                      # 가게명
     tagged = client.get("/v1/catalog/products", params={"tag": "오메기떡"}).json()["products"]
-    assert {p["id"] for p in tagged} == {"p-35", "p-36"}
+    assert {p["id"] for p in tagged} == {p["id"] for p in seed("products") if "오메기떡" in p["tags"]} >= {"p-35", "p-36"}
     import json, pathlib
     seeded = json.loads((pathlib.Path(__file__).resolve().parents[2] / "data" / "products.json").read_text(encoding="utf-8"))
     assert len(client.get("/v1/catalog/products").json()["products"]) == len(seeded)   # 시드 데이터 전부

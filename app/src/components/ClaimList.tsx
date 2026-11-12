@@ -58,9 +58,7 @@ function ClaimRow({ claim }: { claim: Claim }) {
         paddingVertical: sub ? space.s : 2,
         paddingHorizontal: sub ? space.m : 0,
         backgroundColor: sub ? C.warnSoft : 'transparent',
-        borderLeftWidth: sub ? 3 : 0,
-        borderLeftColor: C.warn,
-        borderRadius: sub ? radius.chip : 0,
+        borderRadius: sub ? radius.card : 0,
       }}
     >
       <View style={{ flex: 1, gap: 4 }}>

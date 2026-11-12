@@ -1458,5 +1458,2479 @@
     "group": "메뉴",
     "popular": false,
     "image": null
+  },
+  {
+    "id": "p-83",
+    "store_id": "store-31",
+    "name": "튀김 우동",
+    "description": "새우튀김 두 개",
+    "price": 9500,
+    "emoji": "🍜",
+    "temp": "hot",
+    "stock": 8,
+    "serves": 1,
+    "tags": [
+      "국수",
+      "국물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-84",
+    "store_id": "store-31",
+    "name": "유부초밥 4p",
+    "description": "달콤한 유부",
+    "price": 4500,
+    "emoji": "🍣",
+    "temp": "room",
+    "stock": 8,
+    "serves": 1,
+    "tags": [],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-85",
+    "store_id": "store-32",
+    "name": "흑돼지 돈코츠 라멘",
+    "description": "진한 사골 국물",
+    "price": 11000,
+    "emoji": "🍜",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "흑돼지",
+      "국물",
+      "국수"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-86",
+    "store_id": "store-32",
+    "name": "교자 5p",
+    "description": "바삭한 군만두",
+    "price": 5000,
+    "emoji": "🥟",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "간식"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-87",
+    "store_id": "store-33",
+    "name": "제주 해물 텐동",
+    "description": "새우·한치·채소 튀김",
+    "price": 13000,
+    "emoji": "🍤",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "해산물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-88",
+    "store_id": "store-33",
+    "name": "미소된장국",
+    "description": "미소된장국 한 그릇",
+    "price": 2000,
+    "emoji": "🥣",
+    "temp": "hot",
+    "stock": 15,
+    "serves": 1,
+    "tags": [
+      "국물"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-89",
+    "store_id": "store-34",
+    "name": "흑돼지 규동",
+    "description": "간장에 졸인 흑돼지",
+    "price": 10500,
+    "emoji": "🍚",
+    "temp": "hot",
+    "stock": 15,
+    "serves": 1,
+    "tags": [
+      "흑돼지",
+      "고기"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-90",
+    "store_id": "store-34",
+    "name": "연어 사케동",
+    "description": "연어 사케동 한 그릇",
+    "price": 14000,
+    "emoji": "🍚",
+    "temp": "cold",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "해산물"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-91",
+    "store_id": "store-35",
+    "name": "안심 카츠",
+    "description": "부드러운 안심",
+    "price": 12500,
+    "emoji": "🍱",
+    "temp": "hot",
+    "stock": 8,
+    "serves": 1,
+    "tags": [
+      "고기"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-92",
+    "store_id": "store-35",
+    "name": "카츠 샌드",
+    "description": "도시락용",
+    "price": 8500,
+    "emoji": "🥪",
+    "temp": "room",
+    "stock": 8,
+    "serves": 1,
+    "tags": [
+      "간식"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-93",
+    "store_id": "store-36",
+    "name": "캘리포니아 롤",
+    "description": "8p",
+    "price": 9000,
+    "emoji": "🍣",
+    "temp": "cold",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "해산물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-94",
+    "store_id": "store-36",
+    "name": "모둠 초밥 10p",
+    "description": "모둠 초밥 10p 한 그릇",
+    "price": 17000,
+    "emoji": "🍣",
+    "temp": "cold",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "회",
+      "해산물"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-95",
+    "store_id": "store-37",
+    "name": "명란 주먹밥",
+    "description": "명란 주먹밥 한 그릇",
+    "price": 3000,
+    "emoji": "🍙",
+    "temp": "room",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "간식"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-96",
+    "store_id": "store-37",
+    "name": "참치마요 주먹밥",
+    "description": "참치마요 주먹밥 한 그릇",
+    "price": 3000,
+    "emoji": "🍙",
+    "temp": "room",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "간식"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-97",
+    "store_id": "store-37",
+    "name": "미니 우동",
+    "description": "미니 우동 한 그릇",
+    "price": 4500,
+    "emoji": "🍜",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "국수"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-98",
+    "store_id": "store-38",
+    "name": "흑돼지 근고기 (2인)",
+    "description": "두툼하게 썬 근고기",
+    "price": 34000,
+    "emoji": "🥩",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 2,
+    "tags": [
+      "흑돼지",
+      "고기",
+      "구이",
+      "안주"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-99",
+    "store_id": "store-38",
+    "name": "된장찌개",
+    "description": "된장찌개 한 그릇",
+    "price": 7000,
+    "emoji": "🍲",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "국물"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-100",
+    "store_id": "store-39",
+    "name": "흑돼지 두루치기 (2인)",
+    "description": "콩나물·파채 듬뿍",
+    "price": 22000,
+    "emoji": "🍳",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 2,
+    "tags": [
+      "흑돼지",
+      "고기"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-101",
+    "store_id": "store-39",
+    "name": "볶음밥 추가",
+    "description": "볶음밥 추가 한 그릇",
+    "price": 3000,
+    "emoji": "🍚",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-102",
+    "store_id": "store-40",
+    "name": "흑돼지 수육 (2인)",
+    "description": "보쌈김치 포함",
+    "price": 27000,
+    "emoji": "🥩",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 2,
+    "tags": [
+      "흑돼지",
+      "고기",
+      "안주"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-103",
+    "store_id": "store-40",
+    "name": "고기국수",
+    "description": "고기국수 한 그릇",
+    "price": 9000,
+    "emoji": "🍜",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "국수",
+      "흑돼지"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-104",
+    "store_id": "store-41",
+    "name": "앞다리 족발 중",
+    "description": "앞다리 족발 중 한 그릇",
+    "price": 33000,
+    "emoji": "🍖",
+    "temp": "room",
+    "stock": 12,
+    "serves": 3,
+    "tags": [
+      "고기",
+      "안주"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-105",
+    "store_id": "store-41",
+    "name": "막국수",
+    "description": "막국수 한 그릇",
+    "price": 7000,
+    "emoji": "🍜",
+    "temp": "cold",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "국수"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-106",
+    "store_id": "store-42",
+    "name": "흑돼지 제육 도시락",
+    "description": "흑돼지 제육 도시락 한 그릇",
+    "price": 9500,
+    "emoji": "🍱",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "흑돼지",
+      "고기"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-107",
+    "store_id": "store-42",
+    "name": "흑돼지 불고기 도시락",
+    "description": "흑돼지 불고기 도시락 한 그릇",
+    "price": 10000,
+    "emoji": "🍱",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "흑돼지",
+      "고기"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-108",
+    "store_id": "store-43",
+    "name": "양념 돼지갈비 (2인)",
+    "description": "양념 돼지갈비 (2인) 한 그릇",
+    "price": 28000,
+    "emoji": "🍖",
+    "temp": "hot",
+    "stock": 8,
+    "serves": 2,
+    "tags": [
+      "고기",
+      "구이",
+      "안주"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-109",
+    "store_id": "store-43",
+    "name": "냉면",
+    "description": "냉면 한 그릇",
+    "price": 8000,
+    "emoji": "🍜",
+    "temp": "cold",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "국수"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-110",
+    "store_id": "store-44",
+    "name": "오겹살 철판 (2인)",
+    "description": "오겹살 철판 (2인) 한 그릇",
+    "price": 30000,
+    "emoji": "🥓",
+    "temp": "hot",
+    "stock": 8,
+    "serves": 2,
+    "tags": [
+      "흑돼지",
+      "고기",
+      "안주"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-111",
+    "store_id": "store-44",
+    "name": "계란찜",
+    "description": "계란찜 한 그릇",
+    "price": 4000,
+    "emoji": "🍳",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-112",
+    "store_id": "store-45",
+    "name": "돼지국밥",
+    "description": "돼지국밥 한 그릇",
+    "price": 9000,
+    "emoji": "🍲",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "국물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-113",
+    "store_id": "store-45",
+    "name": "순대국밥",
+    "description": "순대국밥 한 그릇",
+    "price": 9500,
+    "emoji": "🍲",
+    "temp": "hot",
+    "stock": 15,
+    "serves": 1,
+    "tags": [
+      "국물"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-114",
+    "store_id": "store-46",
+    "name": "고사리 해장국",
+    "description": "고사리 해장국 한 그릇",
+    "price": 10000,
+    "emoji": "🍲",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "국물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-115",
+    "store_id": "store-46",
+    "name": "공깃밥",
+    "description": "공깃밥 한 그릇",
+    "price": 1000,
+    "emoji": "🍚",
+    "temp": "hot",
+    "stock": 8,
+    "serves": 1,
+    "tags": [],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-116",
+    "store_id": "store-47",
+    "name": "몸국",
+    "description": "몸국 한 그릇",
+    "price": 10000,
+    "emoji": "🥣",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "국물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-117",
+    "store_id": "store-47",
+    "name": "빙떡 2개",
+    "description": "빙떡 2개 한 그릇",
+    "price": 4000,
+    "emoji": "🌯",
+    "temp": "room",
+    "stock": 8,
+    "serves": 1,
+    "tags": [
+      "간식"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-118",
+    "store_id": "store-48",
+    "name": "갈칫국",
+    "description": "늙은 호박을 넣은 맑은 국",
+    "price": 14000,
+    "emoji": "🐟",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "국물",
+      "해산물",
+      "갈치"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-119",
+    "store_id": "store-49",
+    "name": "성게 미역국",
+    "description": "성게 미역국 한 그릇",
+    "price": 13000,
+    "emoji": "🍲",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "국물",
+      "해산물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-120",
+    "store_id": "store-49",
+    "name": "전복 비빔밥",
+    "description": "전복 비빔밥 한 그릇",
+    "price": 14000,
+    "emoji": "🍚",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "해산물"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-121",
+    "store_id": "store-50",
+    "name": "접짝뼈국",
+    "description": "메밀가루로 걸쭉하게",
+    "price": 11000,
+    "emoji": "🍖",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "국물",
+      "고기"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-122",
+    "store_id": "store-51",
+    "name": "바지락 칼국수",
+    "description": "바지락 칼국수 한 그릇",
+    "price": 9000,
+    "emoji": "🍜",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "국물",
+      "국수",
+      "해산물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-123",
+    "store_id": "store-51",
+    "name": "김치 수제비",
+    "description": "김치 수제비 한 그릇",
+    "price": 8500,
+    "emoji": "🥣",
+    "temp": "hot",
+    "stock": 15,
+    "serves": 1,
+    "tags": [
+      "국물"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-124",
+    "store_id": "store-52",
+    "name": "옛날 통닭",
+    "description": "옛날 통닭 한 그릇",
+    "price": 16000,
+    "emoji": "🍗",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 2,
+    "tags": [
+      "고기",
+      "안주"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-125",
+    "store_id": "store-52",
+    "name": "콜라 1.25L",
+    "description": "콜라 1.25L 한 그릇",
+    "price": 2500,
+    "emoji": "🥤",
+    "temp": "cold",
+    "stock": 15,
+    "serves": 3,
+    "tags": [
+      "음료"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-126",
+    "store_id": "store-53",
+    "name": "마늘 간장치킨",
+    "description": "마늘 간장치킨 한 그릇",
+    "price": 19000,
+    "emoji": "🍗",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 2,
+    "tags": [
+      "고기",
+      "안주"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-127",
+    "store_id": "store-54",
+    "name": "닭강정 중",
+    "description": "닭강정 중 한 그릇",
+    "price": 15000,
+    "emoji": "🍗",
+    "temp": "hot",
+    "stock": 15,
+    "serves": 2,
+    "tags": [
+      "고기",
+      "간식",
+      "안주"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-128",
+    "store_id": "store-54",
+    "name": "감귤 닭강정 중",
+    "description": "감귤 닭강정 중 한 그릇",
+    "price": 16000,
+    "emoji": "🍊",
+    "temp": "hot",
+    "stock": 8,
+    "serves": 2,
+    "tags": [
+      "고기",
+      "귤",
+      "간식"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-129",
+    "store_id": "store-55",
+    "name": "간장 찜닭 반마리",
+    "description": "간장 찜닭 반마리 한 그릇",
+    "price": 18000,
+    "emoji": "🍲",
+    "temp": "hot",
+    "stock": 8,
+    "serves": 2,
+    "tags": [
+      "고기"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-130",
+    "store_id": "store-55",
+    "name": "치즈 추가",
+    "description": "치즈 추가 한 그릇",
+    "price": 3000,
+    "emoji": "🧀",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 1,
+    "tags": [],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-131",
+    "store_id": "store-56",
+    "name": "장작 바베큐 치킨",
+    "description": "장작 바베큐 치킨 한 그릇",
+    "price": 21000,
+    "emoji": "🔥",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 2,
+    "tags": [
+      "고기",
+      "안주"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-132",
+    "store_id": "store-57",
+    "name": "반반 순살",
+    "description": "반반 순살 한 그릇",
+    "price": 20000,
+    "emoji": "🍗",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 2,
+    "tags": [
+      "고기",
+      "안주"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-133",
+    "store_id": "store-57",
+    "name": "치즈볼 5개",
+    "description": "치즈볼 5개 한 그릇",
+    "price": 5000,
+    "emoji": "🧀",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "간식"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-134",
+    "store_id": "store-58",
+    "name": "닭꼬치 5개",
+    "description": "닭꼬치 5개 한 그릇",
+    "price": 12000,
+    "emoji": "🍢",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 2,
+    "tags": [
+      "꼬치",
+      "안주",
+      "고기"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-135",
+    "store_id": "store-59",
+    "name": "핸드드립 커피",
+    "description": "핸드드립 커피 한 그릇",
+    "price": 6000,
+    "emoji": "☕",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "음료"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-136",
+    "store_id": "store-59",
+    "name": "바스크 치즈케이크",
+    "description": "바스크 치즈케이크 한 그릇",
+    "price": 7000,
+    "emoji": "🍰",
+    "temp": "cold",
+    "stock": 15,
+    "serves": 1,
+    "tags": [
+      "디저트"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-137",
+    "store_id": "store-60",
+    "name": "감귤 스무디",
+    "description": "감귤 스무디 한 그릇",
+    "price": 6500,
+    "emoji": "🍊",
+    "temp": "cold",
+    "stock": 8,
+    "serves": 1,
+    "tags": [
+      "음료",
+      "귤"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-138",
+    "store_id": "store-60",
+    "name": "감귤 마들렌 3개",
+    "description": "감귤 마들렌 3개 한 그릇",
+    "price": 6000,
+    "emoji": "🧁",
+    "temp": "room",
+    "stock": 8,
+    "serves": 1,
+    "tags": [
+      "디저트",
+      "귤",
+      "간식"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-139",
+    "store_id": "store-61",
+    "name": "한라봉 빙수",
+    "description": "한라봉 빙수 한 그릇",
+    "price": 12000,
+    "emoji": "🍧",
+    "temp": "cold",
+    "stock": 25,
+    "serves": 2,
+    "tags": [
+      "디저트",
+      "귤"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-140",
+    "store_id": "store-61",
+    "name": "녹차 빙수",
+    "description": "녹차 빙수 한 그릇",
+    "price": 11000,
+    "emoji": "🍧",
+    "temp": "cold",
+    "stock": 12,
+    "serves": 2,
+    "tags": [
+      "디저트"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-141",
+    "store_id": "store-62",
+    "name": "감귤 크림치즈 베이글",
+    "description": "감귤 크림치즈 베이글 한 그릇",
+    "price": 5500,
+    "emoji": "🥯",
+    "temp": "room",
+    "stock": 15,
+    "serves": 1,
+    "tags": [
+      "디저트",
+      "귤",
+      "간식"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-142",
+    "store_id": "store-62",
+    "name": "아메리카노",
+    "description": "아메리카노 한 그릇",
+    "price": 4000,
+    "emoji": "☕",
+    "temp": "hot",
+    "stock": 8,
+    "serves": 1,
+    "tags": [
+      "음료"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-143",
+    "store_id": "store-63",
+    "name": "말차 라떼",
+    "description": "말차 라떼 한 그릇",
+    "price": 6000,
+    "emoji": "🍵",
+    "temp": "cold",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "음료"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-144",
+    "store_id": "store-63",
+    "name": "녹차 롤케이크",
+    "description": "녹차 롤케이크 한 그릇",
+    "price": 6500,
+    "emoji": "🍰",
+    "temp": "cold",
+    "stock": 8,
+    "serves": 1,
+    "tags": [
+      "디저트"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-145",
+    "store_id": "store-64",
+    "name": "우도 땅콩 도넛",
+    "description": "우도 땅콩 도넛 한 그릇",
+    "price": 3500,
+    "emoji": "🍩",
+    "temp": "room",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "디저트",
+      "간식"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-146",
+    "store_id": "store-64",
+    "name": "우유 1팩",
+    "description": "우유 1팩 한 그릇",
+    "price": 2000,
+    "emoji": "🥛",
+    "temp": "cold",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "음료"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-147",
+    "store_id": "store-65",
+    "name": "당근 착즙 주스",
+    "description": "당근 착즙 주스 한 그릇",
+    "price": 6000,
+    "emoji": "🥕",
+    "temp": "cold",
+    "stock": 15,
+    "serves": 1,
+    "tags": [
+      "음료"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-148",
+    "store_id": "store-65",
+    "name": "천혜향 주스",
+    "description": "천혜향 주스 한 그릇",
+    "price": 7000,
+    "emoji": "🍊",
+    "temp": "cold",
+    "stock": 8,
+    "serves": 1,
+    "tags": [
+      "음료",
+      "귤"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-149",
+    "store_id": "store-66",
+    "name": "국물 떡볶이",
+    "description": "국물 떡볶이 한 그릇",
+    "price": 5500,
+    "emoji": "🍢",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "분식"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-150",
+    "store_id": "store-66",
+    "name": "모둠 튀김",
+    "description": "모둠 튀김 한 그릇",
+    "price": 5000,
+    "emoji": "🍤",
+    "temp": "hot",
+    "stock": 15,
+    "serves": 1,
+    "tags": [
+      "분식",
+      "간식"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-151",
+    "store_id": "store-67",
+    "name": "흑돼지 김밥",
+    "description": "흑돼지 김밥 한 그릇",
+    "price": 5000,
+    "emoji": "🍙",
+    "temp": "room",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "분식",
+      "김밥",
+      "흑돼지"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-152",
+    "store_id": "store-67",
+    "name": "참치 김밥",
+    "description": "참치 김밥 한 그릇",
+    "price": 4500,
+    "emoji": "🍙",
+    "temp": "room",
+    "stock": 8,
+    "serves": 1,
+    "tags": [
+      "분식",
+      "김밥"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-153",
+    "store_id": "store-68",
+    "name": "고기국수",
+    "description": "고기국수 한 그릇",
+    "price": 9000,
+    "emoji": "🍜",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "국수",
+      "국물",
+      "흑돼지"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-154",
+    "store_id": "store-68",
+    "name": "멸치국수",
+    "description": "멸치국수 한 그릇",
+    "price": 7000,
+    "emoji": "🍜",
+    "temp": "hot",
+    "stock": 8,
+    "serves": 1,
+    "tags": [
+      "국수",
+      "국물"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-155",
+    "store_id": "store-69",
+    "name": "피순대 한 접시",
+    "description": "피순대 한 접시 한 그릇",
+    "price": 10000,
+    "emoji": "🌭",
+    "temp": "hot",
+    "stock": 8,
+    "serves": 2,
+    "tags": [
+      "분식",
+      "안주"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-156",
+    "store_id": "store-70",
+    "name": "치즈 라볶이",
+    "description": "치즈 라볶이 한 그릇",
+    "price": 7000,
+    "emoji": "🍝",
+    "temp": "hot",
+    "stock": 15,
+    "serves": 1,
+    "tags": [
+      "분식"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-157",
+    "store_id": "store-70",
+    "name": "주먹밥",
+    "description": "주먹밥 한 그릇",
+    "price": 3000,
+    "emoji": "🍙",
+    "temp": "room",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "분식"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-158",
+    "store_id": "store-71",
+    "name": "통모짜 핫도그",
+    "description": "통모짜 핫도그 한 그릇",
+    "price": 4000,
+    "emoji": "🌭",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "간식",
+      "분식"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-159",
+    "store_id": "store-71",
+    "name": "감자 핫도그",
+    "description": "감자 핫도그 한 그릇",
+    "price": 4500,
+    "emoji": "🌭",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "간식",
+      "분식"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-160",
+    "store_id": "store-72",
+    "name": "비빔국수",
+    "description": "비빔국수 한 그릇",
+    "price": 8000,
+    "emoji": "🍝",
+    "temp": "room",
+    "stock": 8,
+    "serves": 1,
+    "tags": [
+      "국수"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-161",
+    "store_id": "store-72",
+    "name": "만두 6개",
+    "description": "만두 6개 한 그릇",
+    "price": 5000,
+    "emoji": "🥟",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "간식"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-162",
+    "store_id": "store-73",
+    "name": "마르게리타",
+    "description": "마르게리타 한 그릇",
+    "price": 17000,
+    "emoji": "🍕",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 2,
+    "tags": [],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-163",
+    "store_id": "store-73",
+    "name": "흑돼지 페퍼로니",
+    "description": "흑돼지 페퍼로니 한 그릇",
+    "price": 21000,
+    "emoji": "🍕",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 2,
+    "tags": [
+      "흑돼지",
+      "고기"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-164",
+    "store_id": "store-74",
+    "name": "에그 베네딕트",
+    "description": "에그 베네딕트 한 그릇",
+    "price": 14000,
+    "emoji": "🍳",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 1,
+    "tags": [],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-165",
+    "store_id": "store-74",
+    "name": "감귤 팬케이크",
+    "description": "감귤 팬케이크 한 그릇",
+    "price": 13000,
+    "emoji": "🥞",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "디저트",
+      "귤"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-166",
+    "store_id": "store-75",
+    "name": "흑돼지 목살 스테이크",
+    "description": "흑돼지 목살 스테이크 한 그릇",
+    "price": 19000,
+    "emoji": "🥩",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "흑돼지",
+      "고기"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-167",
+    "store_id": "store-75",
+    "name": "감자 퓨레",
+    "description": "감자 퓨레 한 그릇",
+    "price": 4000,
+    "emoji": "🥔",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 1,
+    "tags": [],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-168",
+    "store_id": "store-76",
+    "name": "한치 샐러드",
+    "description": "한치 샐러드 한 그릇",
+    "price": 13000,
+    "emoji": "🥗",
+    "temp": "cold",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "해산물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-169",
+    "store_id": "store-76",
+    "name": "닭가슴살 샐러드",
+    "description": "닭가슴살 샐러드 한 그릇",
+    "price": 11000,
+    "emoji": "🥗",
+    "temp": "cold",
+    "stock": 12,
+    "serves": 1,
+    "tags": [],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-170",
+    "store_id": "store-77",
+    "name": "치즈 흑돼지 버거",
+    "description": "치즈 흑돼지 버거 한 그릇",
+    "price": 12000,
+    "emoji": "🍔",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "흑돼지",
+      "고기"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-171",
+    "store_id": "store-77",
+    "name": "어니언 링",
+    "description": "어니언 링 한 그릇",
+    "price": 4500,
+    "emoji": "🧅",
+    "temp": "hot",
+    "stock": 15,
+    "serves": 1,
+    "tags": [
+      "간식"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-172",
+    "store_id": "store-78",
+    "name": "보말 리조또",
+    "description": "보말 리조또 한 그릇",
+    "price": 16000,
+    "emoji": "🍚",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "해산물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-173",
+    "store_id": "store-78",
+    "name": "마늘빵",
+    "description": "마늘빵 한 그릇",
+    "price": 4000,
+    "emoji": "🥖",
+    "temp": "hot",
+    "stock": 8,
+    "serves": 1,
+    "tags": [],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-174",
+    "store_id": "store-79",
+    "name": "흑돼지 타코 3p",
+    "description": "흑돼지 타코 3p 한 그릇",
+    "price": 12000,
+    "emoji": "🌮",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "흑돼지",
+      "고기"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-175",
+    "store_id": "store-79",
+    "name": "나초",
+    "description": "나초 한 그릇",
+    "price": 6000,
+    "emoji": "🌽",
+    "temp": "room",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "간식",
+      "안주"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-176",
+    "store_id": "store-80",
+    "name": "간짜장",
+    "description": "간짜장 한 그릇",
+    "price": 8000,
+    "emoji": "🍜",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "국수"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-177",
+    "store_id": "store-80",
+    "name": "볶음밥",
+    "description": "볶음밥 한 그릇",
+    "price": 8000,
+    "emoji": "🍚",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-178",
+    "store_id": "store-81",
+    "name": "해물 짬뽕",
+    "description": "해물 짬뽕 한 그릇",
+    "price": 10000,
+    "emoji": "🍜",
+    "temp": "hot",
+    "stock": 15,
+    "serves": 1,
+    "tags": [
+      "국물",
+      "해산물",
+      "국수"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-179",
+    "store_id": "store-81",
+    "name": "군만두",
+    "description": "군만두 한 그릇",
+    "price": 5000,
+    "emoji": "🥟",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "간식"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-180",
+    "store_id": "store-82",
+    "name": "마라탕 기본",
+    "description": "마라탕 기본 한 그릇",
+    "price": 11000,
+    "emoji": "🍲",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "국물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-181",
+    "store_id": "store-82",
+    "name": "꿔바로우 소",
+    "description": "꿔바로우 소 한 그릇",
+    "price": 14000,
+    "emoji": "🥢",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 2,
+    "tags": [
+      "고기",
+      "안주"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-182",
+    "store_id": "store-83",
+    "name": "샤오롱바오 6개",
+    "description": "샤오롱바오 6개 한 그릇",
+    "price": 8000,
+    "emoji": "🥟",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "간식"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-183",
+    "store_id": "store-83",
+    "name": "새우 하가우 4개",
+    "description": "새우 하가우 4개 한 그릇",
+    "price": 7000,
+    "emoji": "🥟",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "해산물",
+      "간식"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-184",
+    "store_id": "store-84",
+    "name": "찹쌀 탕수육 중",
+    "description": "찹쌀 탕수육 중 한 그릇",
+    "price": 20000,
+    "emoji": "🥢",
+    "temp": "hot",
+    "stock": 15,
+    "serves": 2,
+    "tags": [
+      "고기",
+      "안주"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-185",
+    "store_id": "store-84",
+    "name": "짜장면",
+    "description": "짜장면 한 그릇",
+    "price": 7000,
+    "emoji": "🍜",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "국수"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-186",
+    "store_id": "store-85",
+    "name": "양꼬치 10개",
+    "description": "양꼬치 10개 한 그릇",
+    "price": 15000,
+    "emoji": "🍢",
+    "temp": "hot",
+    "stock": 8,
+    "serves": 2,
+    "tags": [
+      "꼬치",
+      "고기",
+      "안주"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-187",
+    "store_id": "store-86",
+    "name": "중화비빔밥",
+    "description": "중화비빔밥 한 그릇",
+    "price": 9500,
+    "emoji": "🍚",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-188",
+    "store_id": "store-86",
+    "name": "계란국",
+    "description": "계란국 한 그릇",
+    "price": 2000,
+    "emoji": "🥣",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "국물"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-189",
+    "store_id": "store-87",
+    "name": "자리돔 물회",
+    "description": "자리돔 물회 한 그릇",
+    "price": 14000,
+    "emoji": "🥣",
+    "temp": "cold",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "회",
+      "해산물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-190",
+    "store_id": "store-87",
+    "name": "한치 물회",
+    "description": "한치 물회 한 그릇",
+    "price": 15000,
+    "emoji": "🥣",
+    "temp": "cold",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "회",
+      "해산물"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-191",
+    "store_id": "store-88",
+    "name": "고등어회 (2인)",
+    "description": "고등어회 (2인) 한 그릇",
+    "price": 30000,
+    "emoji": "🐟",
+    "temp": "cold",
+    "stock": 15,
+    "serves": 2,
+    "tags": [
+      "회",
+      "해산물",
+      "고등어"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-192",
+    "store_id": "store-89",
+    "name": "갈치조림 (2인)",
+    "description": "갈치조림 (2인) 한 그릇",
+    "price": 36000,
+    "emoji": "🐠",
+    "temp": "hot",
+    "stock": 15,
+    "serves": 2,
+    "tags": [
+      "갈치",
+      "해산물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-193",
+    "store_id": "store-89",
+    "name": "공깃밥",
+    "description": "공깃밥 한 그릇",
+    "price": 1000,
+    "emoji": "🍚",
+    "temp": "hot",
+    "stock": 8,
+    "serves": 1,
+    "tags": [],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-194",
+    "store_id": "store-90",
+    "name": "전복 버터구이",
+    "description": "전복 버터구이 한 그릇",
+    "price": 25000,
+    "emoji": "🐚",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 2,
+    "tags": [
+      "해산물",
+      "안주"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-195",
+    "store_id": "store-90",
+    "name": "전복죽",
+    "description": "전복죽 한 그릇",
+    "price": 14000,
+    "emoji": "🥣",
+    "temp": "hot",
+    "stock": 15,
+    "serves": 1,
+    "tags": [
+      "해산물"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-196",
+    "store_id": "store-91",
+    "name": "해물탕 중",
+    "description": "해물탕 중 한 그릇",
+    "price": 45000,
+    "emoji": "🦀",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 3,
+    "tags": [
+      "국물",
+      "해산물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-197",
+    "store_id": "store-92",
+    "name": "고등어구이 정식",
+    "description": "고등어구이 정식 한 그릇",
+    "price": 11000,
+    "emoji": "🐟",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "고등어",
+      "해산물",
+      "구이"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-198",
+    "store_id": "store-92",
+    "name": "옥돔구이 정식",
+    "description": "옥돔구이 정식 한 그릇",
+    "price": 16000,
+    "emoji": "🐟",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 1,
+    "tags": [
+      "해산물",
+      "구이"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-199",
+    "store_id": "store-93",
+    "name": "보말 미역국",
+    "description": "보말 미역국 한 그릇",
+    "price": 11000,
+    "emoji": "🍲",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "국물",
+      "해산물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-200",
+    "store_id": "store-93",
+    "name": "보말 비빔밥",
+    "description": "보말 비빔밥 한 그릇",
+    "price": 11000,
+    "emoji": "🍚",
+    "temp": "hot",
+    "stock": 15,
+    "serves": 1,
+    "tags": [
+      "해산물"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-201",
+    "store_id": "store-94",
+    "name": "노지감귤 5kg",
+    "description": "노지감귤 5kg 한 그릇",
+    "price": 18000,
+    "emoji": "🍊",
+    "temp": "room",
+    "stock": 30,
+    "serves": 5,
+    "tags": [
+      "귤",
+      "기념품"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-202",
+    "store_id": "store-95",
+    "name": "양배추 1통",
+    "description": "양배추 1통 한 그릇",
+    "price": 4000,
+    "emoji": "🥬",
+    "temp": "room",
+    "stock": 20,
+    "serves": 4,
+    "tags": [],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-203",
+    "store_id": "store-95",
+    "name": "월동무 2개",
+    "description": "월동무 2개 한 그릇",
+    "price": 3500,
+    "emoji": "🥕",
+    "temp": "room",
+    "stock": 30,
+    "serves": 4,
+    "tags": [],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-204",
+    "store_id": "store-96",
+    "name": "흑돼지 오겹살 600g",
+    "description": "생고기",
+    "price": 21000,
+    "emoji": "🥩",
+    "temp": "cold",
+    "stock": 30,
+    "serves": 3,
+    "tags": [
+      "흑돼지",
+      "고기"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-205",
+    "store_id": "store-96",
+    "name": "흑돼지 목살 600g",
+    "description": "생고기",
+    "price": 20000,
+    "emoji": "🥩",
+    "temp": "cold",
+    "stock": 15,
+    "serves": 3,
+    "tags": [
+      "흑돼지",
+      "고기"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-206",
+    "store_id": "store-97",
+    "name": "손질 고등어 2손",
+    "description": "손질 고등어 2손 한 그릇",
+    "price": 15000,
+    "emoji": "🐟",
+    "temp": "cold",
+    "stock": 20,
+    "serves": 4,
+    "tags": [
+      "고등어",
+      "해산물"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-207",
+    "store_id": "store-97",
+    "name": "손질 갈치 1마리",
+    "description": "손질 갈치 1마리 한 그릇",
+    "price": 20000,
+    "emoji": "🐠",
+    "temp": "cold",
+    "stock": 12,
+    "serves": 3,
+    "tags": [
+      "갈치",
+      "해산물"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-208",
+    "store_id": "store-98",
+    "name": "반찬 3종 세트",
+    "description": "반찬 3종 세트 한 그릇",
+    "price": 12000,
+    "emoji": "🥢",
+    "temp": "cold",
+    "stock": 12,
+    "serves": 3,
+    "tags": [],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-209",
+    "store_id": "store-99",
+    "name": "오메기떡 6개",
+    "description": "오메기떡 6개 한 그릇",
+    "price": 8000,
+    "emoji": "🍡",
+    "temp": "room",
+    "stock": 12,
+    "serves": 2,
+    "tags": [
+      "떡",
+      "오메기떡",
+      "간식"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-210",
+    "store_id": "store-99",
+    "name": "참기름 1병",
+    "description": "참기름 1병 한 그릇",
+    "price": 12000,
+    "emoji": "🫙",
+    "temp": "room",
+    "stock": 20,
+    "serves": 4,
+    "tags": [
+      "기념품"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-211",
+    "store_id": "store-100",
+    "name": "한라봉 2kg",
+    "description": "한라봉 2kg 한 그릇",
+    "price": 24000,
+    "emoji": "🍊",
+    "temp": "room",
+    "stock": 30,
+    "serves": 4,
+    "tags": [
+      "귤",
+      "기념품"
+    ],
+    "group": "대표 메뉴",
+    "popular": true,
+    "image": null
+  },
+  {
+    "id": "p-212",
+    "store_id": "store-100",
+    "name": "천혜향 2kg",
+    "description": "천혜향 2kg 한 그릇",
+    "price": 26000,
+    "emoji": "🍊",
+    "temp": "room",
+    "stock": 25,
+    "serves": 4,
+    "tags": [
+      "귤",
+      "기념품"
+    ],
+    "group": "메뉴",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-213",
+    "store_id": "mk-13",
+    "name": "멸치볶음",
+    "description": "멸치볶음 한 그릇",
+    "price": 5000,
+    "emoji": "🥢",
+    "temp": "cold",
+    "stock": 12,
+    "serves": 3,
+    "tags": [],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-214",
+    "store_id": "mk-13",
+    "name": "제주 자리젓",
+    "description": "제주 자리젓 한 그릇",
+    "price": 7000,
+    "emoji": "🫙",
+    "temp": "cold",
+    "stock": 15,
+    "serves": 4,
+    "tags": [
+      "안주"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-215",
+    "store_id": "mk-14",
+    "name": "반건조 한치 5마리",
+    "description": "반건조 한치 5마리 한 그릇",
+    "price": 15000,
+    "emoji": "🦑",
+    "temp": "room",
+    "stock": 12,
+    "serves": 3,
+    "tags": [
+      "해산물",
+      "안주",
+      "기념품"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-216",
+    "store_id": "mk-14",
+    "name": "옥돔 2마리",
+    "description": "옥돔 2마리 한 그릇",
+    "price": 22000,
+    "emoji": "🐟",
+    "temp": "cold",
+    "stock": 8,
+    "serves": 3,
+    "tags": [
+      "해산물",
+      "기념품"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-217",
+    "store_id": "mk-15",
+    "name": "감귤 단팥빵",
+    "description": "감귤 단팥빵 한 그릇",
+    "price": 2500,
+    "emoji": "🥐",
+    "temp": "room",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "간식",
+      "귤"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-218",
+    "store_id": "mk-15",
+    "name": "우도 땅콩빵 6개",
+    "description": "우도 땅콩빵 6개 한 그릇",
+    "price": 6000,
+    "emoji": "🥜",
+    "temp": "room",
+    "stock": 20,
+    "serves": 2,
+    "tags": [
+      "간식",
+      "기념품"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-219",
+    "store_id": "mk-16",
+    "name": "갈치속젓",
+    "description": "갈치속젓 한 그릇",
+    "price": 9000,
+    "emoji": "🫙",
+    "temp": "cold",
+    "stock": 30,
+    "serves": 4,
+    "tags": [
+      "안주",
+      "기념품"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-220",
+    "store_id": "mk-16",
+    "name": "멜젓",
+    "description": "멜젓 한 그릇",
+    "price": 8000,
+    "emoji": "🫙",
+    "temp": "cold",
+    "stock": 20,
+    "serves": 4,
+    "tags": [
+      "안주"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-221",
+    "store_id": "mk-17",
+    "name": "아이스 아메리카노",
+    "description": "아이스 아메리카노 한 그릇",
+    "price": 3000,
+    "emoji": "☕",
+    "temp": "cold",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "음료"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-222",
+    "store_id": "mk-17",
+    "name": "감귤 에이드",
+    "description": "감귤 에이드 한 그릇",
+    "price": 4500,
+    "emoji": "🍊",
+    "temp": "cold",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "음료",
+      "귤"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-223",
+    "store_id": "mk-18",
+    "name": "해물파전",
+    "description": "해물파전 한 그릇",
+    "price": 12000,
+    "emoji": "🥘",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 2,
+    "tags": [
+      "안주",
+      "해산물"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
+  },
+  {
+    "id": "p-224",
+    "store_id": "mk-18",
+    "name": "녹두전 2장",
+    "description": "녹두전 2장 한 그릇",
+    "price": 8000,
+    "emoji": "🥘",
+    "temp": "hot",
+    "stock": 8,
+    "serves": 2,
+    "tags": [
+      "안주"
+    ],
+    "group": "사이드·음료",
+    "popular": false,
+    "image": null
   }
 ]

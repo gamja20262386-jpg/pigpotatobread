@@ -17,7 +17,8 @@ export function QuoteCard({ quote, run, loading, error, onRetry }: { quote?: Quo
         <View style={{ flex: 1 }}>
           <Txt v="bodyMedium">하르방 점검</Txt>
           <Txt v="caption" color={C.sub} numberOfLines={2}>
-            {loading ? '묶음·봉투·배달비를 다시 계산하고 있어요' : run?.summary ?? '담은 상품을 확인했어요'}
+            {/* 경고 문장은 아래 상자에 그대로 나오므로 여기서는 상태만(같은 말 두 번 X) */}
+            {loading ? '묶음·봉투·배달비를 다시 계산하고 있어요' : !quote ? '담은 상품을 확인했어요' : !quote.in_zone ? '이 배송지로는 주문할 수 없어요' : quote.warnings.length ? `주문 전 확인할 것 ${quote.warnings.length}개` : '주문해도 괜찮아요'}
           </Txt>
         </View>
       </View>

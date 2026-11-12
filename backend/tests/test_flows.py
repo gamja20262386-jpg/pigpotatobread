@@ -28,3 +28,14 @@ def test_every_flow_runs(flow, llm_kind):
     assert [e.seq for e in r.events] == list(range(1, len(r.events) + 1))
     for c in r.public_claims:
         assert c.evidence
+
+
+def test_llm_flows_policy_keeps_cart_and_nudges_rule_only(monkeypatch):
+    from app.harness import runner
+    monkeypatch.setattr(runner, "get_provider", lambda: MockProvider())
+    cart = run_flow("cart_check", ctx_at("18:00", **CTX["cart_check"]))
+    nudges = run_flow("care_nudges", ctx_at("18:00", **CTX["care_nudges"]))
+    plan = run_flow("plan_order", ctx_at("18:00", **CTX["plan_order"]))
+    assert cart.llm["provider"] == "off" and cart.summary_source == "template"
+    assert nudges.llm["provider"] == "off"
+    assert plan.llm["provider"] == "mock" and plan.summary_source == "llm"

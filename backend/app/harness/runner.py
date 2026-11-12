@@ -10,6 +10,7 @@ from app.harness import registry
 from app.harness.gates import apply_gates
 from app.harness.trace import EventLog, remember
 from app.llm import get_provider
+from app.tools.data import load_harness
 
 AUTO = "auto"
 
@@ -48,12 +49,18 @@ class _Tracked:
         return reply
 
 
+def _llm_flows() -> set[str]:
+    """harness.yaml llm_flows: LLM을 쓰는 흐름(없으면 전부). 테스트처럼 llm을 직접 넘기면 이 목록과 상관없이 그것을 쓴다."""
+    h = load_harness()
+    return set(h.get("llm_flows") or h["flows"])
+
+
 def run_flow(flow: str, ctx: dict, llm=AUTO) -> RunResult:
     run_id = uuid.uuid4().hex
     log = EventLog()
     tracked = None
     try:
-        provider = get_provider() if llm == AUTO else llm
+        provider = (get_provider() if flow in _llm_flows() else None) if llm == AUTO else llm
         tracked = _Tracked(provider, log) if provider is not None else None
         result = _run(run_id, flow, ctx, tracked, log)
     except Exception as e:      # 마지막 방어선
