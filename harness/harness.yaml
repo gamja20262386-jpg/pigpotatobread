@@ -1,0 +1,98 @@
+# 제주잇 앱 안 AI 에이전트 하네스 (단일 기준). 백엔드는 이 파일을 읽어 팀·에이전트·흐름·게이트를 만든다.
+# 구조는 AI Innovation 대승보(마대 장터) 하네스를 따른다: 코드가 숫자·사실을 만들고, LLM은 말을 다듬기만 한다.
+name: 제주잇 하르방 에이전트 하네스
+version: 0.1.0
+
+llm:
+  provider: ollama              # ollama | claude | mock | off  (환경변수 LLM_PROVIDER가 우선)
+  deadline_s: 20                # LLM 호출 1번 전체 시간 상한(초). 환경변수 LLM_DEADLINE_S 우선
+  ollama:
+    url: http://172.20.32.1:11434   # 환경변수 OLLAMA_URL 우선 (WSL → Windows Ollama)
+    model: ax4-light:q4_K_M         # 환경변수 OLLAMA_MODEL 우선
+    timeout_s: 20
+  claude:
+    model: claude-sonnet-5-5        # 키는 환경변수 ANTHROPIC_API_KEY
+    max_tokens: 1500
+
+agent_persona:
+  name: 하르방
+  tagline: 제주 시장 장보기 에이전트
+
+teams:
+  - id: command
+    name: 지휘
+    agents: [orchestrator, concierge]
+  - id: order
+    name: 주문 설계 팀
+    agents: [intake, curator, bundler, delivery]
+  - id: care
+    name: 신선·챙김 팀
+    agents: [freshness, care]
+  - id: merchant
+    name: 상인 도우미 팀
+    agents: [stock_intake]
+
+agents:
+  - {id: orchestrator, team: command,  no: 0, name: 지휘 AI,      card: agents/orchestrator.md,        llm: true}
+  - {id: intake,       team: order,    no: 1, name: 말 이해,      card: agents/order/intake.md,        llm: true}
+  - {id: curator,      team: order,    no: 2, name: 메뉴 고르기,  card: agents/order/curator.md,       llm: false}
+  - {id: bundler,      team: order,    no: 3, name: 묶음 배송,    card: agents/order/bundler.md,       llm: false}
+  - {id: delivery,     team: order,    no: 4, name: 배달비·도착,  card: agents/order/delivery.md,      llm: false}
+  - {id: freshness,    team: care,     no: 5, name: 신선 지킴,    card: agents/care/freshness.md,      llm: false}
+  - {id: care,         team: care,     no: 6, name: 먼저 챙기기,  card: agents/care/care.md,           llm: false}
+  - {id: concierge,    team: command,  no: 7, name: 대화 도우미,  card: agents/concierge.md,           llm: true}
+  - {id: stock_intake, team: merchant, no: 8, name: 상인 말 입력, card: agents/merchant/stock_intake.md, llm: true}
+
+# 앱 이벤트 → 실행할 에이전트 순서. 순서는 이 파일이 정하고 LLM은 바꾸지 않는다.
+flows:
+  plan_order:     [intake, curator, bundler, delivery, freshness]   # 한 문장 주문 → 묶음 장바구니 제안
+  cart_check:     [bundler, delivery, freshness]                    # 사용자가 직접 담은 장바구니 점검
+  assistant_chat: [concierge]                                       # 앱 대화(영업시간·배달비·주문상태·품절·사용법)
+  care_nudges:    [care]                                            # 홈 '먼저 챙겼어요' 카드
+  stock_intake:   [stock_intake]                                    # 상인 말 → 재고·가격 수정 제안(확인 후 반영)
+
+gates:
+  - id: evidence    # 주장마다 근거 1개 이상, 숫자 있는 주장은 dataset/calc/input/assumption 근거
+  - id: wording     # policies/forbidden-phrases.json 금지 표현
+  - id: privacy     # 전화번호·이메일·주민번호 모양 차단
+
+summary:
+  max_retries: 1    # LLM 요약이 게이트에 걸리면 1회 재요청, 또 걸리면 템플릿 요약
+
+# 팀 가정. 근거 종류 assumption으로 화면에 드러낸다. 바꾸면 테스트도 같이 바꾼다.
+assumptions:
+  market_bundle_fee: {base: 3000, per_extra_stall: 500, max: 5000}   # 동문시장 묶음 배송비
+  restaurant_fee_default: 2000          # 맛집 배달(가게별)
+  hub_pack_min: 10                      # 공동 집하장 포장 시간(분)
+  min_per_km: 3                         # 이동 시간(분/km, 시내 오토바이 가정)
+  delivery_radius_km: 25                # 이보다 멀면 배달 범위 밖
+  cold_max_transit_min: 40              # 회·해산물 등 냉장 품목 권장 최대 이동 시간
+  closing_soon_min: 60                  # 마감 임박 안내 기준
+  default_people: 2
+  budget_slack: 1.0                     # 예산 상한 비율(1.0 = 예산 그대로)
+  want_keywords:                        # 말 → 상품 태그
+    회: [회, 해산물]
+    해산물: [해산물]
+    갈치: [갈치]
+    고등어: [고등어]
+    흑돼지: [흑돼지]
+    고기: [흑돼지, 고기]
+    떡: [떡]
+    오메기떡: [오메기떡]
+    귤: [귤]
+    감귤: [귤]
+    한라봉: [귤]
+    간식: [간식]
+    디저트: [디저트]
+    꼬치: [꼬치]
+    분식: [분식]
+    김밥: [김밥]
+    국수: [국수]
+    해장: [국물]
+    국물: [국물]
+    음료: [음료]
+    기념품: [기념품]
+    선물: [기념품]
+    술: [술]
+    막걸리: [술]
+    안주: [안주]

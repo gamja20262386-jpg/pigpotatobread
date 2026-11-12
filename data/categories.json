@@ -1,0 +1,57 @@
+[
+  {
+    "id": "japanese",
+    "name": "돈까스·일식",
+    "emoji": "🍱"
+  },
+  {
+    "id": "pork",
+    "name": "흑돼지·구이",
+    "emoji": "🥩"
+  },
+  {
+    "id": "soup",
+    "name": "향토·해장국",
+    "emoji": "🍲"
+  },
+  {
+    "id": "chicken",
+    "name": "치킨",
+    "emoji": "🍗"
+  },
+  {
+    "id": "cafe",
+    "name": "카페·디저트",
+    "emoji": "☕"
+  },
+  {
+    "id": "snack",
+    "name": "분식·국수",
+    "emoji": "🍜"
+  },
+  {
+    "id": "western",
+    "name": "피자·양식",
+    "emoji": "🍕"
+  },
+  {
+    "id": "chinese",
+    "name": "중식",
+    "emoji": "🥟"
+  },
+  {
+    "id": "seafood",
+    "name": "회·해산물",
+    "emoji": "🐟"
+  },
+  {
+    "id": "grocery",
+    "name": "제주장보기",
+    "emoji": "🛒"
+  },
+  {
+    "id": "market",
+    "name": "동문시장",
+    "emoji": "🏮"
+  }
+]

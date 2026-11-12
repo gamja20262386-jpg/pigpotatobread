@@ -1,0 +1,607 @@
+[
+  {
+    "id": "p-1",
+    "store_id": "store-1",
+    "name": "제주 흑돼지 돈카츠",
+    "description": "바삭하게 튀긴 대표 메뉴",
+    "price": 12500,
+    "emoji": "🍱",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "흑돼지",
+      "고기"
+    ]
+  },
+  {
+    "id": "p-2",
+    "store_id": "store-1",
+    "name": "치즈 돈카츠",
+    "description": "고소한 치즈가 가득",
+    "price": 14500,
+    "emoji": "🧀",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "고기"
+    ]
+  },
+  {
+    "id": "p-3",
+    "store_id": "store-2",
+    "name": "흑돼지 오겹살 도시락",
+    "description": "제주 흑돼지를 든든하게",
+    "price": 16000,
+    "emoji": "🥩",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "흑돼지",
+      "고기"
+    ]
+  },
+  {
+    "id": "p-4",
+    "store_id": "store-2",
+    "name": "흑돼지 제육볶음",
+    "description": "매콤달콤한 한 끼",
+    "price": 11000,
+    "emoji": "🍖",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "흑돼지",
+      "고기"
+    ]
+  },
+  {
+    "id": "p-5",
+    "store_id": "store-3",
+    "name": "제주 고사리육개장",
+    "description": "제주 향토 음식",
+    "price": 10000,
+    "emoji": "🍲",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "국물"
+    ]
+  },
+  {
+    "id": "p-6",
+    "store_id": "store-3",
+    "name": "몸국",
+    "description": "진한 제주식 국물",
+    "price": 11000,
+    "emoji": "🥣",
+    "temp": "hot",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "국물"
+    ]
+  },
+  {
+    "id": "p-7",
+    "store_id": "store-4",
+    "name": "모둠회 소",
+    "description": "신선한 제철 해산물",
+    "price": 32000,
+    "emoji": "🐟",
+    "temp": "cold",
+    "stock": 8,
+    "serves": 2,
+    "tags": [
+      "회",
+      "해산물"
+    ]
+  },
+  {
+    "id": "p-8",
+    "store_id": "store-4",
+    "name": "딱새우회",
+    "description": "제주 바다의 별미",
+    "price": 22000,
+    "emoji": "🦐",
+    "temp": "cold",
+    "stock": 10,
+    "serves": 2,
+    "tags": [
+      "회",
+      "해산물"
+    ]
+  },
+  {
+    "id": "p-9",
+    "store_id": "store-5",
+    "name": "제주 노지감귤 3kg",
+    "description": "산지 직송 감귤",
+    "price": 12900,
+    "emoji": "🍊",
+    "temp": "room",
+    "stock": 40,
+    "serves": 4,
+    "tags": [
+      "귤"
+    ]
+  },
+  {
+    "id": "p-10",
+    "store_id": "store-5",
+    "name": "제주 흙당근 1kg",
+    "description": "신선한 제주 농산물",
+    "price": 4500,
+    "emoji": "🥕",
+    "temp": "room",
+    "stock": 40,
+    "serves": 4,
+    "tags": []
+  },
+  {
+    "id": "p-11",
+    "store_id": "store-6",
+    "name": "제주 마늘간장 치킨",
+    "description": "바삭하고 달콤짭짤한 치킨",
+    "price": 19000,
+    "emoji": "🍗",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 2,
+    "tags": [
+      "고기",
+      "안주"
+    ]
+  },
+  {
+    "id": "p-12",
+    "store_id": "store-7",
+    "name": "한라봉 에이드 세트",
+    "description": "제주 한라봉으로 만든 음료",
+    "price": 8500,
+    "emoji": "🍹",
+    "temp": "room",
+    "stock": 30,
+    "serves": 2,
+    "tags": [
+      "음료",
+      "귤"
+    ]
+  },
+  {
+    "id": "p-13",
+    "store_id": "store-8",
+    "name": "제주 고기국수",
+    "description": "든든한 제주식 국수",
+    "price": 9500,
+    "emoji": "🍜",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "국수",
+      "국물"
+    ]
+  },
+  {
+    "id": "p-14",
+    "store_id": "store-9",
+    "name": "흑돼지 불고기 피자",
+    "description": "제주 흑돼지를 올린 피자",
+    "price": 21000,
+    "emoji": "🍕",
+    "temp": "hot",
+    "stock": 15,
+    "serves": 2,
+    "tags": [
+      "흑돼지",
+      "고기"
+    ]
+  },
+  {
+    "id": "p-15",
+    "store_id": "store-10",
+    "name": "해물 짬뽕",
+    "description": "해산물이 듬뿍 든 얼큰한 짬뽕",
+    "price": 11000,
+    "emoji": "🥟",
+    "temp": "hot",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "국물",
+      "해산물"
+    ]
+  },
+  {
+    "id": "p-16",
+    "store_id": "jeju-bite",
+    "name": "한라봉 타르트",
+    "description": "한라봉 향이 은은한 타르트",
+    "price": 4500,
+    "emoji": "🥧",
+    "temp": "room",
+    "stock": 20,
+    "serves": 1,
+    "tags": [
+      "간식",
+      "귤"
+    ]
+  },
+  {
+    "id": "p-17",
+    "store_id": "jeju-bite",
+    "name": "감귤 초콜릿",
+    "description": "새콤달콤한 감귤 초콜릿",
+    "price": 6000,
+    "emoji": "🍫",
+    "temp": "room",
+    "stock": 0,
+    "serves": 2,
+    "tags": [
+      "간식",
+      "귤",
+      "기념품"
+    ]
+  },
+  {
+    "id": "p-18",
+    "store_id": "dolharubang",
+    "name": "흑돼지 떡볶이",
+    "description": "매콤한 소스와 쫄깃한 떡",
+    "price": 8000,
+    "emoji": "🍲",
+    "temp": "hot",
+    "stock": 15,
+    "serves": 2,
+    "tags": [
+      "분식",
+      "흑돼지"
+    ]
+  },
+  {
+    "id": "p-19",
+    "store_id": "dolharubang",
+    "name": "고기 김밥",
+    "description": "간편하게 먹기 좋은 김밥",
+    "price": 5000,
+    "emoji": "🍙",
+    "temp": "room",
+    "stock": 25,
+    "serves": 1,
+    "tags": [
+      "분식",
+      "김밥"
+    ]
+  },
+  {
+    "id": "p-20",
+    "store_id": "gyul-dessert",
+    "name": "감귤 마카롱",
+    "description": "감귤 크림을 넣은 마카롱",
+    "price": 3000,
+    "emoji": "🍊",
+    "temp": "room",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "디저트",
+      "귤",
+      "간식"
+    ]
+  },
+  {
+    "id": "p-21",
+    "store_id": "gyul-dessert",
+    "name": "우도 땅콩 쿠키",
+    "description": "고소한 땅콩 풍미의 쿠키",
+    "price": 5500,
+    "emoji": "🍪",
+    "temp": "room",
+    "stock": 20,
+    "serves": 2,
+    "tags": [
+      "디저트",
+      "간식",
+      "기념품"
+    ]
+  },
+  {
+    "id": "p-22",
+    "store_id": "badang-skewer",
+    "name": "흑돼지 꼬치",
+    "description": "숯불 향을 입힌 흑돼지 꼬치",
+    "price": 7000,
+    "emoji": "🍢",
+    "temp": "hot",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "꼬치",
+      "흑돼지",
+      "안주"
+    ]
+  },
+  {
+    "id": "p-23",
+    "store_id": "badang-skewer",
+    "name": "새우 꼬치",
+    "description": "바삭하게 구운 새우 꼬치",
+    "price": 6500,
+    "emoji": "🍤",
+    "temp": "hot",
+    "stock": 0,
+    "serves": 1,
+    "tags": [
+      "꼬치",
+      "해산물",
+      "안주"
+    ]
+  },
+  {
+    "id": "p-24",
+    "store_id": "souvenir",
+    "name": "제주 감귤 키링",
+    "description": "감귤 모양의 여행 기념품",
+    "price": 5000,
+    "emoji": "🔑",
+    "temp": "room",
+    "stock": 40,
+    "serves": 1,
+    "tags": [
+      "기념품"
+    ]
+  },
+  {
+    "id": "p-25",
+    "store_id": "souvenir",
+    "name": "돌하르방 자석",
+    "description": "작은 돌하르방 냉장고 자석",
+    "price": 4000,
+    "emoji": "🗿",
+    "temp": "room",
+    "stock": 40,
+    "serves": 1,
+    "tags": [
+      "기념품"
+    ]
+  },
+  {
+    "id": "p-26",
+    "store_id": "oreum-drink",
+    "name": "한라봉 에이드",
+    "description": "시원하고 상큼한 한라봉 음료",
+    "price": 5500,
+    "emoji": "🥤",
+    "temp": "room",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "음료",
+      "귤"
+    ]
+  },
+  {
+    "id": "p-27",
+    "store_id": "oreum-drink",
+    "name": "청귤 주스",
+    "description": "청귤의 산뜻한 맛",
+    "price": 5000,
+    "emoji": "🍹",
+    "temp": "room",
+    "stock": 30,
+    "serves": 1,
+    "tags": [
+      "음료",
+      "귤"
+    ]
+  },
+  {
+    "id": "p-28",
+    "store_id": "dongmun-hoe",
+    "name": "방어·광어 모둠회 (2~3인)",
+    "description": "새벽 경매 생선으로 뜬 모둠회",
+    "price": 38000,
+    "emoji": "🐟",
+    "temp": "cold",
+    "stock": 6,
+    "serves": 3,
+    "tags": [
+      "회",
+      "해산물"
+    ]
+  },
+  {
+    "id": "p-29",
+    "store_id": "dongmun-hoe",
+    "name": "고등어회 (2인)",
+    "description": "제주에서만 먹는 고등어회",
+    "price": 28000,
+    "emoji": "🐟",
+    "temp": "cold",
+    "stock": 4,
+    "serves": 2,
+    "tags": [
+      "회",
+      "해산물",
+      "고등어"
+    ]
+  },
+  {
+    "id": "p-30",
+    "store_id": "dongmun-hoe",
+    "name": "딱새우 1kg",
+    "description": "달큰한 딱새우",
+    "price": 25000,
+    "emoji": "🦐",
+    "temp": "cold",
+    "stock": 5,
+    "serves": 3,
+    "tags": [
+      "회",
+      "해산물"
+    ]
+  },
+  {
+    "id": "p-31",
+    "store_id": "galchi-house",
+    "name": "은갈치구이 (2인)",
+    "description": "통통한 은갈치를 숯불에",
+    "price": 32000,
+    "emoji": "🐠",
+    "temp": "hot",
+    "stock": 0,
+    "serves": 2,
+    "tags": [
+      "갈치",
+      "해산물",
+      "구이"
+    ]
+  },
+  {
+    "id": "p-32",
+    "store_id": "galchi-house",
+    "name": "고등어구이 (2인)",
+    "description": "기름진 제주 고등어구이",
+    "price": 18000,
+    "emoji": "🐟",
+    "temp": "hot",
+    "stock": 12,
+    "serves": 2,
+    "tags": [
+      "고등어",
+      "해산물",
+      "구이",
+      "갈치"
+    ]
+  },
+  {
+    "id": "p-33",
+    "store_id": "heukdwaeji",
+    "name": "흑돼지 오겹살 구이 (2인)",
+    "description": "정육점에서 바로 썬 오겹살",
+    "price": 36000,
+    "emoji": "🥩",
+    "temp": "hot",
+    "stock": 10,
+    "serves": 2,
+    "tags": [
+      "흑돼지",
+      "고기",
+      "구이",
+      "안주"
+    ]
+  },
+  {
+    "id": "p-34",
+    "store_id": "heukdwaeji",
+    "name": "흑돼지 목살 구이 (2인)",
+    "description": "두툼한 목살",
+    "price": 34000,
+    "emoji": "🥩",
+    "temp": "hot",
+    "stock": 10,
+    "serves": 2,
+    "tags": [
+      "흑돼지",
+      "고기",
+      "구이"
+    ]
+  },
+  {
+    "id": "p-35",
+    "store_id": "omegi",
+    "name": "오메기떡 10개입",
+    "description": "팥고물·콩고물 반반",
+    "price": 11000,
+    "emoji": "🍡",
+    "temp": "room",
+    "stock": 25,
+    "serves": 4,
+    "tags": [
+      "떡",
+      "오메기떡",
+      "간식",
+      "기념품"
+    ]
+  },
+  {
+    "id": "p-36",
+    "store_id": "omegi",
+    "name": "쑥 오메기떡 6개입",
+    "description": "쑥 향 가득",
+    "price": 8000,
+    "emoji": "🍡",
+    "temp": "room",
+    "stock": 15,
+    "serves": 2,
+    "tags": [
+      "떡",
+      "오메기떡",
+      "간식"
+    ]
+  },
+  {
+    "id": "p-37",
+    "store_id": "gamgyul",
+    "name": "노지감귤 3kg",
+    "description": "제주 노지감귤",
+    "price": 13000,
+    "emoji": "🍊",
+    "temp": "room",
+    "stock": 30,
+    "serves": 4,
+    "tags": [
+      "귤",
+      "기념품"
+    ]
+  },
+  {
+    "id": "p-38",
+    "store_id": "gamgyul",
+    "name": "한라봉 2kg",
+    "description": "선물용 한라봉",
+    "price": 25000,
+    "emoji": "🍊",
+    "temp": "room",
+    "stock": 12,
+    "serves": 4,
+    "tags": [
+      "귤",
+      "기념품"
+    ]
+  },
+  {
+    "id": "p-39",
+    "store_id": "makgeolli",
+    "name": "제주 좁쌀 막걸리",
+    "description": "제주 좁쌀로 빚은 막걸리",
+    "price": 6000,
+    "emoji": "🍶",
+    "temp": "cold",
+    "stock": 30,
+    "serves": 2,
+    "tags": [
+      "술"
+    ]
+  },
+  {
+    "id": "p-40",
+    "store_id": "makgeolli",
+    "name": "빙떡",
+    "description": "메밀 반죽에 무채를 말은 제주 안주",
+    "price": 7000,
+    "emoji": "🌯",
+    "temp": "room",
+    "stock": 20,
+    "serves": 2,
+    "tags": [
+      "안주",
+      "간식"
+    ]
+  }
+]

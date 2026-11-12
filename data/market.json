@@ -1,0 +1,74 @@
+{
+  "name": "동문재래시장",
+  "hub": {
+    "id": "hub",
+    "name": "동문시장 공동 집하장",
+    "lat": 33.5122,
+    "lng": 126.5269
+  },
+  "hours": {
+    "open": "08:00",
+    "close": "21:00",
+    "night_market": "18:00-24:00"
+  },
+  "destinations": [
+    {
+      "id": "airport",
+      "name": "제주국제공항",
+      "aliases": [
+        "공항"
+      ],
+      "lat": 33.507,
+      "lng": 126.4929
+    },
+    {
+      "id": "tapdong",
+      "name": "탑동 호텔가",
+      "aliases": [
+        "탑동",
+        "시내 호텔"
+      ],
+      "lat": 33.5167,
+      "lng": 126.5196
+    },
+    {
+      "id": "nohyeong",
+      "name": "노형 숙소가",
+      "aliases": [
+        "노형",
+        "신제주"
+      ],
+      "lat": 33.4847,
+      "lng": 126.48
+    },
+    {
+      "id": "hamdeok",
+      "name": "함덕 해수욕장 숙소",
+      "aliases": [
+        "함덕"
+      ],
+      "lat": 33.5434,
+      "lng": 126.6697
+    },
+    {
+      "id": "aewol",
+      "name": "애월 한담 숙소",
+      "aliases": [
+        "애월",
+        "한담"
+      ],
+      "lat": 33.4628,
+      "lng": 126.3094
+    },
+    {
+      "id": "seogwipo",
+      "name": "서귀포 올레시장 근처",
+      "aliases": [
+        "서귀포"
+      ],
+      "lat": 33.2497,
+      "lng": 126.5636
+    }
+  ],
+  "default_destination": "tapdong"
+}

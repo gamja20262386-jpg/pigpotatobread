@@ -1,0 +1,23 @@
+[
+  {
+    "id": "products",
+    "label": "제주잇 상품 데이터(시연용 가상)",
+    "note": "가게·상품·재고는 과제 시연용 가상 데이터"
+  },
+  {
+    "id": "stores",
+    "label": "제주잇 가게 데이터(시연용 가상)",
+    "note": "영업시간·좌표는 가정"
+  },
+  {
+    "id": "market",
+    "label": "동문시장 집하장·배송지 좌표",
+    "note": "좌표는 지도 기준 근사값"
+  },
+  {
+    "id": "foodsafety-seafood",
+    "label": "식품안전나라 수산물 구매·운반·보관 요령",
+    "url": "https://www.foodsafetykorea.go.kr/portal/board/boardDetail.do?bbs_no=bbs160617&menu_grp=MENU_NEW01&menu_no=4846&ntctxt_no=1096183",
+    "note": "아이스박스·아이스팩으로 차갑게 유지"
+  }
+]
