@@ -105,3 +105,23 @@ def test_llm_time_budget_skips_remaining_calls():
     r = run_flow("plan_order", ctx_at("18:00", message="흑돼지 좀 골라줘"), llm=Slow())
     assert Slow.calls == 1          # 첫 호출로 예산(0.03초)을 다 써서 나머지는 건너뜀
     assert any(e.type == "llm" and e.payload.get("error") == "시간 예산을 다 써서 건너뜀" for e in r.events)
+
+
+MERCHANT_MSG = "고등어회 3개 더 들어왔어, 2만 6천원으로"
+CONFIRM = "확인 버튼을 눌러야 반영돼요(아직 저장하지 않았어요)"
+
+
+def test_merchant_summary_keeps_confirm_sentence():
+    r = run_flow("stock_intake", ctx_at("18:00", message=MERCHANT_MSG, store_id="dongmun-hoe"),
+                 llm=_llm("고등어회 재고를 7개로, 가격을 26,000원으로 바꿀게요."))
+    assert r.summary_source == "llm"
+    assert r.summary == f"고등어회 재고를 7개로, 가격을 26,000원으로 바꿀게요. {CONFIRM}"
+
+
+def test_merchant_summary_saying_applied_is_rejected():
+    """상인이 확인을 누르기 전인데 '조정됐어요'처럼 이미 반영한 듯 쓰면 거절 → 재요청 → 템플릿."""
+    llm = _llm("고등어회 재고가 4개에서 7개로 증가했어요. 가격은 26,000원으로 조정됐어요.")
+    r = run_flow("stock_intake", ctx_at("18:00", message=MERCHANT_MSG, store_id="dongmun-hoe"), llm=llm)
+    assert r.summary_source == "template"
+    assert "조정됐" not in r.summary and "증가했" not in r.summary
+    assert CONFIRM in r.summary

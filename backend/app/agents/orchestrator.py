@@ -31,6 +31,9 @@ def _system(flow: str) -> str:
     if flow in PROPOSAL_FLOWS:
         base += ("아직 주문한 것이 아니라 장바구니를 제안한 것이다. '주문했다'고 쓰지 말고 '골랐어요', '담아 볼까요'처럼 써라. "
                  "'단,'으로 시작하는 항목(품절 대체)과 도착 시간·배달 범위 경고가 있으면 꼭 넣어라. 말투는 '~했어요'. ")
+    if flow == "stock_intake":
+        base += ("아직 저장하지 않은 수정 제안이다. '바꿨어요', '조정됐어요', '증가했어요'처럼 이미 반영한 것처럼 쓰지 말고 "
+                 "'7개로 바꿀게요', '26,000원으로 바꿀게요'처럼 써라. ")
     return base + 'JSON {"summary": "..."} 로만 답하라.'
 
 
@@ -40,10 +43,15 @@ FRESHNESS_WARNING_REF = "eta_min > cold_max_transit_min"     # agents/care/fresh
 HOT_WARNING_REF = "eta_min > hot_max_transit_min"
 MAX_SUMMARY_SENTENCES = 2       # 요약은 짧게(나머지는 근거·카드에)
 ORDERED_RE = re.compile(r"주문(?:했|을\s*했|하셨|되었|됐|완료)")
+# 상인 수정 제안인데 이미 저장한 것처럼 쓴 요약(상인이 확인을 눌러야 반영된다)
+APPLIED_RE = re.compile(r"(?:조정|변경|반영|저장|수정|증가|감소|인하|인상)(?:됐|되었|했)|바뀌었|바꿨|늘었|줄었|올랐|내렸")
+CONFIRM_REF = "app.merchant"    # agents/merchant/stock_intake.py '확인 버튼을 눌러야 반영돼요' 주장의 input 근거
 
 
 def must_include(flow: str, claims: list[Claim]) -> list[str]:
-    """제안 흐름에서 요약에 빠지면 안 되는 주장: 품절 대체('단,'), 신선 경고(freshness estimate), 배달 범위 밖(delivery question)."""
+    """요약에 빠지면 안 되는 주장. 제안 흐름: 품절 대체('단,'), 영업시간 때문에 못 담은 것. 상인 입력: 확인 후 반영 안내."""
+    if flow == "stock_intake":
+        return [c.text for c in claims if any(e.kind == "input" and e.ref == CONFIRM_REF for e in c.evidence)]
     if flow not in PROPOSAL_FLOWS:
         return []
     # 신선·온도·배달 범위 경고는 앱 제안 카드의 경고 상자에 그대로 나오므로 요약에는 넣지 않는다(같은 말 세 번 방지)
@@ -122,6 +130,8 @@ def summarize(flow: str, claims: list[Claim], llm, log=None, ctx: dict | None = 
         reasons = check_summary(kept, masked) if kept else ["빈 요약" + (f"(근거 밖 문장 {len(dropped)}개 뺌)" if dropped else "")]
         if flow in PROPOSAL_FLOWS and ORDERED_RE.search(kept):
             reasons.append("제안 단계인데 주문했다고 씀")
+        if flow == "stock_intake" and APPLIED_RE.search(kept):
+            reasons.append("아직 저장 전인데 반영했다고 씀")
         if log:
             log.add("gate", target="summary", attempt=attempt + 1, passed=not reasons, reasons=reasons)
         if not reasons:

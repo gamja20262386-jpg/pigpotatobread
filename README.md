@@ -30,7 +30,7 @@ bash deploy/run_local.sh          # API :8040 + 앱 웹 :8081
 | `app/` | Expo 앱: 홈(에이전트 카드·먼저 챙겼어요) · 동문시장 · 하르방 · 주문 · 마이 · 가게 · 장바구니 · 주문 추적 · 에이전트 팀 · 상인 모드 |
 | `backend/` | FastAPI: 하네스 실행기·게이트·LLM 공급자·에이전트 9개·API·테스트 |
 | `harness/` | `harness.yaml`(LLM·팀·에이전트·흐름·게이트·가정값 단일 기준), 에이전트 카드, 근거 규칙·금지 표현 |
-| `data/` | 가게 22·상품 40·동문시장 집하장·배송지 (시연용 가상 데이터) |
+| `data/` | 가게 118·상품 224·동문시장 집하장·배송지 (시연용 가상 데이터) |
 | `docs/` | `ARCHITECTURE.md`(API 계약), `DESIGN.md`(화면 기준) |
 | `deploy/` | `run_local.sh` |
 | `jeju_eat_react/` | 이전 웹 버전(React + Express, `통합` 브랜치 결과) |
